@@ -906,6 +906,16 @@ html{
       transition: all 0.5s;
       color: #596982;
 
+      &::after {
+        content:'';
+        position: absolute;
+        width: 0px;
+        height: 100%;
+        top: 0;
+        right: 0;
+        border-right: 0px solid #4690ff;
+      }
+
       svg {
         path {
           fill: #596982 !important;
@@ -914,8 +924,8 @@ html{
 
       @media (min-width:1601px){
         &:hover {
-          box-shadow: 0 0 15px rgb(18 40 76 / 8%);
-          background: #fff;
+          // box-shadow: 0 0 15px rgb(18 40 76 / 8%);
+          // background: #fff;
           transition: all 0.5s;
 
           &:hover {
@@ -932,10 +942,6 @@ html{
 
       }
 
-      &:active {
-        background-color: #f0f5fd;
-      }
-
       &.q-router-link--active {
         color: #273b5b;
 
@@ -948,7 +954,7 @@ html{
 
       &.q-router-link--exact-active {
         color: #4690ff;
-        border-right: 2px solid #4690ff;
+        position: relative;
 
         svg {
           path {
@@ -957,7 +963,7 @@ html{
         }
 
         &:hover {
-          color: #4690ff;
+          color: #4690ff !important;
 
           svg {
             path {
@@ -965,6 +971,17 @@ html{
               transition: all 0.5s;
             }
           }
+        }
+
+        &::after {
+          content:'';
+          position: absolute;
+          width: 1px;
+          height: 100%;
+          top: 0;
+          right: 0;
+          border-right: 2px solid #4690ff;
+          transition: all 0.2s;
         }
       }
 
@@ -1115,6 +1132,7 @@ html{
     .manager {
       margin: 0px 138px 0px 0;
       border-radius: 10px;
+      overflow: hidden;
       background: #f3f4f6;
       position: relative;
 
@@ -1134,6 +1152,10 @@ html{
           left: 16px;
           z-index: 1;
           background: url("../assets/headphones.svg") 0 0 no-repeat;
+
+          @media (max-width:1360px){
+            top: 7px;
+          }
 
           @media (max-width:900px){
             top: 7px;
@@ -1260,11 +1282,12 @@ html{
       }
 
       @media (max-width:900px){
+        padding: 0;
+        margin: 0px 25px 0px 0px;
+
         .q-btn__wrapper {
           display: none;
         }
-        padding: 0;
-        margin: 0px 25px 0px 0px;
       }
     }
     .flag {
@@ -1372,7 +1395,10 @@ html{
 
       .q-item__section {
         padding: 0;
-        margin: 0px 12px 0px 0px;
+
+        & + .q-item__section {
+          margin: 0px 0px 0px 12px;
+        }
 
         &--avatar {
           min-width: 0;
@@ -1559,7 +1585,9 @@ html{
         }
 
         &.q-router-link--exact-active {
-          border-right: none;
+          &::after {
+            display: none;
+          }
         }
       }
 

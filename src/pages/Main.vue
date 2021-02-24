@@ -843,7 +843,7 @@ export default {
     display: flex;
     justify-content: space-between;
     box-shadow: 0px 0px 15px rgba(18, 40, 76, 0.08);
-    border-radius: 10px;
+    border-radius: 4px;
 
     &__label {
       font-weight: 500;
@@ -967,7 +967,9 @@ export default {
       padding: 32px 40px;
 
       .q-btn {
-        margin: 0px 8px 0px 0px;
+        @media (max-width:1360px){
+          margin: 0px 8px 0px 0px;
+        }
 
         @media (max-width:700px){
           margin: 10px 8px 0px 0px;
@@ -992,7 +994,7 @@ export default {
       .q-tabs {
         display: flex;
         margin: 0px 0px 6px 0px;
-        padding: 3px 0px 0px 0px;
+        padding: 2px 0px 0px 0px;
 
         @media (max-width:1360px){
           padding: 2px 0px 0px 0px;
@@ -1156,10 +1158,10 @@ export default {
         }
 
         & + .q-tab {
-          margin: 0px 0px 0px 32px;
+          margin: 0px 0px 0px 31px;
 
           @media (max-width:700px){
-            margin: 0px 0px 0px 19px;
+            margin: 0px 0px 0px 14px;
           }
         }
 
@@ -1399,7 +1401,7 @@ export default {
     .aside-card {
       padding: 32px 40px;
       box-shadow: 0px 0px 15px rgba(18, 40, 76, 0.08);
-      border-radius: 10px;
+      border-radius: 4px;
 
       & + .aside-card {
         margin: 40px 0px 0px 0px;
