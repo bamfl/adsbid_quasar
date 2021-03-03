@@ -10,6 +10,8 @@
             padding="5px 16px"
             unelevated
             no-caps
+            menu-anchor="bottom left"
+            menu-self="top left"
           >
             <q-list>
               <q-item>

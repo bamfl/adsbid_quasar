@@ -22,236 +22,696 @@
 
           <q-date v-model="dateOne" minimal range />
 
-          <q-date v-model="dateOne" minimal range />
+          <q-date v-model="dateTwo" minimal range />
 
-          <div class="datepicker-btn">Отменить</div>
+          <div class="datepicker-btn" :ripple="false">Отменить</div>
         </div>
       </q-btn-dropdown>
 
-      <q-btn-dropdown
-        class="group"
+      <q-select
+        filled
+        v-model="group"
+        multiple
+        :options="groupOptions"
         label="Группировать по:"
-        :ripple="false"
-        no-caps
+        style="width: 213px; height: 40px"
         dropdown-icon="keyboard_arrow_down"
+        popup-content-class="group"
       >
-        <q-list>
-          <q-item>
-            <q-item-section>
-              <q-item-label>Photos</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-btn-dropdown>
+      </q-select>
 
-      <q-btn-dropdown
-        class="filter"
-        label="Фильтры"
-        :ripple="false"
-        no-caps
-      >
-        <q-list>
-          <q-item>
-            <q-item-section>
-              <q-item-label>Photos</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-btn-dropdown>
+      <div class="filter__wrp">
+        <span
+          class="filter-counter"
+          :class="{ active: filterOne || filterTwo !== null }"
+          >1</span
+        >
+        <q-btn-dropdown
+          class="filter"
+          :class="{ active: filterOne || filterTwo !== null }"
+          label="Фильтры"
+          :ripple="false"
+          no-caps
+          menu-anchor="bottom left"
+          menu-self="top left"
+          content-class="filter-popup"
+        >
+          <div class="filter-menu">
+            <div class="filter-menu__row">
+              <q-select
+                filled
+                multiple
+                v-model="filterOne"
+                input-debounce="0"
+                label="Выберите фильтр"
+                :options="optionsOne"
+                style="width: 217px; height: 40px"
+                dropdown-icon="keyboard_arrow_down"
+                popup-content-class="filterOne"
+              >
+              </q-select>
+
+              <q-select
+                filled
+                v-model="filterTwo"
+                use-input
+                input-debounce="0"
+                label="Выберите или введите значение"
+                :options="optionsTwo"
+                style="width: 401px; height: 40px"
+                dropdown-icon="keyboard_arrow_down"
+                use-chips
+                multiple
+                popup-content-class="filterTwo"
+              >
+              </q-select>
+
+              <div
+                :class="[
+                  'filter-menu__close',
+                  { active: filterOne || filterTwo !== null }
+                ]"
+                @click.stop="(filterOne = null), (filterTwo = null)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M13.1854 13.1853C12.708 13.6627 11.9345 13.6627 11.457 13.1853L8 9.72829L4.54303 13.1853C4.06554 13.6627 3.29204 13.6627 2.81455 13.1853C2.33706 12.7078 2.33706 11.9343 2.81455 11.4568L6.27152 7.9998L2.81455 4.54284C2.33706 4.06534 2.33706 3.29185 2.81455 2.81436C3.29204 2.33686 4.06554 2.33686 4.54303 2.81436L8 6.27132L11.457 2.81436C11.934 2.33729 12.708 2.33686 13.1854 2.81435C13.6629 3.29185 13.6625 4.06578 13.1854 4.54284L9.72848 7.9998L13.1854 11.4568C13.6629 11.9343 13.6629 12.7078 13.1854 13.1853Z"
+                    fill="#596982"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <div class="filter-menu__row">
+              <q-select
+                filled
+                multiple
+                v-model="filterThree"
+                input-debounce="0"
+                label="Выберите фильтр"
+                :options="optionsThree"
+                style="width: 217px; height: 40px"
+                dropdown-icon="keyboard_arrow_down"
+                popup-content-class="filterOne"
+              >
+              </q-select>
+
+              <q-select
+                filled
+                v-model="filterFour"
+                use-input
+                input-debounce="0"
+                label="Выберите или введите значение"
+                :options="optionsFour"
+                style="width: 401px; height: 40px"
+                dropdown-icon="keyboard_arrow_down"
+                use-chips
+                multiple
+                popup-content-class="filterTwo"
+              >
+              </q-select>
+
+              <div
+                :class="[
+                  'filter-menu__close',
+                  { active: filterThree || filterFour !== null }
+                ]"
+                @click.stop="(filterThree = null), (filterFour = null)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M13.1854 13.1853C12.708 13.6627 11.9345 13.6627 11.457 13.1853L8 9.72829L4.54303 13.1853C4.06554 13.6627 3.29204 13.6627 2.81455 13.1853C2.33706 12.7078 2.33706 11.9343 2.81455 11.4568L6.27152 7.9998L2.81455 4.54284C2.33706 4.06534 2.33706 3.29185 2.81455 2.81436C3.29204 2.33686 4.06554 2.33686 4.54303 2.81436L8 6.27132L11.457 2.81436C11.934 2.33729 12.708 2.33686 13.1854 2.81435C13.6629 3.29185 13.6625 4.06578 13.1854 4.54284L9.72848 7.9998L13.1854 11.4568C13.6629 11.9343 13.6629 12.7078 13.1854 13.1853Z"
+                    fill="#596982"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <div class="filter-menu__buttons">
+              <q-btn
+                class="btn btn-white"
+                label="Добавить фильтр"
+                unelevated
+                no-caps
+                v-ripple:blue-14.center
+              />
+              <q-btn
+                class="btn btn-red"
+                label="Сбросить все"
+                unelevated
+                no-caps
+                :ripple="false"
+              />
+              <q-btn
+                class="btn ml-auto"
+                label="Готово"
+                :ripple="false"
+                unelevated
+                no-caps
+              />
+              <q-btn
+                class="btn btn-grey"
+                :ripple="false"
+                label="Отменить"
+                unelevated
+                no-caps
+              />
+            </div>
+          </div>
+        </q-btn-dropdown>
+      </div>
 
       <q-btn class="btn" :ripple="false" label="Показать" unelevated no-caps />
 
-      <q-toggle class="graphic-toggle" v-model="graphicToggle" label="График" left-label />
+      <q-toggle
+        class="chart-toggle"
+        v-model="chartToggle"
+        label="График"
+        left-label
+      />
 
       <div class="cvs-icon">
-         <img src="../assets/exportcsv.svg" alt="">
+        <img src="../assets/exportcsv.svg" alt="" />
       </div>
     </div>
 
+    <q-card v-if="chartToggle">
+      <q-tabs v-model="tabCharts" align="left">
+        <q-tab :ripple="false" name="profit" label="Доход" no-caps></q-tab>
+        <q-tab :ripple="false" name="shows" label="Показы" no-caps></q-tab>
+        <q-tab :ripple="false" name="clicks" label="Клики" no-caps></q-tab>
+        <q-tab
+          :ripple="false"
+          name="uniqclicks"
+          label="Ун. клики"
+          no-caps
+        ></q-tab>
+        <q-tab :ripple="false" name="ctr" label="CTR" no-caps></q-tab>
+        <q-tab :ripple="false" name="cpm" label="CPM" no-caps></q-tab>
+      </q-tabs>
+
+      <q-tab-panels v-model="tabCharts" animated>
+        <q-tab-panel name="profit">
+          <div class="chart">
+            <img src="../assets/graphic-big.jpg" alt="" />
+          </div>
+        </q-tab-panel>
+        <q-tab-panel name="shows">
+          <div class="chart">
+            <img src="../assets/graphic-big.jpg" alt="" />
+          </div>
+        </q-tab-panel>
+        <q-tab-panel name="clicks">
+          <div class="chart">
+            <img src="../assets/graphic-big.jpg" alt="" />
+          </div>
+        </q-tab-panel>
+        <q-tab-panel name="uniqclicks">
+          <div class="chart">
+            <img src="../assets/graphic-big.jpg" alt="" />
+          </div>
+        </q-tab-panel>
+        <q-tab-panel name="ctr">
+          <div class="chart">
+            <img src="../assets/graphic-big.jpg" alt="" />
+          </div>
+        </q-tab-panel>
+        <q-tab-panel name="cpm">
+          <div class="chart">
+            <img src="../assets/graphic-big.jpg" alt="" />
+          </div>
+        </q-tab-panel>
+      </q-tab-panels>
+    </q-card>
+
     <q-markup-table flat>
-        <thead>
-          <tr>
-            <th class="text-left">
-              <span>Дата
-                <span class="sorting">
-                  <img src="../assets/sorting.svg" alt="">
-                </span>
+      <thead>
+        <tr>
+          <th class="text-left">
+            <span
+              >Дата
+              <span
+                class="sorting"
+                :class="{ sorted: sorted.date }"
+                @click="sorted.date = !sorted.date"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.85387 6.14482C7.85387 5.76546 8.17174 5.45793 8.56385 5.45793H22.29C22.6821 5.45793 23 5.76546 23 6.14482C23 6.52418 22.6821 6.83172 22.29 6.83172H8.56385C8.17174 6.83172 7.85387 6.52418 7.85387 6.14482Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 8.8924C7.85387 8.51304 8.17174 8.20551 8.56385 8.20551H19.9234C20.3156 8.20551 20.6334 8.51304 20.6334 8.8924C20.6334 9.27176 20.3156 9.57929 19.9234 9.57929H8.56385C8.17174 9.57929 7.85387 9.27176 7.85387 8.8924Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 11.64C7.85387 11.2606 8.17174 10.9531 8.56385 10.9531H15.6636C16.0557 10.9531 16.3736 11.2606 16.3736 11.64C16.3736 12.0193 16.0557 12.3269 15.6636 12.3269H8.56385C8.17174 12.3269 7.85387 12.0193 7.85387 11.64Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 14.3876C7.85387 14.0082 8.17174 13.7007 8.56385 13.7007H11.8771C12.2692 13.7007 12.587 14.0082 12.587 14.3876C12.587 14.7669 12.2692 15.0744 11.8771 15.0744H8.56385C8.17174 15.0744 7.85387 14.7669 7.85387 14.3876Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M3.12071 5.68689C3.12071 5.30753 3.43858 5 3.83068 5C4.22279 5 4.54066 5.30753 4.54066 5.68689V15.7613C4.54066 16.1407 4.22279 16.4482 3.83068 16.4482C3.43858 16.4482 3.12071 16.1407 3.12071 15.7613V5.68689Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M4.16848 18.8628C3.98295 19.0457 3.67842 19.0457 3.49289 18.8628L1.13647 16.54C0.842582 16.2503 1.05471 15.7613 1.47426 15.7613L6.1871 15.7613C6.60666 15.7613 6.81878 16.2503 6.5249 16.54L4.16848 18.8628Z"
+                    fill="#596982"
+                  />
+                </svg>
               </span>
-            </th>
-            <th class="text-left">
-              <span>Показы
-                <span class="sorting">
-                  <img src="../assets/sorting.svg" alt="">
-                </span>
+            </span>
+          </th>
+          <th class="text-left">
+            <span
+              >Показы
+              <span
+                class="sorting"
+                :class="{ sorted: sorted.shows }"
+                @click="sorted.shows = !sorted.shows"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.85387 6.14482C7.85387 5.76546 8.17174 5.45793 8.56385 5.45793H22.29C22.6821 5.45793 23 5.76546 23 6.14482C23 6.52418 22.6821 6.83172 22.29 6.83172H8.56385C8.17174 6.83172 7.85387 6.52418 7.85387 6.14482Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 8.8924C7.85387 8.51304 8.17174 8.20551 8.56385 8.20551H19.9234C20.3156 8.20551 20.6334 8.51304 20.6334 8.8924C20.6334 9.27176 20.3156 9.57929 19.9234 9.57929H8.56385C8.17174 9.57929 7.85387 9.27176 7.85387 8.8924Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 11.64C7.85387 11.2606 8.17174 10.9531 8.56385 10.9531H15.6636C16.0557 10.9531 16.3736 11.2606 16.3736 11.64C16.3736 12.0193 16.0557 12.3269 15.6636 12.3269H8.56385C8.17174 12.3269 7.85387 12.0193 7.85387 11.64Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 14.3876C7.85387 14.0082 8.17174 13.7007 8.56385 13.7007H11.8771C12.2692 13.7007 12.587 14.0082 12.587 14.3876C12.587 14.7669 12.2692 15.0744 11.8771 15.0744H8.56385C8.17174 15.0744 7.85387 14.7669 7.85387 14.3876Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M3.12071 5.68689C3.12071 5.30753 3.43858 5 3.83068 5C4.22279 5 4.54066 5.30753 4.54066 5.68689V15.7613C4.54066 16.1407 4.22279 16.4482 3.83068 16.4482C3.43858 16.4482 3.12071 16.1407 3.12071 15.7613V5.68689Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M4.16848 18.8628C3.98295 19.0457 3.67842 19.0457 3.49289 18.8628L1.13647 16.54C0.842582 16.2503 1.05471 15.7613 1.47426 15.7613L6.1871 15.7613C6.60666 15.7613 6.81878 16.2503 6.5249 16.54L4.16848 18.8628Z"
+                    fill="#596982"
+                  />
+                </svg>
               </span>
-            </th>
-            <th class="text-left">
-              <span>Клики
-                <span class="sorting">
-                  <img src="../assets/sorting.svg" alt="">
-                </span>
+            </span>
+          </th>
+          <th class="text-left">
+            <span
+              >Клики
+              <span
+                class="sorting"
+                :class="{ sorted: sorted.clicks }"
+                @click="sorted.clicks = !sorted.clicks"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.85387 6.14482C7.85387 5.76546 8.17174 5.45793 8.56385 5.45793H22.29C22.6821 5.45793 23 5.76546 23 6.14482C23 6.52418 22.6821 6.83172 22.29 6.83172H8.56385C8.17174 6.83172 7.85387 6.52418 7.85387 6.14482Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 8.8924C7.85387 8.51304 8.17174 8.20551 8.56385 8.20551H19.9234C20.3156 8.20551 20.6334 8.51304 20.6334 8.8924C20.6334 9.27176 20.3156 9.57929 19.9234 9.57929H8.56385C8.17174 9.57929 7.85387 9.27176 7.85387 8.8924Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 11.64C7.85387 11.2606 8.17174 10.9531 8.56385 10.9531H15.6636C16.0557 10.9531 16.3736 11.2606 16.3736 11.64C16.3736 12.0193 16.0557 12.3269 15.6636 12.3269H8.56385C8.17174 12.3269 7.85387 12.0193 7.85387 11.64Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 14.3876C7.85387 14.0082 8.17174 13.7007 8.56385 13.7007H11.8771C12.2692 13.7007 12.587 14.0082 12.587 14.3876C12.587 14.7669 12.2692 15.0744 11.8771 15.0744H8.56385C8.17174 15.0744 7.85387 14.7669 7.85387 14.3876Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M3.12071 5.68689C3.12071 5.30753 3.43858 5 3.83068 5C4.22279 5 4.54066 5.30753 4.54066 5.68689V15.7613C4.54066 16.1407 4.22279 16.4482 3.83068 16.4482C3.43858 16.4482 3.12071 16.1407 3.12071 15.7613V5.68689Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M4.16848 18.8628C3.98295 19.0457 3.67842 19.0457 3.49289 18.8628L1.13647 16.54C0.842582 16.2503 1.05471 15.7613 1.47426 15.7613L6.1871 15.7613C6.60666 15.7613 6.81878 16.2503 6.5249 16.54L4.16848 18.8628Z"
+                    fill="#596982"
+                  />
+                </svg>
               </span>
-            </th>
-            <th class="text-left">
-              <span>Ун. клики
-                <span class="sorting">
-                  <img src="../assets/sorting.svg" alt="">
-                </span>
+            </span>
+          </th>
+          <th class="text-left">
+            <span
+              >Ун. клики
+              <span
+                class="sorting"
+                :class="{ sorted: sorted.uniqClicks }"
+                @click="sorted.uniqClicks = !sorted.uniqClicks"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.85387 6.14482C7.85387 5.76546 8.17174 5.45793 8.56385 5.45793H22.29C22.6821 5.45793 23 5.76546 23 6.14482C23 6.52418 22.6821 6.83172 22.29 6.83172H8.56385C8.17174 6.83172 7.85387 6.52418 7.85387 6.14482Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 8.8924C7.85387 8.51304 8.17174 8.20551 8.56385 8.20551H19.9234C20.3156 8.20551 20.6334 8.51304 20.6334 8.8924C20.6334 9.27176 20.3156 9.57929 19.9234 9.57929H8.56385C8.17174 9.57929 7.85387 9.27176 7.85387 8.8924Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 11.64C7.85387 11.2606 8.17174 10.9531 8.56385 10.9531H15.6636C16.0557 10.9531 16.3736 11.2606 16.3736 11.64C16.3736 12.0193 16.0557 12.3269 15.6636 12.3269H8.56385C8.17174 12.3269 7.85387 12.0193 7.85387 11.64Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 14.3876C7.85387 14.0082 8.17174 13.7007 8.56385 13.7007H11.8771C12.2692 13.7007 12.587 14.0082 12.587 14.3876C12.587 14.7669 12.2692 15.0744 11.8771 15.0744H8.56385C8.17174 15.0744 7.85387 14.7669 7.85387 14.3876Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M3.12071 5.68689C3.12071 5.30753 3.43858 5 3.83068 5C4.22279 5 4.54066 5.30753 4.54066 5.68689V15.7613C4.54066 16.1407 4.22279 16.4482 3.83068 16.4482C3.43858 16.4482 3.12071 16.1407 3.12071 15.7613V5.68689Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M4.16848 18.8628C3.98295 19.0457 3.67842 19.0457 3.49289 18.8628L1.13647 16.54C0.842582 16.2503 1.05471 15.7613 1.47426 15.7613L6.1871 15.7613C6.60666 15.7613 6.81878 16.2503 6.5249 16.54L4.16848 18.8628Z"
+                    fill="#596982"
+                  />
+                </svg>
               </span>
-            </th>
-            <th class="text-left">
-              <span>CTR
-                <span class="sorting">
-                  <img src="../assets/sorting.svg" alt="">
-                </span>
+            </span>
+          </th>
+          <th class="text-left">
+            <span
+              >CTR
+              <span
+                class="sorting"
+                :class="{ sorted: sorted.ctr }"
+                @click="sorted.ctr = !sorted.ctr"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.85387 6.14482C7.85387 5.76546 8.17174 5.45793 8.56385 5.45793H22.29C22.6821 5.45793 23 5.76546 23 6.14482C23 6.52418 22.6821 6.83172 22.29 6.83172H8.56385C8.17174 6.83172 7.85387 6.52418 7.85387 6.14482Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 8.8924C7.85387 8.51304 8.17174 8.20551 8.56385 8.20551H19.9234C20.3156 8.20551 20.6334 8.51304 20.6334 8.8924C20.6334 9.27176 20.3156 9.57929 19.9234 9.57929H8.56385C8.17174 9.57929 7.85387 9.27176 7.85387 8.8924Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 11.64C7.85387 11.2606 8.17174 10.9531 8.56385 10.9531H15.6636C16.0557 10.9531 16.3736 11.2606 16.3736 11.64C16.3736 12.0193 16.0557 12.3269 15.6636 12.3269H8.56385C8.17174 12.3269 7.85387 12.0193 7.85387 11.64Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 14.3876C7.85387 14.0082 8.17174 13.7007 8.56385 13.7007H11.8771C12.2692 13.7007 12.587 14.0082 12.587 14.3876C12.587 14.7669 12.2692 15.0744 11.8771 15.0744H8.56385C8.17174 15.0744 7.85387 14.7669 7.85387 14.3876Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M3.12071 5.68689C3.12071 5.30753 3.43858 5 3.83068 5C4.22279 5 4.54066 5.30753 4.54066 5.68689V15.7613C4.54066 16.1407 4.22279 16.4482 3.83068 16.4482C3.43858 16.4482 3.12071 16.1407 3.12071 15.7613V5.68689Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M4.16848 18.8628C3.98295 19.0457 3.67842 19.0457 3.49289 18.8628L1.13647 16.54C0.842582 16.2503 1.05471 15.7613 1.47426 15.7613L6.1871 15.7613C6.60666 15.7613 6.81878 16.2503 6.5249 16.54L4.16848 18.8628Z"
+                    fill="#596982"
+                  />
+                </svg>
               </span>
-            </th>
-            <th class="text-left">
-              <span>CPM
-                <span class="sorting">
-                  <img src="../assets/sorting.svg" alt="">
-                </span>
-              </span></th>
-            <th class="text-right">
-              <span>Доход
-                <span class="sorting">
-                  <img src="../assets/sorting.svg" alt="">
-                </span>
+            </span>
+          </th>
+          <th class="text-left">
+            <span
+              >CPM
+              <span
+                class="sorting"
+                :class="{ sorted: sorted.cpm }"
+                @click="sorted.cpm = !sorted.cpm"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.85387 6.14482C7.85387 5.76546 8.17174 5.45793 8.56385 5.45793H22.29C22.6821 5.45793 23 5.76546 23 6.14482C23 6.52418 22.6821 6.83172 22.29 6.83172H8.56385C8.17174 6.83172 7.85387 6.52418 7.85387 6.14482Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 8.8924C7.85387 8.51304 8.17174 8.20551 8.56385 8.20551H19.9234C20.3156 8.20551 20.6334 8.51304 20.6334 8.8924C20.6334 9.27176 20.3156 9.57929 19.9234 9.57929H8.56385C8.17174 9.57929 7.85387 9.27176 7.85387 8.8924Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 11.64C7.85387 11.2606 8.17174 10.9531 8.56385 10.9531H15.6636C16.0557 10.9531 16.3736 11.2606 16.3736 11.64C16.3736 12.0193 16.0557 12.3269 15.6636 12.3269H8.56385C8.17174 12.3269 7.85387 12.0193 7.85387 11.64Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 14.3876C7.85387 14.0082 8.17174 13.7007 8.56385 13.7007H11.8771C12.2692 13.7007 12.587 14.0082 12.587 14.3876C12.587 14.7669 12.2692 15.0744 11.8771 15.0744H8.56385C8.17174 15.0744 7.85387 14.7669 7.85387 14.3876Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M3.12071 5.68689C3.12071 5.30753 3.43858 5 3.83068 5C4.22279 5 4.54066 5.30753 4.54066 5.68689V15.7613C4.54066 16.1407 4.22279 16.4482 3.83068 16.4482C3.43858 16.4482 3.12071 16.1407 3.12071 15.7613V5.68689Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M4.16848 18.8628C3.98295 19.0457 3.67842 19.0457 3.49289 18.8628L1.13647 16.54C0.842582 16.2503 1.05471 15.7613 1.47426 15.7613L6.1871 15.7613C6.60666 15.7613 6.81878 16.2503 6.5249 16.54L4.16848 18.8628Z"
+                    fill="#596982"
+                  />
+                </svg>
               </span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-          <tr>
-            <td class="text-left">01.02.2021</td>
-            <td class="text-left">98</td>
-            <td class="text-left">58</td>
-            <td class="text-left">554</td>
-            <td class="text-left">400.66</td>
-            <td class="text-left">258.33</td>
-            <td class="text-right">380.88 ₽</td>
-          </tr>
-        </tbody>
+            </span>
+          </th>
+          <th class="text-right">
+            <span
+              >Доход
+              <span
+                class="sorting"
+                :class="{ sorted: sorted.profit }"
+                @click="sorted.profit = !sorted.profit"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.85387 6.14482C7.85387 5.76546 8.17174 5.45793 8.56385 5.45793H22.29C22.6821 5.45793 23 5.76546 23 6.14482C23 6.52418 22.6821 6.83172 22.29 6.83172H8.56385C8.17174 6.83172 7.85387 6.52418 7.85387 6.14482Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 8.8924C7.85387 8.51304 8.17174 8.20551 8.56385 8.20551H19.9234C20.3156 8.20551 20.6334 8.51304 20.6334 8.8924C20.6334 9.27176 20.3156 9.57929 19.9234 9.57929H8.56385C8.17174 9.57929 7.85387 9.27176 7.85387 8.8924Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 11.64C7.85387 11.2606 8.17174 10.9531 8.56385 10.9531H15.6636C16.0557 10.9531 16.3736 11.2606 16.3736 11.64C16.3736 12.0193 16.0557 12.3269 15.6636 12.3269H8.56385C8.17174 12.3269 7.85387 12.0193 7.85387 11.64Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M7.85387 14.3876C7.85387 14.0082 8.17174 13.7007 8.56385 13.7007H11.8771C12.2692 13.7007 12.587 14.0082 12.587 14.3876C12.587 14.7669 12.2692 15.0744 11.8771 15.0744H8.56385C8.17174 15.0744 7.85387 14.7669 7.85387 14.3876Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M3.12071 5.68689C3.12071 5.30753 3.43858 5 3.83068 5C4.22279 5 4.54066 5.30753 4.54066 5.68689V15.7613C4.54066 16.1407 4.22279 16.4482 3.83068 16.4482C3.43858 16.4482 3.12071 16.1407 3.12071 15.7613V5.68689Z"
+                    fill="#596982"
+                  />
+                  <path
+                    d="M4.16848 18.8628C3.98295 19.0457 3.67842 19.0457 3.49289 18.8628L1.13647 16.54C0.842582 16.2503 1.05471 15.7613 1.47426 15.7613L6.1871 15.7613C6.60666 15.7613 6.81878 16.2503 6.5249 16.54L4.16848 18.8628Z"
+                    fill="#596982"
+                  />
+                </svg>
+              </span>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left">01.02.2021</td>
+          <td class="text-left">98</td>
+          <td class="text-left">58</td>
+          <td class="text-left">554</td>
+          <td class="text-left">400.66</td>
+          <td class="text-left">258.33</td>
+          <td class="text-right">380.88 ₽</td>
+        </tr>
+        <tr>
+          <td class="text-left total">Итого</td>
+          <td class="text-left total">98</td>
+          <td class="text-left total">58</td>
+          <td class="text-left total">554</td>
+          <td class="text-left total">400.66</td>
+          <td class="text-left total">258.33</td>
+          <td class="text-right total">380.88 ₽</td>
+        </tr>
+      </tbody>
     </q-markup-table>
   </q-page>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      graphicToggle: false,
-      dateOne: { from: '2021/01/04', to: '2021/01/10' },
-      dateTwo: ''
-    }
+      sorted: {
+        date: false,
+        shows: false,
+        clicks: false,
+        uniqClicks: false,
+        ctr: false,
+        cpm: false,
+        profit: false
+      },
+      chartToggle: false,
+      dateOne: { from: "2021/01/04", to: "2021/01/10" },
+      dateTwo: "2021/02/01",
+      group: null,
+      groupOptions: ["Дата", "Сайт", "Блок", "Страна", "Платформа"],
+      groupCheckbox: [true, false, false, false, false],
+      filterOne: null,
+      optionsOne: ["Сайт", "Блок", "Страна", "Платформа"],
+      filterTwo: null,
+      optionsTwo: [
+        "website#1.com",
+        "Значение 1",
+        "Значение 2",
+        "Значение 3",
+        "Значение 4"
+      ],
+      filterThree: null,
+      optionsThree: ["Сайт", "Блок", "Страна", "Платформа"],
+      filterFour: null,
+      optionsFour: [
+        "website#1.com",
+        "Значение 1",
+        "Значение 2",
+        "Значение 3",
+        "Значение 4"
+      ],
+      tabCharts: 'profit'
+    };
   }
 };
 </script>
@@ -266,93 +726,201 @@ export default {
     margin: 0px 0px 40px 0px;
   }
 
+  [aria-expanded="true"] {
+    border: 1px solid #596982 !important;
+  }
+
   .q-btn + .q-btn {
     margin: 0px 0px 0px 24px;
   }
 
   .datepicker {
-    color: #12284C;
-    border: 1px solid #A0A9B7;
+    color: #12284c;
+    border: 1px solid #a0a9b7;
     box-sizing: border-box;
     border-radius: 4px;
     font-size: 16px;
     line-height: 20px;
     letter-spacing: -0.15px;
     position: relative;
+    transition: all 0.3s;
+
+    &:hover {
+      border: 1px solid #596982;
+    }
 
     .q-btn__wrapper {
       padding: 10px 15px 8px 63px;
       min-height: 0px;
     }
 
-    .q-focus-helper, i, .q-btn__wrapper:before {
+    .q-focus-helper,
+    i,
+    .q-btn__wrapper:before {
       display: none;
     }
 
     &::after {
-      content:'';
+      content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       top: 7px;
       left: 15px;
-      background: url('../assets/calendar.svg') 0 0 no-repeat;
+      background: url("../assets/calendar.svg") 0 0 no-repeat;
     }
   }
 
-  .group {
-    color: #A0A9B7;
-    border: 1px solid #A0A9B7;
+  .q-field {
+    margin: 0px 24px 0px;
+    border: 1px solid #a0a9b7;
     box-sizing: border-box;
     border-radius: 4px;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: -0.15px;
     position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    padding-bottom: 8px;
 
-    .q-btn__wrapper {
-      padding: 10px 15px 8px 16px;
-      min-height: 0px;
+    &:hover {
+      border: 1px solid #596982;
     }
 
-    .q-focus-helper, .q-btn__wrapper:before {
-      display: none;
+    &--focused {
+      border: 1px solid #596982;
+
+      .q-field__label {
+        display: none;
+      }
     }
 
-    .q-btn-dropdown__arrow {
+    &--float {
+      .q-field__label {
+        display: none;
+      }
+    }
+
+    &__control {
+      height: 40px;
+      min-height: 0;
+      padding: 0 16px;
+    }
+
+    &__append {
+      height: 40px;
+    }
+
+    &__control-container {
+      padding-top: 0px !important;
+    }
+
+    &__label {
+      color: #a0a9b7;
+      font-weight: 500;
+      top: 10px;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: -0.15px;
+    }
+
+    &__native {
+      min-height: 0 !important;
+      font-size: 16px;
+      line-height: 20px;
+      color: #12284c;
+      font-weight: 500;
+      padding: 8px 0px 0px 0px;
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .no-outline {
+        display: none;
+      }
+    }
+
+    .q-select__dropdown-icon {
       font-size: 24px;
-      margin: -5px -8px -2px 20px;
-      color: #4690FF;
+      margin: -5px -10px -2px 0px;
+      color: #4690ff;
     }
+  }
+
+  .q-field--filled .q-field__control {
+    background: transparent;
+  }
+
+  .q-field--filled .q-field__control:before {
+    background: transparent !important;
+    border-bottom: none;
   }
 
   .filter {
-    color: #12284C;
-    border: 1px solid #A0A9B7;
+    color: #12284c;
+    border: 1px solid #a0a9b7;
     box-sizing: border-box;
     border-radius: 4px;
     font-size: 16px;
     line-height: 20px;
     letter-spacing: -0.15px;
+    transition: all 0.3s;
     position: relative;
+
+    &:hover {
+      border: 1px solid #596982;
+    }
+
+    &__wrp {
+      position: relative;
+      margin: 0px 24px 0px 0px;
+    }
 
     .q-btn__wrapper {
       padding: 10px 15px 8px 63px;
       min-height: 0px;
     }
 
-    .q-focus-helper, i, .q-btn__wrapper:before {
+    .q-focus-helper,
+    i,
+    .q-btn__wrapper:before {
       display: none;
     }
 
     &::after {
-      content:'';
+      content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       top: 7px;
       left: 15px;
-      background: url('../assets/filter.svg') 0 0 no-repeat;
+      background: url("../assets/filter.svg") 0 0 no-repeat;
+      z-index: 2;
+    }
+
+    &.active {
+      &::after {
+        background: #4690ff;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .filter-counter {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 11px;
+    left: 16px;
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+
+    &.active {
+      z-index: 3;
     }
   }
 
@@ -376,14 +944,14 @@ export default {
       box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
     }
 
-    @media (max-width:1360px){
+    @media (max-width: 1360px) {
       height: 38px;
       font-size: 16px;
       line-height: 20px;
     }
   }
 
-  .graphic-toggle {
+  .chart-toggle {
     margin: 0px 0px 0px auto;
 
     .q-toggle__track {
@@ -393,11 +961,15 @@ export default {
       opacity: 0.38;
       background: transparent;
       border: 1px solid #5a6577;
+
+      &:hover {
+        border: 1px solid #0065fe;
+      }
     }
 
     .q-toggle__label {
       font-size: 16px;
-      color: #12284C;
+      color: #12284c;
     }
 
     .q-toggle__inner {
@@ -411,11 +983,11 @@ export default {
 
     .q-toggle__inner--truthy {
       .q-toggle__thumb::after {
-        background-color: #4690FF;
+        background-color: #4690ff;
       }
 
       .q-toggle__track {
-        border: 1px solid #4690FF;
+        border: 1px solid #0065fe;
       }
     }
 
@@ -425,7 +997,7 @@ export default {
     }
 
     .q-toggle__thumb::after {
-      background: #A0A9B7;
+      background: #a0a9b7;
       width: 16px;
       height: 16px;
       top: 2px;
@@ -477,6 +1049,22 @@ export default {
             height: 24px;
             top: -3px;
             right: -11px;
+
+            &:hover {
+              svg {
+                path {
+                  fill: #12284c;
+                }
+              }
+            }
+
+            &.sorted {
+              svg {
+                path {
+                  fill: #4690ff;
+                }
+              }
+            }
           }
         }
 
@@ -487,7 +1075,6 @@ export default {
 
       tbody {
         tr {
-
         }
 
         td {
@@ -498,17 +1085,271 @@ export default {
           min-width: 240px;
 
           &:before {
-            background: transparent
+            background: transparent;
           }
         }
 
         .text-right {
           min-width: 96px;
-          color: #95BD5A;
+          color: #95bd5a;
           padding: 0px 16px 0px 0px;
         }
 
+        .total {
+          font-weight: 500;
+        }
       }
+    }
+  }
+
+  .q-card {
+    padding: 24px;
+    background-color: #fff;
+    margin: 0px 0px 40px 0px;
+    box-shadow: 0px 0px 24px rgba(18, 40, 76, 0.08);
+    border-radius: 4px;
+
+    .q-tabs {
+      display: flex;
+      margin: 0px 0px 27px 0px;
+      padding: 2px 0px 0px 0px;
+
+      @media (max-width: 1360px) {
+        padding: 2px 0px 0px 0px;
+      }
+    }
+
+    .q-tab {
+      outline: none;
+      flex: 0 1 auto;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      min-height: 0;
+      padding: 0px 0px 2px 0px;
+      margin: 3px 0px 0px 0px;
+
+      .q-focus-helper {
+        display: none;
+      }
+
+      &-panel {
+        padding: 0;
+
+        .chart__mob {
+          display: none;
+        }
+
+        .chart {
+          position: relative;
+          overflow: hidden;
+
+          .scale-y {
+            position: absolute;
+            height: 100%;
+            top: 31px;
+            left: 0;
+            list-style: none;
+
+            span {
+              display: block;
+              font-size: 16px;
+              line-height: 20px;
+              letter-spacing: 0.03em;
+              color: #12284c;
+              opacity: 0.3;
+
+              & + span {
+                margin: 20px 0px 0px 0px;
+              }
+            }
+          }
+
+          .scale-x {
+            position: absolute;
+            bottom: -2px;
+            left: 81px;
+            list-style: none;
+
+            span {
+              font-size: 16px;
+              line-height: 20px;
+              letter-spacing: 0.03em;
+              color: #12284c;
+              opacity: 0.3;
+
+              & + span {
+                margin: 0px 0px 0px 25.5px;
+              }
+            }
+
+            @media (max-width: 1360px) {
+              bottom: -4px;
+            }
+          }
+
+          .grid {
+            padding: 0px 0px 24px 43px;
+            position: relative;
+
+            .graphic {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 51px;
+              left: 43px;
+            }
+
+            .graphic-shadow {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 36px;
+              left: 25px;
+            }
+
+            .point {
+              position: absolute;
+              width: 8px;
+              height: 8px;
+              bottom: 105px;
+              left: 169px;
+              background: #4690ff;
+              border-radius: 50%;
+              border: 1px solid #fff;
+            }
+
+            .point-big {
+              position: absolute;
+              width: 10px;
+              height: 10px;
+              bottom: 122px;
+              left: 235px;
+              background: #4690ff;
+              border-radius: 50%;
+              border: 1px solid #fff;
+            }
+
+            .summ {
+              position: absolute;
+              bottom: 134px;
+              left: 105px;
+              background: #fff;
+              font-weight: 500;
+              font-size: 18px;
+              line-height: 22px;
+              padding: 8px 12px;
+              color: #4690ff;
+              box-shadow: 0px 0px 32px rgba(0, 0, 0, 0.12);
+              z-index: 1;
+            }
+
+            .line-dashed {
+              position: absolute;
+              width: 1px;
+              height: 96px;
+              bottom: 29px;
+              left: 239px;
+              border: 1px dashed #4690ff;
+            }
+
+            @media (max-width: 1360px) {
+              padding: 0px 0px 21px 43px;
+            }
+          }
+        }
+      }
+
+      &__label {
+        color: #596982;
+        font-size: 18px;
+        line-height: 25px;
+
+        &:hover {
+          color: #12284c !important;
+        }
+
+        @media (max-width: 1360px) {
+          font-size: 16px;
+          line-height: 20px;
+        }
+      }
+
+      & + .q-tab {
+        margin: 0px 0px 0px 31px;
+
+        @media (max-width: 700px) {
+          margin: 0px 0px 0px 14px;
+        }
+      }
+
+      &--active {
+        position: relative;
+        color: #12284c !important;
+
+        .q-tab__label {
+          color: #12284c !important;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0px;
+          left: 0;
+          border-bottom: 2px solid #4690ff;
+        }
+      }
+
+      &__indicator {
+        display: none;
+      }
+
+      &__content {
+        padding: 0;
+        min-width: 0;
+      }
+
+      @media (max-width: 1366px) {
+        margin: 0;
+      }
+    }
+
+    .chart {
+      width: 1539px;
+      height: 432px;
+      position: relative;
+
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        object-position: 0 0;
+      }
+    }
+  }
+}
+
+.q-virtual-scroll__content {
+  .q-item {
+    min-height: 0;
+    position: relative;
+    padding: 10px 24px 9px;
+
+    &:hover {
+      background: #f3f4f6;
+    }
+
+    &__label {
+      color: #12284c;
+    }
+
+    .q-focus-helper {
+      display: none;
     }
   }
 }
@@ -530,27 +1371,25 @@ export default {
         margin: 25px 0px 0px 0px;
       }
 
-      &.active{
-        color: #4690FF;
+      &.active {
+        color: #4690ff;
 
         &::after {
-          content:'';
+          content: "";
           position: absolute;
           width: 2px;
           height: 18px;
           top: 0;
           right: -2px;
-          background-color: #4690FF;
+          background-color: #4690ff;
         }
       }
-
     }
   }
 
   .datepicker-menu {
     display: flex;
     position: relative;
-
     padding: 40px;
 
     .q-date {
@@ -563,18 +1402,53 @@ export default {
 
       &__navigation {
         height: 17px;
-        margin: 0px 0px 32px 0px;
+        margin: 0px auto 33px;
+        max-width: 240px;
+
+        .q-date__arrow + .q-date__arrow {
+          padding: 0px 0px 0px 21px;
+        }
+
+        .q-date__arrow {
+          .q-btn .q-icon,
+          .q-btn .q-spinner {
+            font-size: 23px;
+          }
+
+          .q-focus-helper {
+            display: none;
+          }
+        }
+
+        .q-btn {
+          .q-focus-helper {
+            display: none;
+          }
+        }
+
+        .q-btn__content .block {
+          margin: 0 6px;
+        }
       }
 
       &__calendar-weekdays {
         height: 46px;
+
+        .q-date__calendar-item {
+          &:hover {
+            background-color: #fff;
+            cursor: default;
+          }
+        }
       }
 
-      &__header, &__actions {
+      &__header,
+      &__actions {
         display: none;
       }
 
-      &__view, &__calendar-days-container {
+      &__view,
+      &__calendar-days-container {
         min-height: 0;
       }
 
@@ -587,10 +1461,11 @@ export default {
         font-size: 14px;
         line-height: 17px;
         opacity: 1;
-        color: #12284C;
+        color: #12284c;
+        border-radius: 4px;
 
         .q-focus-helper {
-          // display: none;
+          display: none;
         }
 
         &--in {
@@ -598,7 +1473,25 @@ export default {
         }
 
         .block {
-          color: #12284C;
+          color: #12284c;
+        }
+
+        &:hover {
+          background: #f0f5fd;
+          cursor: pointer;
+        }
+
+        button {
+          width: 46px;
+          height: 46px;
+          border-radius: 4px;
+        }
+
+        .q-btn {
+          &.bg-primary {
+            background: #f0f5fd !important;
+            border-radius: 4px;
+          }
         }
       }
 
@@ -608,15 +1501,20 @@ export default {
       }
 
       &__edit-range {
-        background-color: #4690FF;
+        background-color: #4690ff;
       }
 
-      &__range-from, &__edit-range-from, &__range-to, &__edit-range-to {
-        background-color: #4690FF;
+      &__range-from,
+      &__edit-range-from,
+      &__range-to,
+      &__edit-range-to {
+        background-color: #4690ff !important;
         border-radius: 4px;
 
-        .bg-primary {
-          background-color: transparent !important;
+        .q-btn {
+          &.bg-primary {
+            background: #4690ff !important;
+          }
         }
 
         .q-focus-helper {
@@ -628,7 +1526,29 @@ export default {
         }
       }
 
-      &__range-from:before, &__range-to:before {
+      &__today {
+        background-color: #f0f5fd !important;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: none;
+
+        .q-btn {
+          &.bg-primary {
+            background: #f0f5fd !important;
+          }
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        .block {
+          color: #12284c;
+        }
+      }
+
+      &__range-from:before,
+      &__range-to:before {
         display: none;
       }
 
@@ -636,9 +1556,10 @@ export default {
         background: #d4e4fe;
       }
 
-      &__months-item, &__years-item {
+      &__months-item,
+      &__years-item {
         .block {
-          color: #12284C !important;
+          color: #12284c !important;
         }
         .q-btn {
           box-shadow: none !important;
@@ -655,7 +1576,352 @@ export default {
       position: absolute;
       bottom: 49px;
       right: 40px;
+      transition: all 0.3s;
+
+      &:hover {
+        color: #12284c;
+      }
     }
+  }
+
+  .filter-menu {
+    background-color: #fff;
+    box-shadow: 0px 0px 32px rgba(18, 40, 76, 0.08);
+    border-radius: 4px;
+    padding: 32px;
+
+    &__row,
+    &__buttons {
+      display: flex;
+
+      & + .filter-menu__buttons {
+        margin: 32px 0px 0px 0px;
+      }
+
+      & + .filter-menu__row {
+        margin: 24px 0px 0px 0px;
+      }
+    }
+
+    &__close {
+      display: flex;
+      align-items: center;
+      margin: 0px 0px 0px 24px;
+      cursor: pointer;
+
+      svg {
+        path {
+          fill: #dbdfe4;
+        }
+      }
+
+      &.active {
+        svg {
+          path {
+            fill: #596982;
+          }
+        }
+      }
+    }
+
+    .q-field {
+      border: 1px solid #a0a9b7;
+      box-sizing: border-box;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+      padding-bottom: 8px;
+
+      &:hover {
+        border: 1px solid #596982;
+      }
+
+      & + .q-field {
+        margin: 0px 0px 0px 24px;
+      }
+
+      &--focused {
+        .q-field__label {
+          display: none;
+        }
+      }
+
+      &--float {
+        .q-field__label {
+          display: none;
+        }
+      }
+
+      &__control {
+        height: 40px;
+        min-height: 0;
+        padding: 0 16px;
+      }
+
+      &__append {
+        height: 40px;
+      }
+
+      &__control-container {
+        padding-top: 0px !important;
+      }
+
+      &__label {
+        color: #a0a9b7;
+        font-weight: 500;
+        top: 10px;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: -0.15px;
+      }
+
+      &__native {
+        min-height: 0 !important;
+        font-size: 16px;
+        line-height: 20px;
+        color: #12284c;
+        font-weight: 500;
+        padding: 0px 0px 0px 0px;
+        flex-wrap: nowrap;
+        overflow: hidden;
+
+        span {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .no-outline {
+          display: none;
+        }
+
+        .q-chip {
+          padding: 4px 10px 4px 3px;
+          height: 28px;
+          margin: 0;
+          border-radius: 4px;
+          background: #dbdfe4;
+          z-index: 1;
+
+          & + .q-chip {
+            margin: 0px 0px 0px 5px;
+          }
+
+          &__content {
+            .ellipsis {
+              color: #12284c;
+              font-size: 16px;
+              line-height: 20px;
+              letter-spacing: -0.2px;
+            }
+          }
+
+          &__icon {
+            color: transparent;
+            position: relative;
+
+            &::after {
+              content: "";
+              position: absolute;
+              width: 16px;
+              height: 16px;
+              top: 0px;
+              right: -2px;
+              background: url("../assets/close.svg") 0 0 no-repeat;
+            }
+          }
+        }
+      }
+
+      .q-select__dropdown-icon {
+        font-size: 24px;
+        margin: -5px -10px -2px 0px;
+        color: #4690ff;
+      }
+    }
+
+    .q-field--filled .q-field__control {
+      background: transparent;
+    }
+
+    .q-field--filled .q-field__control:before {
+      background: transparent !important;
+      border-bottom: none;
+    }
+
+    .ml-auto {
+      margin: 0px 0px 0px auto !important;
+    }
+
+    .btn {
+      color: #fff;
+      background-color: #4690ff;
+      font-size: 18px;
+      line-height: 22px;
+      height: 40px;
+      font-weight: 500;
+      transition: 0.3s all;
+
+      .q-focus-helper {
+        display: none;
+      }
+
+      & + .btn {
+        margin: 0px 0px 0px 24px;
+      }
+
+      &:hover {
+        background: #629df6;
+      }
+
+      .q-btn__wrapper {
+        min-height: 0;
+      }
+
+      &:active {
+        background: #4690ff;
+        box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
+      }
+
+      &-white {
+        color: #4690ff;
+        background-color: #fff;
+        border: 1px solid #4690ff;
+        box-sizing: border-box;
+        border-radius: 4px;
+        margin: 0px 0px 0px 1px;
+
+        &:hover {
+          background: #cdd0d4;
+        }
+
+        &:active {
+          background-color: transparent;
+          color: #fff;
+          box-shadow: none;
+        }
+      }
+
+      &-red {
+        color: #b36f6c;
+        background-color: #fff;
+
+        .q-btn__wrapper {
+          padding: 0;
+        }
+
+        &:hover,
+        &:active {
+          background-color: #fff;
+          color: #a64541;
+          box-shadow: none;
+        }
+      }
+
+      &-grey {
+        color: #596982;
+        background-color: #fff;
+        transition: all 0.3s;
+
+        .q-btn__wrapper {
+          padding: 0;
+        }
+
+        &:hover,
+        &:active {
+          box-shadow: none;
+          background-color: #fff;
+          color: #12284c;
+        }
+      }
+
+      @media (max-width: 1360px) {
+        height: 38px;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
+
+  &.group {
+    min-width: 213px !important;
+    padding: 16px 0;
+
+    .q-item {
+      padding: 11px 24px 8px 64px;
+      min-height: 0;
+      position: relative;
+
+      &:hover {
+        background: #f3f4f6;
+      }
+
+      &__label {
+        color: #12284c;
+      }
+
+      .q-focus-helper {
+        display: none;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 8px;
+        left: 24px;
+        background: url("../assets/checkbox-default.svg") 0 0 no-repeat;
+      }
+
+      &--active {
+        &::before {
+          background: url("../assets/checkbox-active.svg") 0 0 no-repeat;
+        }
+      }
+    }
+  }
+
+  &.filterOne {
+    min-width: 217px !important;
+    padding: 0;
+
+    .q-item {
+      padding: 10px 24px 9px;
+      min-height: 0;
+      position: relative;
+
+      &:hover {
+        background: #f3f4f6;
+      }
+
+      &__label {
+        color: #12284c;
+      }
+
+      .q-focus-helper {
+        display: none;
+      }
+
+      &--active {
+        .q-item__label {
+          color: #12284c !important;
+        }
+      }
+
+      &::before {
+        display: none !important;
+      }
+    }
+  }
+
+  &.filterTwo {
+    min-width: 401px !important;
+  }
+
+  &.filter-popup {
+    margin: 8px 0px 0px 0px !important;
   }
 }
 </style>
