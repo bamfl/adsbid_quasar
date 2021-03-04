@@ -1,12 +1,33 @@
 <template>
   <q-page class="statistics-page">
+    <div class="title-mob">Статистика</div>
+
     <div class="row filters">
       <q-btn-dropdown
         class="datepicker"
         label="4.01.21 - 10.01.21"
         :ripple="false"
+        content-class="datepicker-popup"
+        menu-anchor="bottom left"
+        menu-self="top left"
       >
         <div class="datepicker-menu">
+          <div class="datepicker-nav">
+            <div class="datepicker-reset">Сбросить</div>
+            <div class="datepicker-title">Период</div>
+            <div class="datepicker-close active">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0)">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+                </g>
+                <defs>
+                <clipPath id="clip0">
+                <rect width="24" height="24" fill="white"/>
+                </clipPath>
+                </defs>
+              </svg>
+            </div>
+          </div>
           <div class="datepicker-list">
             <div class="datepicker-listitem">Сегодня</div>
             <div class="datepicker-listitem">Вчера</div>
@@ -37,6 +58,7 @@
         style="width: 213px; height: 40px"
         dropdown-icon="keyboard_arrow_down"
         popup-content-class="group"
+        behavior="menu"
       >
       </q-select>
 
@@ -179,7 +201,7 @@
                 :ripple="false"
               />
               <q-btn
-                class="btn ml-auto"
+                class="btn btn-blue"
                 label="Готово"
                 :ripple="false"
                 unelevated
@@ -229,32 +251,38 @@
       <q-tab-panels v-model="tabCharts" animated>
         <q-tab-panel name="profit">
           <div class="chart">
-            <img src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="shows">
           <div class="chart">
-            <img src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="clicks">
           <div class="chart">
-            <img src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="uniqclicks">
           <div class="chart">
-            <img src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="ctr">
           <div class="chart">
-            <img src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="cpm">
           <div class="chart">
-            <img src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
+            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
           </div>
         </q-tab-panel>
       </q-tab-panels>
@@ -710,7 +738,7 @@ export default {
         "Значение 3",
         "Значение 4"
       ],
-      tabCharts: 'profit'
+      tabCharts: "profit"
     };
   }
 };
@@ -719,11 +747,35 @@ export default {
 <style lang="scss">
 .q-page {
   padding: 40px;
+
+  @media (max-width: 1366px) {
+    padding: 32px 40px;
+  }
+
+  @media (max-width:1200px){
+    padding: 32px;
+  }
 }
 
 .statistics-page {
+  .title-mob {
+    display: none;
+  }
+  
   .filters {
     margin: 0px 0px 40px 0px;
+
+    @media (max-width: 1366px) {
+      margin: 0px 0px 32px 0px;
+    }
+
+    .q-btn {
+      margin: 0px 24px 0px 0px;
+
+      @media (max-width:1144px){
+        margin: 0px 24px 10px 0px;
+      }
+    }
   }
 
   [aria-expanded="true"] {
@@ -744,6 +796,7 @@ export default {
     letter-spacing: -0.15px;
     position: relative;
     transition: all 0.3s;
+    margin: 0px 24px 0px 0px;
 
     &:hover {
       border: 1px solid #596982;
@@ -772,7 +825,7 @@ export default {
   }
 
   .q-field {
-    margin: 0px 24px 0px;
+    margin: 0px 24px 0px 0;
     border: 1px solid #a0a9b7;
     box-sizing: border-box;
     border-radius: 4px;
@@ -846,6 +899,10 @@ export default {
       margin: -5px -10px -2px 0px;
       color: #4690ff;
     }
+
+    @media (max-width: 1144px){
+      margin: 0px 24px 10px 0;
+    }
   }
 
   .q-field--filled .q-field__control {
@@ -874,7 +931,6 @@ export default {
 
     &__wrp {
       position: relative;
-      margin: 0px 24px 0px 0px;
     }
 
     .q-btn__wrapper {
@@ -943,16 +999,10 @@ export default {
       background: #4690ff;
       box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
     }
-
-    @media (max-width: 1360px) {
-      height: 38px;
-      font-size: 16px;
-      line-height: 20px;
-    }
   }
 
   .chart-toggle {
-    margin: 0px 0px 0px auto;
+    margin: 0px 54px 0px auto;
 
     .q-toggle__track {
       height: 24px;
@@ -1007,12 +1057,15 @@ export default {
     .q-toggle__thumb:before {
       display: none;
     }
+
+    @media (max-width:1150px){
+      margin: 0px 54px 0px 0px;
+    }
   }
 
   .cvs-icon {
     cursor: pointer;
     display: flex;
-    margin: 0px 0px 0px 54px;
   }
 
   .q-markup-table {
@@ -1022,6 +1075,7 @@ export default {
     .q-table {
       padding: 24px 24px 9px;
       width: 0;
+      min-width: 100%;
 
       thead {
         tr {
@@ -1034,7 +1088,9 @@ export default {
           line-height: 18px;
           color: #596982;
           letter-spacing: 0.03em;
-          min-width: 240px;
+          // min-width: 240px;
+          max-width: 240px;
+          width: 15.9%;
 
           span {
             cursor: pointer;
@@ -1065,11 +1121,43 @@ export default {
                 }
               }
             }
+
+            @media (max-width:1200px){
+              top: -4px;
+              right: -7px;
+            }
+          }
+
+          @media (max-width: 1366px) {
+            max-width: 107.71px;
+            width: 15.3%;
+          }
+
+          @media (max-width:1200px){
+            font-size: 16px;
+            padding: 4px 0 18px 0px;
+            width: 14.65%;
+          }
+
+          @media (max-width:1100px){
+            min-width: 128px;
           }
         }
 
         .text-right {
           min-width: 96px;
+
+          @media (max-width: 1366px) {
+            span {
+              padding: 0px 47px 0px 0px;
+            }
+          }
+
+          @media (max-width:1200px){
+            span {
+              padding: 0px 64px 0px 0px;
+            }
+          }
         }
       }
 
@@ -1082,10 +1170,21 @@ export default {
           line-height: 22px;
           padding: 16px 0px 15px 0px;
           height: 54px;
-          min-width: 240px;
+          // min-width: 240px;
+          max-width: 240px;
+          width: 15.9%;
 
           &:before {
             background: transparent;
+          }
+
+          @media (max-width:1200px){
+            font-size: 16px;
+            width: 14.65%;
+          }
+
+          @media (max-width:1100px){
+            min-width: 128px;
           }
         }
 
@@ -1093,6 +1192,14 @@ export default {
           min-width: 96px;
           color: #95bd5a;
           padding: 0px 16px 0px 0px;
+
+          @media (max-width: 1366px) {
+            padding: 0px 29px 0px 0px;
+          }
+
+          @media (max-width:1200px){
+            padding: 2px 50px 0px 0px;
+          }
         }
 
         .total {
@@ -1109,13 +1216,22 @@ export default {
     box-shadow: 0px 0px 24px rgba(18, 40, 76, 0.08);
     border-radius: 4px;
 
+    @media (max-width:1366px){
+      margin: 0px 0px 32px 0px;
+    }
+
+    .scroll {
+      overflow: hidden !important;
+    }
+
     .q-tabs {
       display: flex;
       margin: 0px 0px 27px 0px;
       padding: 2px 0px 0px 0px;
 
-      @media (max-width: 1360px) {
-        padding: 2px 0px 0px 0px;
+      @media (max-width: 1366px) {
+        padding: 5px 0px 0px 0px;
+        margin: 0px 0px 28px 0px;
       }
     }
 
@@ -1144,117 +1260,21 @@ export default {
           position: relative;
           overflow: hidden;
 
-          .scale-y {
-            position: absolute;
-            height: 100%;
-            top: 31px;
-            left: 0;
-            list-style: none;
+          .graphic-big {
+            display: block;
+          }
 
-            span {
+          .graphic-desktop {
+            display: none;
+          }
+
+          @media (max-width:1366px){
+            .graphic-desktop {
               display: block;
-              font-size: 16px;
-              line-height: 20px;
-              letter-spacing: 0.03em;
-              color: #12284c;
-              opacity: 0.3;
-
-              & + span {
-                margin: 20px 0px 0px 0px;
-              }
-            }
-          }
-
-          .scale-x {
-            position: absolute;
-            bottom: -2px;
-            left: 81px;
-            list-style: none;
-
-            span {
-              font-size: 16px;
-              line-height: 20px;
-              letter-spacing: 0.03em;
-              color: #12284c;
-              opacity: 0.3;
-
-              & + span {
-                margin: 0px 0px 0px 25.5px;
-              }
             }
 
-            @media (max-width: 1360px) {
-              bottom: -4px;
-            }
-          }
-
-          .grid {
-            padding: 0px 0px 24px 43px;
-            position: relative;
-
-            .graphic {
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              top: 51px;
-              left: 43px;
-            }
-
-            .graphic-shadow {
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              top: 36px;
-              left: 25px;
-            }
-
-            .point {
-              position: absolute;
-              width: 8px;
-              height: 8px;
-              bottom: 105px;
-              left: 169px;
-              background: #4690ff;
-              border-radius: 50%;
-              border: 1px solid #fff;
-            }
-
-            .point-big {
-              position: absolute;
-              width: 10px;
-              height: 10px;
-              bottom: 122px;
-              left: 235px;
-              background: #4690ff;
-              border-radius: 50%;
-              border: 1px solid #fff;
-            }
-
-            .summ {
-              position: absolute;
-              bottom: 134px;
-              left: 105px;
-              background: #fff;
-              font-weight: 500;
-              font-size: 18px;
-              line-height: 22px;
-              padding: 8px 12px;
-              color: #4690ff;
-              box-shadow: 0px 0px 32px rgba(0, 0, 0, 0.12);
-              z-index: 1;
-            }
-
-            .line-dashed {
-              position: absolute;
-              width: 1px;
-              height: 96px;
-              bottom: 29px;
-              left: 239px;
-              border: 1px dashed #4690ff;
-            }
-
-            @media (max-width: 1360px) {
-              padding: 0px 0px 21px 43px;
+            .graphic-big {
+              display: none;
             }
           }
         }
@@ -1330,6 +1350,11 @@ export default {
         object-fit: cover;
         object-position: 0 0;
       }
+
+      @media (max-width:1366px){
+        height: 297px;
+        width: 1146px;
+      }
     }
   }
 }
@@ -1355,233 +1380,343 @@ export default {
 }
 
 .q-menu {
-  .datepicker-list {
-    margin: 1px 48px 0px 0px;
-    padding: 0px 0px 17px 0px;
-    min-width: 140px;
+  &.datepicker-popup {
+    min-height: 493px;
 
-    .datepicker-listitem {
-      cursor: pointer;
-      font-size: 14px;
-      line-height: 17px;
-      color: #596982;
-      position: relative;
+    .datepicker-list {
+      margin: 1px 48px 0px 0px;
+      padding: 0px 0px 17px 0px;
+      min-width: 140px;
 
-      & + .datepicker-listitem {
-        margin: 25px 0px 0px 0px;
+      @media (max-width:1130px){
+        margin: 1px 0px 0px 0px;
       }
 
-      &.active {
-        color: #4690ff;
-
-        &::after {
-          content: "";
-          position: absolute;
-          width: 2px;
-          height: 18px;
-          top: 0;
-          right: -2px;
-          background-color: #4690ff;
-        }
-      }
-    }
-  }
-
-  .datepicker-menu {
-    display: flex;
-    position: relative;
-    padding: 40px;
-
-    .q-date {
-      & + .q-date {
-        margin: 0px 0px 0px 40px;
-      }
-
-      box-shadow: none;
-      min-width: 322px;
-
-      &__navigation {
-        height: 17px;
-        margin: 0px auto 33px;
-        max-width: 240px;
-
-        .q-date__arrow + .q-date__arrow {
-          padding: 0px 0px 0px 21px;
-        }
-
-        .q-date__arrow {
-          .q-btn .q-icon,
-          .q-btn .q-spinner {
-            font-size: 23px;
-          }
-
-          .q-focus-helper {
-            display: none;
-          }
-        }
-
-        .q-btn {
-          .q-focus-helper {
-            display: none;
-          }
-        }
-
-        .q-btn__content .block {
-          margin: 0 6px;
-        }
-      }
-
-      &__calendar-weekdays {
-        height: 46px;
-
-        .q-date__calendar-item {
-          &:hover {
-            background-color: #fff;
-            cursor: default;
-          }
-        }
-      }
-
-      &__header,
-      &__actions {
-        display: none;
-      }
-
-      &__view,
-      &__calendar-days-container {
-        min-height: 0;
-      }
-
-      &__view {
-        padding: 0;
-      }
-
-      &__calendar-item {
-        font-weight: 500;
+      .datepicker-listitem {
+        cursor: pointer;
         font-size: 14px;
         line-height: 17px;
-        opacity: 1;
-        color: #12284c;
-        border-radius: 4px;
+        color: #596982;
+        position: relative;
 
-        .q-focus-helper {
+        @media (max-width:1130px){
+          color: #12284C;
+        }
+
+        & + .datepicker-listitem {
+          margin: 25px 0px 0px 0px;
+
+          @media (max-width:1130px){
+            margin: 0px 16px 16px 0px;
+          }
+        }
+
+        &.active {
+          color: #4690ff;
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 18px;
+            top: 0;
+            right: -2px;
+            background-color: #4690ff;
+
+            @media (max-width:1130px){
+              display: none;
+            }
+          }
+
+          @media (max-width:1130px){
+            color: #12284C;
+            border: none;
+            background: #F0F5FD;
+            border: 1px solid #F0F5FD;
+          }
+        }
+
+        @media (max-width:1130px){
+          display: inline-block;
+          padding: 3px 8px;
+          border: 1px solid #A0A9B7;
+          border-radius: 50px;
+          margin: 0px 16px 16px 0px;
+        }
+      }
+    }
+
+    .datepicker-menu {
+      display: flex;
+      position: relative;
+      padding: 40px;
+
+      .q-date {
+        width: 322px;
+
+        & + .q-date {
+          margin: 0px 0px 0px 40px;
+
+          @media (max-width:900px){
+            margin: 40px auto 0px;
+          }
+        }
+
+        box-shadow: none;
+        min-width: 322px;
+
+        &__navigation {
+          height: 17px;
+          margin: 0px auto 33px;
+          max-width: 240px;
+
+          .q-date__arrow + .q-date__arrow {
+            padding: 0px 0px 0px 21px;
+          }
+
+          .q-date__arrow {
+            .q-btn .q-icon,
+            .q-btn .q-spinner {
+              font-size: 23px;
+            }
+
+            .q-focus-helper {
+              display: none;
+            }
+          }
+
+          .q-btn {
+            .q-focus-helper {
+              display: none;
+            }
+          }
+
+          .q-btn__content .block {
+            margin: 0 6px;
+          }
+        }
+
+        &__calendar-weekdays {
+          height: 46px;
+
+          .q-date__calendar-item {
+            &:hover {
+              background-color: #fff;
+              cursor: default;
+            }
+          }
+        }
+
+        &__header,
+        &__actions {
           display: none;
         }
 
-        &--in {
-          font-weight: 400;
+        &__view,
+        &__calendar-days-container {
+          min-height: 0;
         }
 
-        .block {
+        &__view {
+          padding: 0;
+        }
+
+        &__calendar-item {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          opacity: 1;
           color: #12284c;
-        }
-
-        &:hover {
-          background: #f0f5fd;
-          cursor: pointer;
-        }
-
-        button {
-          width: 46px;
-          height: 46px;
           border-radius: 4px;
-        }
 
-        .q-btn {
-          &.bg-primary {
-            background: #f0f5fd !important;
+          .q-focus-helper {
+            display: none;
+          }
+
+          &--in {
+            font-weight: 400;
+          }
+
+          .block {
+            color: #12284c;
+          }
+
+          &:hover {
+            background: #f0f5fd;
+            cursor: pointer;
+          }
+
+          button {
+            width: 46px;
+            height: 46px;
             border-radius: 4px;
           }
-        }
-      }
 
-      &__calendar-days > div {
-        height: 46px !important;
-        width: 46px !important;
-      }
+          .q-btn {
+            &.bg-primary {
+              background: #4690ff !important;
+              border-radius: 4px;
 
-      &__edit-range {
-        background-color: #4690ff;
-      }
-
-      &__range-from,
-      &__edit-range-from,
-      &__range-to,
-      &__edit-range-to {
-        background-color: #4690ff !important;
-        border-radius: 4px;
-
-        .q-btn {
-          &.bg-primary {
-            background: #4690ff !important;
+              .block {
+                color: #fff !important;
+              }
+            }
           }
         }
 
-        .q-focus-helper {
-          display: none;
+        &__calendar-days > div {
+          height: 46px !important;
+          width: 46px !important;
         }
 
-        .block {
-          color: #fff;
+        &__edit-range {
+          background-color: #4690ff;
         }
-      }
 
-      &__today {
-        background-color: #f0f5fd !important;
-        border-radius: 4px;
-        overflow: hidden;
-        box-shadow: none;
+        &__range-from,
+        &__edit-range-from,
+        &__range-to,
+        &__edit-range-to {
+          background-color: #4690ff !important;
+          border-radius: 4px;
 
-        .q-btn {
-          &.bg-primary {
-            background: #f0f5fd !important;
+          .q-btn {
+            &.bg-primary {
+              background: #4690ff !important;
+            }
+          }
+
+          .q-focus-helper {
+            display: none;
+          }
+
+          .block {
+            color: #fff;
           }
         }
 
-        .q-focus-helper {
+        &__today {
+          background-color: #f0f5fd !important;
+          border-radius: 4px;
+          overflow: hidden;
+          box-shadow: none;
+
+          .q-btn {
+            &.bg-primary {
+              background: #f0f5fd !important;
+            }
+          }
+
+          .q-focus-helper {
+            display: none;
+          }
+
+          .block {
+            color: #12284c;
+          }
+        }
+
+        &__range-from:before,
+        &__range-to:before {
           display: none;
         }
 
-        .block {
+        &__range:before {
+          background: #d4e4fe;
+        }
+
+        &__months-item,
+        &__years-item {
+          .block {
+            color: #12284c !important;
+          }
+          .q-btn {
+            box-shadow: none !important;
+          }
+        }
+
+				@media (max-width:900px){
+          display: flex;
+          justify-content: center;
+          margin: 0 auto;
+				}
+      }
+
+      .datepicker-btn {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #596982;
+        cursor: pointer;
+        position: absolute;
+        bottom: 49px;
+        right: 40px;
+        transition: all 0.3s;
+
+        &:hover {
           color: #12284c;
         }
+
+				@media (max-width:1130px){
+					display: none;
+				}
       }
 
-      &__range-from:before,
-      &__range-to:before {
-        display: none;
+      @media (max-width:1130px){
+        display: block;
+        padding: 16px;
       }
+    }
 
-      &__range:before {
-        background: #d4e4fe;
-      }
+    .datepicker-nav {
+      display: none;
 
-      &__months-item,
-      &__years-item {
-        .block {
-          color: #12284c !important;
+      @media (max-width:1130px){
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px 0px 27px 0px;
+
+        .datepicker-reset {
+          color: #A64541;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
         }
-        .q-btn {
-          box-shadow: none !important;
+
+        .datepicker-title {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 18px;
+          color: #12284C;
+          margin: 0px 50px 0px 0px;
+        }
+
+        .datepicker-close {
+          cursor: pointer;
+
+          svg {
+            path {
+              fill: #596982;
+            }
+          }
+
+          &.active{
+            svg {
+              path {
+                fill: #12284C;
+              }
+            }
+          }
         }
       }
     }
 
-    .datepicker-btn {
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 22px;
-      color: #596982;
-      cursor: pointer;
-      position: absolute;
-      bottom: 49px;
-      right: 40px;
-      transition: all 0.3s;
-
-      &:hover {
-        color: #12284c;
-      }
-    }
+		@media (max-width:1130px){
+			margin: 16px 32px 0px 0px !important;
+      max-width: 740px;
+      min-height: 520px;
+		}
   }
 
   .filter-menu {
@@ -1601,6 +1736,10 @@ export default {
       & + .filter-menu__row {
         margin: 24px 0px 0px 0px;
       }
+    }
+
+    &__buttons {
+      flex-wrap: wrap;
     }
 
     &__close {
@@ -1750,13 +1889,8 @@ export default {
       border-bottom: none;
     }
 
-    .ml-auto {
-      margin: 0px 0px 0px auto !important;
-    }
-
     .btn {
       color: #fff;
-      background-color: #4690ff;
       font-size: 18px;
       line-height: 22px;
       height: 40px;
@@ -1765,10 +1899,6 @@ export default {
 
       .q-focus-helper {
         display: none;
-      }
-
-      & + .btn {
-        margin: 0px 0px 0px 24px;
       }
 
       &:hover {
@@ -1790,7 +1920,7 @@ export default {
         border: 1px solid #4690ff;
         box-sizing: border-box;
         border-radius: 4px;
-        margin: 0px 0px 0px 1px;
+        margin: 0px 24px 0px 1px;
 
         &:hover {
           background: #cdd0d4;
@@ -1803,9 +1933,33 @@ export default {
         }
       }
 
+      &-blue {
+        color: #fff;
+        background-color: #4690ff;
+        border: 1px solid #4690ff;
+        box-sizing: border-box;
+        border-radius: 4px;
+        margin: 0px 24px 0px auto;
+
+        &:hover {
+          background: #cdd0d4;
+        }
+
+        &:active {
+          background-color: transparent;
+          color: #fff;
+          box-shadow: none;
+        }
+
+        @media (max-width:800px){
+          margin: 0px 24px 0px 0;
+        }
+      }
+
       &-red {
         color: #b36f6c;
         background-color: #fff;
+        margin: 0px 24px 0px 0px;
 
         .q-btn__wrapper {
           padding: 0;
@@ -1836,10 +1990,14 @@ export default {
         }
       }
 
-      @media (max-width: 1360px) {
-        height: 38px;
-        font-size: 16px;
-        line-height: 20px;
+      @media (max-width:800px){
+        margin: 0px 24px 10px 0px;
+      }
+    }
+
+    .q-btn {
+      .block {
+        white-space: nowrap;
       }
     }
   }
@@ -1922,6 +2080,24 @@ export default {
 
   &.filter-popup {
     margin: 8px 0px 0px 0px !important;
+  }
+}
+
+// Mobile
+@media (max-width:500px){
+  .q-page {
+    padding: 16px !important;
+  }
+
+  .statistics-page {
+    .title-mob {
+      display: block;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 29px;
+      color: #12284C;
+      margin: 0px 0px 25px 0px;
+    }
   }
 }
 </style>

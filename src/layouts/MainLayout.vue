@@ -297,7 +297,7 @@
             </q-tooltip>
           </q-item>
 
-          <q-item clickable v-ripple:info.center to="/mysites">
+          <q-item class="mysites" clickable v-ripple:info.center to="/mysites">
             <q-item-section avatar>
               <svg
                 width="24"
@@ -351,7 +351,7 @@
             </q-tooltip>
           </q-item>
 
-          <q-item clickable v-ripple:info.center to="/finances">
+          <q-item class="finances" clickable v-ripple:info.center to="/finances">
             <q-item-section avatar>
               <svg
                 width="24"
@@ -405,7 +405,7 @@
             </q-tooltip>
           </q-item>
 
-          <q-item clickable v-ripple:info.center to="/partner">
+          <q-item class="partner" clickable v-ripple:info.center to="/partner">
             <q-item-section avatar>
               <svg
                 width="24"
@@ -1571,6 +1571,10 @@ html{
 
     .q-list {
       padding: 15px 0px 0px 0px;
+
+      .mysites, .finances, .partner {
+        display: none !important;
+      }
 
       .logout__mob {
         display: block;
