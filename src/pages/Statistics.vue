@@ -1,5 +1,5 @@
 <template>
-  <q-page class="statistics-page">
+  <q-page class="statistics-page" :class="{ lock: lockPage }">
     <div class="title-mob">Статистика</div>
 
     <div class="row filters">
@@ -10,20 +10,32 @@
         content-class="datepicker-popup"
         menu-anchor="bottom left"
         menu-self="top left"
+        @input="lockPage = !lockPage"
       >
         <div class="datepicker-menu">
           <div class="datepicker-nav">
             <div class="datepicker-reset">Сбросить</div>
             <div class="datepicker-title">Период</div>
             <div class="datepicker-close active">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <g clip-path="url(#clip0)">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z"
+                    fill="#596982"
+                  />
                 </g>
                 <defs>
-                <clipPath id="clip0">
-                <rect width="24" height="24" fill="white"/>
-                </clipPath>
+                  <clipPath id="clip0">
+                    <rect width="24" height="24" fill="white" />
+                  </clipPath>
                 </defs>
               </svg>
             </div>
@@ -46,6 +58,10 @@
           <q-date v-model="dateTwo" minimal range />
 
           <div class="datepicker-btn" :ripple="false">Отменить</div>
+
+          <div class="datepicker-btn-two" :ripple="false">
+            <span class="active">Готово</span>
+          </div>
         </div>
       </q-btn-dropdown>
 
@@ -59,7 +75,51 @@
         dropdown-icon="keyboard_arrow_down"
         popup-content-class="group"
         behavior="menu"
+        @popup-show="lockPage = !lockPage"
+        @popup-hide="lockPage = !lockPage"
       >
+        <template v-slot:option="groupOptions">
+          <div class="group-menu">
+            <div class="group-nav">
+              <div class="group-reset">Сбросить</div>
+              <div class="group-title">Группировать по:</div>
+              <div class="group-close active">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0)">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z"
+                      fill="#596982"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <q-item
+            v-bind="groupOptions.itemProps"
+            v-on="groupOptions.itemEvents"
+          >
+            <div v-html="groupOptions.opt"></div>
+          </q-item>
+
+          <div class="group-btn" :ripple="false">
+            <span class="active">Готово</span>
+          </div>
+        </template>
       </q-select>
 
       <div class="filter__wrp">
@@ -77,8 +137,37 @@
           menu-anchor="bottom left"
           menu-self="top left"
           content-class="filter-popup"
+          @input="lockPage = !lockPage"
         >
           <div class="filter-menu">
+            <div class="filter-nav">
+              <div class="filter-reset">Сбросить</div>
+              <div class="filter-title">Фильтры</div>
+              <div class="filter-close active">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0)">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z"
+                      fill="#596982"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+
             <div class="filter-menu__row">
               <q-select
                 filled
@@ -90,6 +179,7 @@
                 style="width: 217px; height: 40px"
                 dropdown-icon="keyboard_arrow_down"
                 popup-content-class="filterOne"
+                behavior="menu"
               >
               </q-select>
 
@@ -105,6 +195,7 @@
                 use-chips
                 multiple
                 popup-content-class="filterTwo"
+                behavior="menu"
               >
               </q-select>
 
@@ -132,59 +223,6 @@
               </div>
             </div>
 
-            <div class="filter-menu__row">
-              <q-select
-                filled
-                multiple
-                v-model="filterThree"
-                input-debounce="0"
-                label="Выберите фильтр"
-                :options="optionsThree"
-                style="width: 217px; height: 40px"
-                dropdown-icon="keyboard_arrow_down"
-                popup-content-class="filterOne"
-              >
-              </q-select>
-
-              <q-select
-                filled
-                v-model="filterFour"
-                use-input
-                input-debounce="0"
-                label="Выберите или введите значение"
-                :options="optionsFour"
-                style="width: 401px; height: 40px"
-                dropdown-icon="keyboard_arrow_down"
-                use-chips
-                multiple
-                popup-content-class="filterTwo"
-              >
-              </q-select>
-
-              <div
-                :class="[
-                  'filter-menu__close',
-                  { active: filterThree || filterFour !== null }
-                ]"
-                @click.stop="(filterThree = null), (filterFour = null)"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M13.1854 13.1853C12.708 13.6627 11.9345 13.6627 11.457 13.1853L8 9.72829L4.54303 13.1853C4.06554 13.6627 3.29204 13.6627 2.81455 13.1853C2.33706 12.7078 2.33706 11.9343 2.81455 11.4568L6.27152 7.9998L2.81455 4.54284C2.33706 4.06534 2.33706 3.29185 2.81455 2.81436C3.29204 2.33686 4.06554 2.33686 4.54303 2.81436L8 6.27132L11.457 2.81436C11.934 2.33729 12.708 2.33686 13.1854 2.81435C13.6629 3.29185 13.6625 4.06578 13.1854 4.54284L9.72848 7.9998L13.1854 11.4568C13.6629 11.9343 13.6629 12.7078 13.1854 13.1853Z"
-                    fill="#596982"
-                  />
-                </svg>
-              </div>
-            </div>
-
             <div class="filter-menu__buttons">
               <q-btn
                 class="btn btn-white"
@@ -194,14 +232,21 @@
                 v-ripple:blue-14.center
               />
               <q-btn
-                class="btn btn-red"
+                class="btn btn-red btn-reset"
                 label="Сбросить все"
                 unelevated
                 no-caps
                 :ripple="false"
               />
               <q-btn
-                class="btn btn-blue"
+                class="btn btn-red btn-del active"
+                label="Удалить фильтр"
+                unelevated
+                no-caps
+                :ripple="false"
+              />
+              <q-btn
+                class="btn btn-blue active"
                 label="Готово"
                 :ripple="false"
                 unelevated
@@ -252,53 +297,79 @@
         <q-tab-panel name="profit">
           <div class="chart">
             <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
-            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
+            <img
+              class="graphic-desktop"
+              src="../assets/graphic-desktop.jpg"
+              alt=""
+            />
+            <img class="graphic-mob" src="../assets/chart_mob.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="shows">
           <div class="chart">
             <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
-            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
+            <img
+              class="graphic-desktop"
+              src="../assets/graphic-desktop.jpg"
+              alt=""
+            />
+            <img class="graphic-mob" src="../assets/chart_mob.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="clicks">
           <div class="chart">
             <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
-            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
+            <img
+              class="graphic-desktop"
+              src="../assets/graphic-desktop.jpg"
+              alt=""
+            />
+            <img class="graphic-mob" src="../assets/chart_mob.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="uniqclicks">
           <div class="chart">
             <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
-            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
+            <img
+              class="graphic-desktop"
+              src="../assets/graphic-desktop.jpg"
+              alt=""
+            />
+            <img class="graphic-mob" src="../assets/chart_mob.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="ctr">
           <div class="chart">
             <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
-            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
+            <img
+              class="graphic-desktop"
+              src="../assets/graphic-desktop.jpg"
+              alt=""
+            />
+            <img class="graphic-mob" src="../assets/chart_mob.jpg" alt="" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="cpm">
           <div class="chart">
             <img class="graphic-big" src="../assets/graphic-big.jpg" alt="" />
-            <img class="graphic-desktop" src="../assets/graphic-desktop.jpg" alt="" />
+            <img
+              class="graphic-desktop"
+              src="../assets/graphic-desktop.jpg"
+              alt=""
+            />
+            <img class="graphic-mob" src="../assets/chart_mob.jpg" alt="" />
           </div>
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
 
-    <q-markup-table flat>
+    <q-markup-table flat :class="{ lock: lockPage }">
       <thead>
         <tr>
           <th class="text-left">
-            <span
+            <span @click="sorted.date = !sorted.date"
               >Дата
-              <span
-                class="sorting"
-                :class="{ sorted: sorted.date }"
-                @click="sorted.date = !sorted.date"
-              >
+              <span class="sorting" :class="{ sorted: sorted.date }">
                 <svg
                   width="24"
                   height="24"
@@ -335,13 +406,9 @@
             </span>
           </th>
           <th class="text-left">
-            <span
+            <span @click="sorted.shows = !sorted.shows"
               >Показы
-              <span
-                class="sorting"
-                :class="{ sorted: sorted.shows }"
-                @click="sorted.shows = !sorted.shows"
-              >
+              <span class="sorting" :class="{ sorted: sorted.shows }">
                 <svg
                   width="24"
                   height="24"
@@ -378,13 +445,9 @@
             </span>
           </th>
           <th class="text-left">
-            <span
+            <span @click="sorted.clicks = !sorted.clicks"
               >Клики
-              <span
-                class="sorting"
-                :class="{ sorted: sorted.clicks }"
-                @click="sorted.clicks = !sorted.clicks"
-              >
+              <span class="sorting" :class="{ sorted: sorted.clicks }">
                 <svg
                   width="24"
                   height="24"
@@ -421,13 +484,9 @@
             </span>
           </th>
           <th class="text-left">
-            <span
+            <span @click="sorted.uniqClicks = !sorted.uniqClicks"
               >Ун. клики
-              <span
-                class="sorting"
-                :class="{ sorted: sorted.uniqClicks }"
-                @click="sorted.uniqClicks = !sorted.uniqClicks"
-              >
+              <span class="sorting" :class="{ sorted: sorted.uniqClicks }">
                 <svg
                   width="24"
                   height="24"
@@ -464,13 +523,9 @@
             </span>
           </th>
           <th class="text-left">
-            <span
+            <span @click="sorted.ctr = !sorted.ctr"
               >CTR
-              <span
-                class="sorting"
-                :class="{ sorted: sorted.ctr }"
-                @click="sorted.ctr = !sorted.ctr"
-              >
+              <span class="sorting" :class="{ sorted: sorted.ctr }">
                 <svg
                   width="24"
                   height="24"
@@ -507,13 +562,9 @@
             </span>
           </th>
           <th class="text-left">
-            <span
+            <span @click="sorted.cpm = !sorted.cpm"
               >CPM
-              <span
-                class="sorting"
-                :class="{ sorted: sorted.cpm }"
-                @click="sorted.cpm = !sorted.cpm"
-              >
+              <span class="sorting" :class="{ sorted: sorted.cpm }">
                 <svg
                   width="24"
                   height="24"
@@ -550,13 +601,9 @@
             </span>
           </th>
           <th class="text-right">
-            <span
+            <span @click="sorted.profit = !sorted.profit"
               >Доход
-              <span
-                class="sorting"
-                :class="{ sorted: sorted.profit }"
-                @click="sorted.profit = !sorted.profit"
-              >
+              <span class="sorting" :class="{ sorted: sorted.profit }">
                 <svg
                   width="24"
                   height="24"
@@ -738,7 +785,8 @@ export default {
         "Значение 3",
         "Значение 4"
       ],
-      tabCharts: "profit"
+      tabCharts: "profit",
+      lockPage: false
     };
   }
 };
@@ -752,7 +800,7 @@ export default {
     padding: 32px 40px;
   }
 
-  @media (max-width:1200px){
+  @media (max-width: 1200px) {
     padding: 32px;
   }
 }
@@ -761,7 +809,7 @@ export default {
   .title-mob {
     display: none;
   }
-  
+
   .filters {
     margin: 0px 0px 40px 0px;
 
@@ -772,7 +820,7 @@ export default {
     .q-btn {
       margin: 0px 24px 0px 0px;
 
-      @media (max-width:1144px){
+      @media (max-width: 1144px) {
         margin: 0px 24px 10px 0px;
       }
     }
@@ -856,6 +904,10 @@ export default {
       height: 40px;
       min-height: 0;
       padding: 0 16px;
+
+      &::after {
+        height: 0;
+      }
     }
 
     &__append {
@@ -900,7 +952,7 @@ export default {
       color: #4690ff;
     }
 
-    @media (max-width: 1144px){
+    @media (max-width: 1144px) {
       margin: 0px 24px 10px 0;
     }
   }
@@ -1037,7 +1089,7 @@ export default {
       }
 
       .q-toggle__track {
-        border: 1px solid #0065fe;
+        border: 1px solid #0065fe !important;
       }
     }
 
@@ -1058,7 +1110,7 @@ export default {
       display: none;
     }
 
-    @media (max-width:1150px){
+    @media (max-width: 1150px) {
       margin: 0px 54px 0px 0px;
     }
   }
@@ -1122,7 +1174,7 @@ export default {
               }
             }
 
-            @media (max-width:1200px){
+            @media (max-width: 1200px) {
               top: -4px;
               right: -7px;
             }
@@ -1133,13 +1185,13 @@ export default {
             width: 15.3%;
           }
 
-          @media (max-width:1200px){
+          @media (max-width: 1200px) {
             font-size: 16px;
             padding: 4px 0 18px 0px;
             width: 14.65%;
           }
 
-          @media (max-width:1100px){
+          @media (max-width: 1100px) {
             min-width: 128px;
           }
         }
@@ -1153,7 +1205,7 @@ export default {
             }
           }
 
-          @media (max-width:1200px){
+          @media (max-width: 1200px) {
             span {
               padding: 0px 64px 0px 0px;
             }
@@ -1178,12 +1230,12 @@ export default {
             background: transparent;
           }
 
-          @media (max-width:1200px){
+          @media (max-width: 1200px) {
             font-size: 16px;
             width: 14.65%;
           }
 
-          @media (max-width:1100px){
+          @media (max-width: 1100px) {
             min-width: 128px;
           }
         }
@@ -1197,7 +1249,7 @@ export default {
             padding: 0px 29px 0px 0px;
           }
 
-          @media (max-width:1200px){
+          @media (max-width: 1200px) {
             padding: 2px 50px 0px 0px;
           }
         }
@@ -1216,7 +1268,7 @@ export default {
     box-shadow: 0px 0px 24px rgba(18, 40, 76, 0.08);
     border-radius: 4px;
 
-    @media (max-width:1366px){
+    @media (max-width: 1366px) {
       margin: 0px 0px 32px 0px;
     }
 
@@ -1264,11 +1316,12 @@ export default {
             display: block;
           }
 
-          .graphic-desktop {
+          .graphic-desktop,
+          .graphic-mob {
             display: none;
           }
 
-          @media (max-width:1366px){
+          @media (max-width: 1366px) {
             .graphic-desktop {
               display: block;
             }
@@ -1351,7 +1404,7 @@ export default {
         object-position: 0 0;
       }
 
-      @media (max-width:1366px){
+      @media (max-width: 1366px) {
         height: 297px;
         width: 1146px;
       }
@@ -1388,7 +1441,7 @@ export default {
       padding: 0px 0px 17px 0px;
       min-width: 140px;
 
-      @media (max-width:1130px){
+      @media (max-width: 1130px) {
         margin: 1px 0px 0px 0px;
       }
 
@@ -1399,14 +1452,14 @@ export default {
         color: #596982;
         position: relative;
 
-        @media (max-width:1130px){
-          color: #12284C;
+        @media (max-width: 1130px) {
+          color: #12284c;
         }
 
         & + .datepicker-listitem {
           margin: 25px 0px 0px 0px;
 
-          @media (max-width:1130px){
+          @media (max-width: 1130px) {
             margin: 0px 16px 16px 0px;
           }
         }
@@ -1423,23 +1476,23 @@ export default {
             right: -2px;
             background-color: #4690ff;
 
-            @media (max-width:1130px){
+            @media (max-width: 1130px) {
               display: none;
             }
           }
 
-          @media (max-width:1130px){
-            color: #12284C;
+          @media (max-width: 1130px) {
+            color: #12284c;
             border: none;
-            background: #F0F5FD;
-            border: 1px solid #F0F5FD;
+            background: #f0f5fd;
+            border: 1px solid #f0f5fd;
           }
         }
 
-        @media (max-width:1130px){
+        @media (max-width: 1130px) {
           display: inline-block;
           padding: 3px 8px;
-          border: 1px solid #A0A9B7;
+          border: 1px solid #a0a9b7;
           border-radius: 50px;
           margin: 0px 16px 16px 0px;
         }
@@ -1457,7 +1510,7 @@ export default {
         & + .q-date {
           margin: 0px 0px 0px 40px;
 
-          @media (max-width:900px){
+          @media (max-width: 900px) {
             margin: 40px auto 0px;
           }
         }
@@ -1635,11 +1688,11 @@ export default {
           }
         }
 
-				@media (max-width:900px){
+        @media (max-width: 900px) {
           display: flex;
           justify-content: center;
           margin: 0 auto;
-				}
+        }
       }
 
       .datepicker-btn {
@@ -1657,12 +1710,12 @@ export default {
           color: #12284c;
         }
 
-				@media (max-width:1130px){
-					display: none;
-				}
+        @media (max-width: 1130px) {
+          display: none;
+        }
       }
 
-      @media (max-width:1130px){
+      @media (max-width: 1130px) {
         display: block;
         padding: 16px;
       }
@@ -1671,14 +1724,14 @@ export default {
     .datepicker-nav {
       display: none;
 
-      @media (max-width:1130px){
+      @media (max-width: 1130px) {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin: 0px 0px 27px 0px;
 
         .datepicker-reset {
-          color: #A64541;
+          color: #a64541;
           font-weight: 500;
           font-size: 14px;
           line-height: 18px;
@@ -1688,7 +1741,7 @@ export default {
           font-weight: 600;
           font-size: 14px;
           line-height: 18px;
-          color: #12284C;
+          color: #12284c;
           margin: 0px 50px 0px 0px;
         }
 
@@ -1701,10 +1754,10 @@ export default {
             }
           }
 
-          &.active{
+          &.active {
             svg {
               path {
-                fill: #12284C;
+                fill: #12284c;
               }
             }
           }
@@ -1712,11 +1765,11 @@ export default {
       }
     }
 
-		@media (max-width:1130px){
-			margin: 16px 32px 0px 0px !important;
+    @media (max-width: 1130px) {
+      margin: 16px 32px 0px 0px !important;
       max-width: 740px;
       min-height: 520px;
-		}
+    }
   }
 
   .filter-menu {
@@ -1724,6 +1777,10 @@ export default {
     box-shadow: 0px 0px 32px rgba(18, 40, 76, 0.08);
     border-radius: 4px;
     padding: 32px;
+
+    .filter-nav {
+      display: none;
+    }
 
     &__row,
     &__buttons {
@@ -1951,7 +2008,7 @@ export default {
           box-shadow: none;
         }
 
-        @media (max-width:800px){
+        @media (max-width: 800px) {
           margin: 0px 24px 0px 0;
         }
       }
@@ -1990,7 +2047,15 @@ export default {
         }
       }
 
-      @media (max-width:800px){
+      &.btn-reset {
+        display: block;
+      }
+
+      &.btn-del {
+        display: none;
+      }
+
+      @media (max-width: 800px) {
         margin: 0px 24px 10px 0px;
       }
     }
@@ -2039,6 +2104,11 @@ export default {
         }
       }
     }
+
+    .group-menu,
+    .group-btn {
+      display: none;
+    }
   }
 
   &.filterOne {
@@ -2084,19 +2154,1075 @@ export default {
 }
 
 // Mobile
-@media (max-width:500px){
+@media (max-width: 500px) {
   .q-page {
     padding: 16px !important;
   }
 
   .statistics-page {
+    max-width: 100%;
+    transition: all 0.2s;
+    transition-delay: 0s;
+
+    &.lock {
+      background: #12284c20;
+      position: fixed;
+    }
+
+    .datepicker {
+      &:hover {
+        border: 1px solid #a0a9b7;
+      }
+    }
+
+    .q-field {
+      &:hover {
+        border: 1px solid #a0a9b7;
+      }
+    }
+
     .title-mob {
       display: block;
       font-weight: 500;
       font-size: 24px;
       line-height: 29px;
-      color: #12284C;
-      margin: 0px 0px 25px 0px;
+      color: #12284c;
+      margin: 0px 0px 18px 0px;
+    }
+
+    .filters {
+      margin: 0px 0px 23px 0px;
+
+      .q-btn {
+        margin: 0px 0px 16px 0px;
+        min-width: 100%;
+        font-size: 16px;
+      }
+
+      .datepicker,
+      .filter {
+        .q-btn__content {
+          justify-content: flex-start;
+        }
+
+        &:hover {
+          border: 1px solid #a0a9b7;
+        }
+      }
+
+      .q-field {
+        margin: 0px 0px 16px 0px;
+        min-width: 100%;
+      }
+
+      .cvs-icon {
+        display: none;
+      }
+    }
+
+    .filter__wrp {
+      min-width: 100%;
+      margin: 0px 0px 9px 0px;
+    }
+
+    .chart-toggle {
+      margin: 7px 54px 0px 0px;
+      display: flex;
+      min-width: 100%;
+      justify-content: space-between;
+
+      .q-toggle__inner {
+        width: 46px;
+      }
+
+      .q-toggle__track {
+        &:hover {
+          border: 1px solid #5a6577;
+        }
+      }
+    }
+
+    .q-markup-table {
+      margin: 0px -16px 73px 0px;
+      transition: all 0.2s;
+
+      &.lock {
+        background: #464b5712;
+        position: fixed;
+      }
+
+      .q-table {
+        padding: 16px;
+
+        thead {
+          tr {
+            height: 0px;
+          }
+
+          th {
+            padding: 4px 0 11px 0px;
+            font-size: 14px;
+            line-height: 18px;
+            color: #596982;
+            letter-spacing: 0.03em;
+            max-width: 240px;
+            width: 15.9%;
+            min-width: 122px;
+
+            span {
+              cursor: pointer;
+              display: inline-block;
+              position: relative;
+              padding: 0px 35px 0px 0px;
+            }
+
+            .sorting {
+              position: absolute;
+              width: 24px;
+              height: 24px;
+              top: 1px;
+              right: -8px;
+
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+            }
+          }
+
+          .text-right {
+            min-width: 96px;
+
+            span {
+              padding: 0px 35px 0px 0px;
+            }
+          }
+        }
+
+        tbody {
+          tr {
+          }
+
+          td {
+            font-size: 14px;
+            line-height: 22px;
+            padding: 8px 0px 7px 0px;
+            height: 38px;
+            max-width: 240px;
+            width: 15.9%;
+
+            &:before {
+              background: transparent;
+            }
+
+            min-width: 122px;
+          }
+
+          .text-right {
+            min-width: 96px;
+            color: #95bd5a;
+            padding: 2px 15px 0px 0px;
+          }
+
+          .total {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .q-card {
+      box-shadow: none;
+      margin: 0 -16px -12px;
+      padding: 0px;
+
+      .scroll {
+        overflow: hidden !important;
+      }
+
+      .q-tab + .q-tab {
+        margin: 0px 0px 0px 15px;
+      }
+
+      .q-tab {
+        &-panel {
+          padding: 0;
+
+          .chart {
+            height: 262px;
+            width: 360px;
+
+            .graphic-desktop {
+              display: none;
+            }
+
+            .graphic-mob {
+              display: block;
+            }
+
+            img {
+              object-fit: contain;
+            }
+          }
+        }
+      }
+
+      .q-tabs {
+        padding: 8px 16px 0;
+        margin: 0px 0px 22px 0px;
+
+        &__content {
+          overflow: auto !important;
+
+          .q-tab {
+            &__label {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .q-menu {
+    &.datepicker-popup {
+      position: fixed !important;
+      top: 0px !important;
+      left: 0px !important;
+      min-height: 100% !important;
+      margin: 55px 0 0 0 !important;
+      padding: 0px 0px 125px 0px !important;
+      max-width: 740px !important;
+      min-height: 520px !important;
+      max-height: 100% !important;
+      z-index: 4000;
+
+      .datepicker-list {
+        padding: 0px 0px 19px 0px;
+        min-width: 140px;
+        margin: 48px 0px 0px 0px;
+
+        .datepicker-listitem {
+          cursor: pointer;
+          font-size: 14px;
+          line-height: 17px;
+          position: relative;
+          display: inline-block;
+          padding: 3px 7px 2px 8px;
+          border: 1px solid #a0a9b7;
+          border-radius: 50px;
+          margin: 0px 13px 16px 0px;
+          color: #12284c;
+
+          & + .datepicker-listitem {
+            margin: 0px 16px 16px 0px;
+          }
+
+          &.active {
+            color: #12284c;
+            border: none;
+            background: #f0f5fd;
+            border: 1px solid #f0f5fd;
+
+            &::after {
+              content: "";
+              position: absolute;
+              width: 2px;
+              height: 18px;
+              top: 0;
+              right: -2px;
+              background-color: #4690ff;
+            }
+          }
+        }
+      }
+
+      .datepicker-menu {
+        display: block;
+        padding: 8px 16px;
+
+        .q-date {
+          width: 329px;
+
+          & + .q-date {
+            margin: 19px auto 0px;
+          }
+
+          box-shadow: none;
+          min-width: 322px;
+
+          &__navigation {
+            height: 17px;
+            margin: 0px auto 11px;
+            max-width: 240px;
+
+            .q-date__arrow + .q-date__arrow {
+              padding: 0px 0px 0px 21px;
+            }
+
+            .q-date__arrow {
+              .q-btn .q-icon,
+              .q-btn .q-spinner {
+                font-size: 23px;
+              }
+
+              .q-focus-helper {
+                display: none;
+              }
+            }
+
+            .q-btn {
+              .q-focus-helper {
+                display: none;
+              }
+            }
+
+            .q-btn__content .block {
+              margin: 0 6px;
+            }
+          }
+
+          &__calendar-weekdays {
+            height: 46px;
+
+            .q-date__calendar-item {
+              &:hover {
+                background-color: #fff;
+                cursor: default;
+              }
+            }
+          }
+
+          &__header,
+          &__actions {
+            display: none;
+          }
+
+          &__view,
+          &__calendar-days-container {
+            min-height: 0;
+          }
+
+          &__view {
+            padding: 0;
+          }
+
+          &__calendar-item {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            opacity: 1;
+            color: #12284c;
+            border-radius: 4px;
+
+            .q-focus-helper {
+              display: none;
+            }
+
+            &--in {
+              font-weight: 400;
+            }
+
+            .block {
+              color: #12284c;
+            }
+
+            &:hover {
+              background: #fff;
+              cursor: pointer;
+            }
+
+            button {
+              width: 46px;
+              height: 46px;
+              border-radius: 4px;
+
+              @media (max-width: 359px) {
+                height: 42px !important;
+                width: 42px !important;
+              }
+            }
+
+            .q-btn {
+              &.bg-primary {
+                background: #4690ff !important;
+                border-radius: 4px;
+
+                .block {
+                  color: #fff !important;
+                }
+              }
+            }
+          }
+
+          &__calendar-days > div {
+            height: 47px !important;
+            width: 47px !important;
+
+            @media (max-width: 359px) {
+              height: 41px !important;
+              width: 41px !important;
+            }
+          }
+
+          &__edit-range {
+            background-color: #4690ff;
+          }
+
+          &__range-from,
+          &__edit-range-from,
+          &__range-to,
+          &__edit-range-to {
+            background-color: #4690ff !important;
+            border-radius: 4px;
+
+            .q-btn {
+              &.bg-primary {
+                background: #4690ff !important;
+              }
+            }
+
+            .q-focus-helper {
+              display: none;
+            }
+
+            .block {
+              color: #fff;
+            }
+          }
+
+          &__today {
+            background-color: #f0f5fd !important;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: none;
+
+            .q-btn {
+              &.bg-primary {
+                background: #f0f5fd !important;
+              }
+            }
+
+            .q-focus-helper {
+              display: none;
+            }
+
+            .block {
+              color: #12284c;
+            }
+          }
+
+          &__range-from:before,
+          &__range-to:before {
+            display: none;
+          }
+
+          &__range:before {
+            background: #d4e4fe;
+          }
+
+          &__months-item,
+          &__years-item {
+            .block {
+              color: #12284c !important;
+            }
+            .q-btn {
+              box-shadow: none !important;
+            }
+          }
+
+          @media (max-width: 900px) {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+          }
+
+          @media (max-width: 359px) {
+            width: 288px;
+            min-width: 288px;
+          }
+        }
+
+        .datepicker-btn {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 22px;
+          color: #596982;
+          cursor: pointer;
+          position: absolute;
+          bottom: 49px;
+          right: 40px;
+          transition: all 0.3s;
+
+          &:hover {
+            color: #12284c;
+          }
+
+          @media (max-width: 1130px) {
+            display: none;
+          }
+        }
+
+        .datepicker-btn-two {
+          display: block;
+          position: fixed;
+          width: 100%;
+          height: 40px;
+          bottom: 16px;
+          left: 0;
+          color: #fff;
+          text-align: center;
+          padding: 0 16px;
+
+          span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
+            border-radius: 4px;
+            background: #dbdfe4;
+            font-size: 16px;
+
+            &.active {
+              background: #4690ff;
+            }
+          }
+        }
+      }
+
+      .datepicker-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: -8px 0 0 0;
+        padding: 11px 0px 0px 0px;
+        position: fixed;
+        width: calc(100% - 32px);
+        background-color: #fff;
+        z-index: 9000;
+
+        .datepicker-reset {
+          color: #a64541;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+        }
+
+        .datepicker-title {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 18px;
+          color: #12284c;
+          margin: 0px 46px 0px 0px;
+        }
+
+        .datepicker-close {
+          margin: -3px 0px 0px 0px;
+          cursor: pointer;
+
+          svg {
+            path {
+              fill: #596982;
+            }
+          }
+
+          &.active {
+            svg {
+              path {
+                fill: #12284c;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .filter-menu {
+      background-color: #fff;
+      box-shadow: 0px 0px 32px rgba(18, 40, 76, 0.08);
+      border-radius: 4px;
+      padding: 9px 16px;
+      min-height: 584px;
+      box-shadow: none;
+
+      .filter-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: -5px 0px 20px;
+        padding: 0px 0px 0;
+
+        .filter-reset {
+          color: #a64541;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+        }
+
+        .filter-title {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 18px;
+          color: #12284c;
+          margin: 0px 45px 0px 0px;
+          letter-spacing: 0.1px;
+        }
+
+        .filter-close {
+          cursor: pointer;
+          margin: 3px 0px 0px 0px;
+
+          svg {
+            path {
+              fill: #596982;
+            }
+          }
+
+          &.active {
+            svg {
+              path {
+                fill: #12284c;
+              }
+            }
+          }
+        }
+      }
+
+      &__row,
+      &__buttons {
+        display: block;
+
+        & + .filter-menu__buttons {
+          margin: 24px 0px 0px 0px;
+        }
+
+        & + .filter-menu__row {
+          margin: 16px 0px 0px 0px;
+        }
+      }
+
+      &__buttons {
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: column-reverse;
+      }
+
+      &__close {
+        display: none;
+      }
+
+      .q-field {
+        border: 1px solid #a0a9b7;
+        box-sizing: border-box;
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        padding-bottom: 8px;
+        max-width: 100%;
+        min-width: 100%;
+
+        &:hover {
+          border: 1px solid #a0a9b7;
+        }
+
+        & + .q-field {
+          margin: 16px 0px 0px 0px;
+        }
+
+        &--focused {
+          .q-field__label {
+            display: none;
+          }
+        }
+
+        &--float {
+          .q-field__label {
+            display: none;
+          }
+        }
+
+        &__control {
+          height: 40px;
+          min-height: 0;
+          padding: 0 16px;
+        }
+
+        &__append {
+          height: 40px;
+        }
+
+        &__control-container {
+          padding-top: 0px !important;
+        }
+
+        &__label {
+          font-weight: 400;
+        }
+
+        &__native {
+          min-height: 0 !important;
+          font-size: 16px;
+          line-height: 20px;
+          color: #12284c;
+          font-weight: 400;
+          padding: 0px 0px 0px 0px;
+          flex-wrap: nowrap;
+          overflow: hidden;
+
+          span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .no-outline {
+            display: none;
+          }
+
+          .q-chip {
+            padding: 4px 10px 4px 3px;
+            height: 28px;
+            margin: 0;
+            border-radius: 4px;
+            background: #dbdfe4;
+            z-index: 1;
+
+            & + .q-chip {
+              margin: 0px 0px 0px 5px;
+            }
+
+            &__content {
+              .ellipsis {
+                color: #12284c;
+                font-size: 16px;
+                line-height: 20px;
+                letter-spacing: -0.2px;
+              }
+            }
+
+            &__icon {
+              color: transparent;
+              position: relative;
+
+              &::after {
+                content: "";
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                top: 0px;
+                right: -2px;
+                background: url("../assets/close.svg") 0 0 no-repeat;
+              }
+            }
+          }
+        }
+
+        .q-select__dropdown-icon {
+          font-size: 24px;
+          margin: -5px -10px -2px 0px;
+          color: #4690ff;
+        }
+      }
+
+      .q-field--filled .q-field__control {
+        background: transparent;
+      }
+
+      .q-field--filled .q-field__control:before {
+        background: transparent !important;
+        border-bottom: none;
+      }
+
+      .btn {
+        margin: 0px 24px 10px 0px;
+        min-width: 100%;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+
+        .q-ripple {
+          display: none;
+        }
+
+        &-red {
+          color: #b36f6c;
+          background-color: #fff;
+          margin: 0px 24px 32px 0px;
+          border: 1px solid #a64541;
+          box-sizing: border-box;
+          border-radius: 4px;
+          opacity: 0.15;
+
+          .q-btn__wrapper {
+            padding: 0;
+          }
+
+          &:hover,
+          &:active {
+            background-color: #fff;
+          }
+
+          &.active {
+            color: #a64541;
+            opacity: 1;
+          }
+        }
+
+        &-grey {
+          display: none;
+        }
+
+        &-blue {
+          position: fixed;
+          bottom: 7px;
+          left: 0;
+          padding: 0 16px;
+          background-color: #fff;
+          border: none;
+
+          .q-btn__wrapper {
+            background-color: #dbdfe4;
+          }
+
+          &.active {
+            .q-btn__wrapper {
+              background-color: #4690ff;
+            }
+          }
+          
+          &:hover{
+            background-color: #fff;
+          }
+        }
+
+        &-white {
+          &:hover{
+            background-color: #fff;
+            color: #4690ff;
+          }
+        }
+
+        &.btn-reset {
+          display: none;
+        }
+
+        &.btn-del {
+          display: block;
+        }
+      }
+
+      .q-btn {
+        .block {
+          white-space: nowrap;
+        }
+      }
+    }
+
+    &.group {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      top: auto !important;
+      width: 100%;
+      max-width: 100% !important;
+      padding: 8px 16px 16px !important;
+      margin: 0 !important;
+      min-height: 256px !important;
+      box-shadow: 0px 0px 24px rgba(18, 40, 76, 0.08);
+      border-radius: 4px 4px 0px 0px;
+
+      .q-item {
+        display: inline-block;
+        padding: 2px 7px;
+        min-height: 0;
+        position: relative;
+        font-size: 14px;
+        line-height: 18px;
+        border: 1px solid #a0a9b7;
+        border-radius: 4px;
+        margin: 0px 17px 16px 0px;
+
+        &:hover {
+          background: #fff;
+        }
+
+        &__label {
+          color: #12284c;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &::before {
+          display: none;
+        }
+
+        &--active {
+          border: 1px solid #f0f5fd;
+          color: #12284c;
+          background: #f0f5fd !important;
+        }
+      }
+
+      .group-menu:first-child {
+        display: block;
+
+        .group-nav {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: -5px 0px 20px;
+          padding: 0px 0px 0;
+
+          .group-reset {
+            color: #a64541;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+          }
+
+          .group-title {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 18px;
+            color: #12284c;
+            margin: 0px 45px 0px 0px;
+            letter-spacing: 0.1px;
+          }
+
+          .group-close {
+            cursor: pointer;
+            margin: 3px 0px 0px 0px;
+
+            svg {
+              path {
+                fill: #596982;
+              }
+            }
+
+            &.active {
+              svg {
+                path {
+                  fill: #12284c;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .group-btn:last-child {
+        display: block;
+        position: fixed;
+        width: 100%;
+        height: 40px;
+        bottom: 16px;
+        left: 0;
+        color: #fff;
+        text-align: center;
+        padding: 0 16px;
+
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100%;
+          border-radius: 4px;
+          background: #dbdfe4;
+          font-size: 16px;
+
+          &.active {
+            background: #4690ff;
+          }
+        }
+      }
+    }
+
+    &.filterOne {
+      min-width: 217px !important;
+      padding: 0;
+      width: calc(100% - 32px);
+      transform: translate(-1px, 0px);
+
+      .q-item {
+        padding: 11px 24px 10px;
+        min-height: 0;
+        position: relative;
+        background: #fff !important;
+
+        &:hover {
+          background: #f3f4f6;
+        }
+
+        &__label {
+          color: #12284c;
+          font-size: 16px;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &--active {
+          background: #f3f4f6 !important;
+          .q-item__label {
+            color: #12284c !important;
+          }
+        }
+
+        &::before {
+          display: none !important;
+        }
+      }
+    }
+
+    &.filterTwo {
+      min-width: 0px !important;
+      width: calc(100% - 32px);
+      transform: translate(-1px, 0px);
+
+      .q-item {
+        position: relative;
+        font-size: 16px;
+        line-height: 20px;
+        padding: 11px 24px;
+
+        &::after {
+          content:'';
+          position: absolute;
+          top: 12px;
+          right: 16px;
+          width: 16px;
+          height: 16px;
+          background: url('../assets/checkbox-default-16.svg') 0 0 no-repeat;
+        }
+
+        &--active {
+          &::after {
+            background: url('../assets/checkbox-default-16-active.svg') 0 0 no-repeat;
+          }
+        }
+
+        &:hover{
+          background-color: #fff;
+        }
+      }
+    }
+
+    &.filter-popup {
+      position: fixed !important;
+      top: 0px !important;
+      left: 0px !important;
+      min-height: 100% !important;
+      margin: 55px 0 0 0 !important;
+      padding: 0px !important;
+      max-width: 100% !important;
+      min-height: 100% !important;
+      max-height: 100% !important;
+      min-width: 100% !important;
+      z-index: 4000;
     }
   }
 }
