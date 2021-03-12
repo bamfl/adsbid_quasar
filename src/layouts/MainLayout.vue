@@ -1305,7 +1305,7 @@ html{
         height: 100%;
         top: 0;
         left: 0;
-        background: url("../assets/rus_flag.svg") center no-repeat;
+        background: url("../assets/rus_flag.png") center no-repeat;
       }
 
       .q-btn-dropdown__arrow {
@@ -1488,7 +1488,7 @@ html{
           height: 100%;
           top: 0;
           left: 0;
-          background: url("../assets/rus_flag_min.svg") center no-repeat;
+          background: url("../assets/rus_flag_min.png") center no-repeat;
         }
 
         .q-btn-dropdown__arrow {

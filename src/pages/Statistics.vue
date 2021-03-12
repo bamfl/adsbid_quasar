@@ -66,7 +66,7 @@
             Отменить
           </div>
 
-          <div class="datepicker-btn-two" :ripple="false">
+          <div class="datepicker-btn-two" :ripple="false" @click="datepicker = false">
             <span class="active">Готово</span>
           </div>
         </div>
