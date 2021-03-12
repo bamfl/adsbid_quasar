@@ -1,5 +1,5 @@
 <template>
-  <q-page :class="['statistics-page', {lock: lockPage}]">
+  <q-page :class="['statistics-page', { lock: lockPage }]">
     <div class="title-mob">Статистика</div>
 
     <div class="row filters">
@@ -11,12 +11,13 @@
         menu-anchor="bottom left"
         menu-self="top left"
         @input="lockPage = !lockPage"
+        v-model="datepicker"
       >
         <div class="datepicker-menu">
           <div class="datepicker-nav">
-            <div class="datepicker-reset">Сбросить</div>
+            <div class="datepicker-reset" @click="dateOne = null, dateTwo = null">Сбросить</div>
             <div class="datepicker-title">Период</div>
-            <div class="datepicker-close active">
+            <div class="datepicker-close active" @click="datepicker = false">
               <svg
                 width="24"
                 height="24"
@@ -57,7 +58,13 @@
 
           <q-date v-model="dateTwo" minimal range />
 
-          <div class="datepicker-btn" :ripple="false">Отменить</div>
+          <div
+            class="datepicker-btn"
+            :ripple="false"
+            @click="datepicker = false"
+          >
+            Отменить
+          </div>
 
           <div class="datepicker-btn-two" :ripple="false">
             <span class="active">Готово</span>
@@ -73,15 +80,16 @@
         label="Группировать по:"
         style="width: 213px; height: 40px"
         dropdown-icon="keyboard_arrow_down"
-        popup-content-class="group"
+        popup-content-class="group-popup"
         behavior="menu"
         @popup-show="lockPage = !lockPage"
         @popup-hide="lockPage = !lockPage"
+        auto-close
       >
         <template v-slot:option="groupOptions">
           <div class="group-menu">
             <div class="group-nav">
-              <div class="group-reset">Сбросить</div>
+              <div class="group-reset" @click="group = null">Сбросить</div>
               <div class="group-title">Группировать по:</div>
               <div class="group-close active">
                 <svg
@@ -138,12 +146,13 @@
           menu-self="top left"
           content-class="filter-popup"
           @input="lockPage = !lockPage"
+          v-model="filter"
         >
           <div class="filter-menu">
             <div class="filter-nav">
-              <div class="filter-reset">Сбросить</div>
+              <div class="filter-reset" @click.stop="(filterOne = null), (filterTwo = null)">Сбросить</div>
               <div class="filter-title">Фильтры</div>
-              <div class="filter-close active">
+              <div class="filter-close active" @click="filter = false">
                 <svg
                   width="24"
                   height="24"
@@ -196,6 +205,7 @@
                 multiple
                 popup-content-class="filterTwo"
                 behavior="menu"
+                @new-value="createValue"
               >
               </q-select>
 
@@ -204,7 +214,6 @@
                   'filter-menu__close',
                   { active: filterOne || filterTwo !== null }
                 ]"
-                @click.stop="(filterOne = null), (filterTwo = null)"
               >
                 <svg
                   width="16"
@@ -222,11 +231,11 @@
                 </svg>
               </div>
               <q-btn
-                  class="btn btn-red btn-del active"
-                  label="Удалить фильтр"
-                  unelevated
-                  no-caps
-                  :ripple="false"
+                class="btn btn-red btn-del active"
+                label="Удалить фильтр"
+                unelevated
+                no-caps
+                :ripple="false"
               />
             </div>
 
@@ -240,17 +249,19 @@
               />
               <q-btn
                 class="btn btn-red btn-reset"
+                @click.stop="(filterOne = null), (filterTwo = null)"
                 label="Сбросить все"
                 unelevated
                 no-caps
                 :ripple="false"
-              />              
+              />
               <q-btn
                 class="btn btn-blue active"
                 label="Готово"
                 :ripple="false"
                 unelevated
                 no-caps
+                @click="filter = false"
               />
               <q-btn
                 class="btn btn-grey"
@@ -258,8 +269,9 @@
                 label="Отменить"
                 unelevated
                 no-caps
+                @click="filter = false"
               />
-            </div>      
+            </div>
           </div>
         </q-btn-dropdown>
       </div>
@@ -363,7 +375,7 @@
       </q-tab-panels>
     </q-card>
 
-    <q-markup-table flat :class="{lock: lockPage}">
+    <q-markup-table flat :class="{ lock: lockPage }">
       <thead>
         <tr>
           <th class="text-left">
@@ -750,6 +762,8 @@
 export default {
   data() {
     return {
+      datepicker: false,
+      filter: false,
       sorted: {
         date: false,
         shows: false,
@@ -788,6 +802,16 @@ export default {
       tabCharts: "profit",
       lockPage: false
     };
+  },
+  methods: {
+    createValue (val, done) {
+      if (val.length > 0) {
+        if (!this.optionsTwo.includes(val)) {
+          this.optionsTwo.push(val)
+        }
+        done(val, 'toggle')
+      }
+    }
   }
 };
 </script>
@@ -806,6 +830,15 @@ export default {
 }
 
 .statistics-page {
+  &.lock {
+    position: fixed;
+    width: calc(100% - 253px);
+
+    @media (max-width:1600px){
+      width: calc(100% - 112px);      
+    }
+  }
+
   .title-mob {
     display: none;
   }
@@ -2007,14 +2040,11 @@ export default {
         border-radius: 4px;
         margin: 0px 24px 0px auto;
 
-        &:hover {
-          background: #cdd0d4;
-        }
-
         &:active {
           background-color: transparent;
           color: #fff;
           box-shadow: none;
+          background-color: #4690ff;
         }
 
         @media (max-width: 800px) {
@@ -2076,7 +2106,7 @@ export default {
     }
   }
 
-  &.group {
+  &.group-popup {
     min-width: 213px !important;
     padding: 16px 0;
 
@@ -2177,6 +2207,7 @@ export default {
     &.lock {
       background: #12284c20;
       position: fixed;
+      width: 100%;
     }
 
     .datepicker {
@@ -3010,14 +3041,14 @@ export default {
               background-color: #4690ff;
             }
           }
-          
-          &:hover{
+
+          &:hover {
             background-color: #fff;
           }
         }
 
         &-white {
-          &:hover{
+          &:hover {
             background-color: #fff;
             color: #4690ff;
           }
@@ -3040,7 +3071,7 @@ export default {
       }
     }
 
-    &.group {
+    &.group-popup {
       position: fixed !important;
       bottom: 0 !important;
       left: 0 !important;
@@ -3211,22 +3242,23 @@ export default {
         padding: 11px 24px;
 
         &::after {
-          content:'';
+          content: "";
           position: absolute;
           top: 12px;
           right: 16px;
           width: 16px;
           height: 16px;
-          background: url('../assets/checkbox-default-16.svg') 0 0 no-repeat;
+          background: url("../assets/checkbox-default-16.svg") 0 0 no-repeat;
         }
 
         &--active {
           &::after {
-            background: url('../assets/checkbox-default-16-active.svg') 0 0 no-repeat;
+            background: url("../assets/checkbox-default-16-active.svg") 0 0
+              no-repeat;
           }
         }
 
-        &:hover{
+        &:hover {
           background-color: #fff;
         }
       }
