@@ -1,5 +1,5 @@
 <template>
-  <q-page class="statistics-page" :class="{ lock: lockPage }">
+  <q-page :class="['statistics-page', {lock: lockPage}]">
     <div class="title-mob">Статистика</div>
 
     <div class="row filters">
@@ -221,6 +221,13 @@
                   />
                 </svg>
               </div>
+              <q-btn
+                  class="btn btn-red btn-del active"
+                  label="Удалить фильтр"
+                  unelevated
+                  no-caps
+                  :ripple="false"
+              />
             </div>
 
             <div class="filter-menu__buttons">
@@ -237,14 +244,7 @@
                 unelevated
                 no-caps
                 :ripple="false"
-              />
-              <q-btn
-                class="btn btn-red btn-del active"
-                label="Удалить фильтр"
-                unelevated
-                no-caps
-                :ripple="false"
-              />
+              />              
               <q-btn
                 class="btn btn-blue active"
                 label="Готово"
@@ -259,7 +259,7 @@
                 unelevated
                 no-caps
               />
-            </div>
+            </div>      
           </div>
         </q-btn-dropdown>
       </div>
@@ -363,7 +363,7 @@
       </q-tab-panels>
     </q-card>
 
-    <q-markup-table flat :class="{ lock: lockPage }">
+    <q-markup-table flat :class="{lock: lockPage}">
       <thead>
         <tr>
           <th class="text-left">
@@ -1710,9 +1710,17 @@ export default {
           color: #12284c;
         }
 
+        @media (max-width: 1360px) {
+          bottom: 65px;
+        }
+
         @media (max-width: 1130px) {
           display: none;
         }
+      }
+
+      .datepicker-btn-two {
+        display: none;
       }
 
       @media (max-width: 1130px) {
@@ -1797,6 +1805,7 @@ export default {
 
     &__buttons {
       flex-wrap: wrap;
+      margin: 32px 0px 0px 0px;
     }
 
     &__close {
@@ -2099,6 +2108,7 @@ export default {
       }
 
       &--active {
+        color: #12284c;
         &::before {
           background: url("../assets/checkbox-active.svg") 0 0 no-repeat;
         }
@@ -2283,6 +2293,14 @@ export default {
               top: 1px;
               right: -8px;
 
+              &:hover {
+                svg {
+                  path {
+                    fill: #596982;
+                  }
+                }
+              }
+
               svg {
                 width: 16px;
                 height: 16px;
@@ -2351,6 +2369,7 @@ export default {
           .chart {
             height: 262px;
             width: 360px;
+            margin: 1px 0px 0px 0px;
 
             .graphic-desktop {
               display: none;
@@ -2797,7 +2816,7 @@ export default {
         }
 
         & + .filter-menu__row {
-          margin: 16px 0px 0px 0px;
+          padding: 8px 0px 0px 0px;
         }
       }
 
@@ -2805,6 +2824,7 @@ export default {
         flex-wrap: wrap;
         display: flex;
         flex-direction: column-reverse;
+        margin: 0;
       }
 
       &__close {
@@ -3009,6 +3029,7 @@ export default {
 
         &.btn-del {
           display: block;
+          margin: 24px 0px 32px 0px;
         }
       }
 
