@@ -381,7 +381,8 @@
           <th class="text-left">
             <span @click="sorted.date = !sorted.date"
               >Дата
-              <span class="sorting" :class="{ sorted: sorted.date }">
+              <span
+                class="sorting" :class="{ sorted: sorted.date }">
                 <svg
                   width="24"
                   height="24"
@@ -835,7 +836,7 @@ export default {
     width: calc(100% - 253px);
 
     @media (max-width:1600px){
-      width: calc(100% - 112px);      
+      width: calc(100% - 112px);
     }
   }
 
@@ -1202,7 +1203,7 @@ export default {
             &.sorted {
               svg {
                 path {
-                  fill: #4690ff;
+                  fill: #4690ff !important;
                 }
               }
             }
