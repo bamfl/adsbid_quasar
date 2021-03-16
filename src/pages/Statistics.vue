@@ -84,7 +84,6 @@
         behavior="menu"
         @popup-show="lockPage = !lockPage"
         @popup-hide="lockPage = !lockPage"
-        auto-close
       >
         <template v-slot:option="groupOptions">
           <div class="group-menu">
@@ -124,7 +123,7 @@
             <div v-html="groupOptions.opt"></div>
           </q-item>
 
-          <div class="group-btn" :ripple="false">
+          <div class="group-btn" :ripple="false" @click="group = null">
             <span class="active">Готово</span>
           </div>
         </template>
@@ -209,12 +208,7 @@
               >
               </q-select>
 
-              <div
-                :class="[
-                  'filter-menu__close',
-                  { active: filterOne || filterTwo !== null }
-                ]"
-              >
+              <div class="filter-menu__close">
                 <svg
                   width="16"
                   height="16"
@@ -286,7 +280,34 @@
       />
 
       <div class="cvs-icon">
-        <img src="../assets/exportcsv.svg" alt="" />
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0)">
+        <path d="M21.1463 21.0176C21.1463 22.0137 20.3388 22.8211 19.3428 22.8211H4.91482C3.91878 22.8211 3.11133 22.0137 3.11133 21.0176V2.98269C3.11133 1.98665 3.91878 1.1792 4.91482 1.1792H9.95179H14.9888C15.4671 1.1792 15.9258 1.36921 16.264 1.70743L18.441 3.88444L20.618 6.06145C20.9563 6.39967 21.1463 6.85839 21.1463 7.33671V15.1047" stroke="#596982"/>
+        <path d="M17.5914 12.0016H2.35189C1.67558 11.9991 0.999268 10.7454 0.999268 10.6465V18.8108C0.999268 19.4998 1.70884 19.7869 2.06362 19.8443H17.5914V12.0016Z" fill="#596982"/>
+        <path d="M0.999268 10.6475C0.999268 9.90051 1.60486 9.29492 2.35189 9.29492H2.64929V10.6475V12.0002H2.35189C1.60486 12.0002 0.999268 11.3946 0.999268 10.6475Z" fill="#596982"/>
+        <path d="M4.85631 18.4925C4.33193 18.4925 3.85702 18.3773 3.43158 18.1468C3.01109 17.9114 2.67964 17.5883 2.43724 17.1775C2.19978 16.7667 2.08105 16.3033 2.08105 15.7873C2.08105 15.2713 2.20226 14.8079 2.44466 14.3971C2.68706 13.9863 3.01851 13.6657 3.439 13.4352C3.86444 13.1998 4.33935 13.082 4.86373 13.082C5.28917 13.082 5.67751 13.1572 6.02874 13.3075C6.37998 13.4578 6.6768 13.6757 6.9192 13.9612L6.29588 14.5549C5.91991 14.1441 5.45737 13.9387 4.90825 13.9387C4.55207 13.9387 4.23299 14.0188 3.95101 14.1792C3.66903 14.3345 3.44889 14.5524 3.29059 14.8329C3.13229 15.1135 3.05314 15.4316 3.05314 15.7873C3.05314 16.143 3.13229 16.4611 3.29059 16.7416C3.44889 17.0222 3.66903 17.2426 3.95101 17.4029C4.23299 17.5582 4.55207 17.6359 4.90825 17.6359C5.45737 17.6359 5.91991 17.428 6.29588 17.0121L6.9192 17.6133C6.6768 17.8989 6.37751 18.1168 6.02132 18.2671C5.67009 18.4174 5.28175 18.4925 4.85631 18.4925Z" fill="white"/>
+        <path d="M9.42477 18.4925C9.02406 18.4925 8.63572 18.4349 8.25975 18.3197C7.88873 18.2045 7.59438 18.0517 7.37672 17.8613L7.71064 17.1023C7.92336 17.2727 8.18307 17.4129 8.48979 17.5231C8.80145 17.6283 9.11311 17.6809 9.42477 17.6809C9.81063 17.6809 10.0976 17.6183 10.2855 17.4931C10.4785 17.3678 10.5749 17.2025 10.5749 16.9971C10.5749 16.8468 10.5205 16.7241 10.4117 16.6289C10.3078 16.5287 10.1742 16.4511 10.011 16.396C9.84773 16.3408 9.62512 16.2782 9.34314 16.2081C8.94738 16.1129 8.62583 16.0177 8.37848 15.9225C8.13608 15.8274 7.92583 15.6796 7.74774 15.4792C7.5746 15.2738 7.48802 14.9982 7.48802 14.6526C7.48802 14.362 7.5647 14.099 7.71806 13.8635C7.87636 13.6231 8.11134 13.4327 8.423 13.2924C8.73961 13.1522 9.12547 13.082 9.5806 13.082C9.8972 13.082 10.2089 13.1221 10.5156 13.2023C10.8223 13.2824 11.087 13.3976 11.3096 13.5479L11.0053 14.3069C10.7778 14.1716 10.5403 14.0689 10.293 13.9988C10.0456 13.9287 9.80568 13.8936 9.57318 13.8936C9.19226 13.8936 8.90781 13.9587 8.71982 14.089C8.53678 14.2192 8.44526 14.3921 8.44526 14.6075C8.44526 14.7578 8.49721 14.8805 8.60109 14.9757C8.70993 15.0709 8.84597 15.146 9.00922 15.2011C9.17247 15.2562 9.39508 15.3189 9.67706 15.389C10.0629 15.4792 10.3795 15.5744 10.6269 15.6746C10.8742 15.7697 11.0845 15.9175 11.2576 16.1179C11.4357 16.3183 11.5248 16.5888 11.5248 16.9295C11.5248 17.22 11.4456 17.4831 11.2873 17.7185C11.1339 17.954 10.899 18.1418 10.5824 18.2821C10.2658 18.4224 9.87989 18.4925 9.42477 18.4925Z" fill="white"/>
+        <path d="M17.2304 13.1572L14.9672 18.4174H14.0173L11.7467 13.1572H12.793L14.5219 17.215L16.2657 13.1572H17.2304Z" fill="white"/>
+        <path d="M18.4415 3.88444L16.2645 1.70743C15.9262 1.36921 15.4675 1.1792 14.9892 1.1792H14.8345V5.68793C14.8345 6.68398 15.6419 7.49143 16.638 7.49143H21.1467V7.33671C21.1467 6.8584 20.9567 6.39967 20.6185 6.06145L18.4415 3.88444Z" fill="#596982"/>
+        <g filter="url(#filter0_d)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6086 18.0284V16.1733H20.6811V18.0284H19.2898L21.1448 19.8834L22.9998 18.0284H21.6086Z" fill="#596982"/>
+        </g>
+        </g>
+        <defs>
+        <filter id="filter0_d" x="-5.71021" y="-8.82666" width="53.71" height="53.71" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+        <feOffset/>
+        <feGaussianBlur stdDeviation="12.5"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0"/>
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+        </filter>
+        <clipPath id="clip0">
+        <rect width="24" height="24" fill="white"/>
+        </clipPath>
+        </defs>
+        </svg>
       </div>
     </div>
 
@@ -1090,6 +1111,14 @@ export default {
   .chart-toggle {
     margin: 0px 54px 0px auto;
 
+    @media (min-width:501px){
+      &:hover{
+        .q-toggle__track {
+          border: 1px solid #0065fe !important;
+        }
+      }      
+    }
+
     .q-toggle__track {
       height: 24px;
       width: 40px;
@@ -1097,10 +1126,6 @@ export default {
       opacity: 0.38;
       background: transparent;
       border: 1px solid #5a6577;
-
-      &:hover {
-        border: 1px solid #0065fe;
-      }
     }
 
     .q-toggle__label {
@@ -1152,6 +1177,17 @@ export default {
   .cvs-icon {
     cursor: pointer;
     display: flex;
+    align-self: center;
+    transition: all 0.3s;
+
+    &:hover{
+      svg {
+        [fill = "#596982"] {
+          transition: all 0.3s;
+          fill: #12284C;
+        }
+      }
+    }
   }
 
   .q-markup-table {
@@ -1248,9 +1284,6 @@ export default {
       }
 
       tbody {
-        tr {
-        }
-
         td {
           font-size: 18px;
           line-height: 22px;
@@ -1486,6 +1519,10 @@ export default {
         color: #596982;
         position: relative;
 
+        &:hover{
+          color: #12284c;
+        }
+
         @media (max-width: 1130px) {
           color: #12284c;
         }
@@ -1557,6 +1594,10 @@ export default {
           margin: 0px auto 33px;
           max-width: 240px;
 
+          .q-ripple {
+            display: none;
+          }
+
           .q-date__arrow + .q-date__arrow {
             padding: 0px 0px 0px 21px;
           }
@@ -1565,6 +1606,13 @@ export default {
             .q-btn .q-icon,
             .q-btn .q-spinner {
               font-size: 23px;
+              color: #596982;
+              
+              @media (min-width:501px){
+                &:hover{
+                  color: #12284c;
+                }                
+              }
             }
 
             .q-focus-helper {
@@ -1580,6 +1628,11 @@ export default {
 
           .q-btn__content .block {
             margin: 0 6px;
+            color: #596982;
+
+            &:hover{
+              color: #12284c;
+            }
           }
         }
 
@@ -1850,11 +1903,12 @@ export default {
 
       svg {
         path {
+          transition: all 0.3s;
           fill: #dbdfe4;
         }
       }
 
-      &.active {
+      &:hover {
         svg {
           path {
             fill: #596982;
@@ -2007,7 +2061,9 @@ export default {
 
       .q-btn__wrapper {
         min-height: 0;
+        z-index: 9000;
       }
+
 
       &:active {
         background: #4690ff;
@@ -2015,21 +2071,30 @@ export default {
       }
 
       &-white {
+        transition: all 0.1s;
         color: #4690ff;
-        background-color: #fff;
+        background: #fff;
         border: 1px solid #4690ff;
         box-sizing: border-box;
         border-radius: 4px;
         margin: 0px 24px 0px 1px;
+        transition: all 0.5s;
 
         &:hover {
-          background: #cdd0d4;
+          background: #F3F4F6;
         }
 
         &:active {
-          background-color: transparent;
+          background: #fff !important;
           color: #fff;
           box-shadow: none;
+        }
+
+        .q-ripple {
+          background: #fff !important;
+          position: absolute;
+          z-index: 0 !important;
+          overflow: hidden;
         }
       }
 
@@ -2187,6 +2252,33 @@ export default {
 
   &.filterTwo {
     min-width: 401px !important;
+
+    .q-item {
+      position: relative;
+      font-size: 16px;
+      line-height: 20px;
+      padding: 11px 40px 12px 24px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 9px;
+        right: 16px;
+        width: 24px;
+        height: 24px;
+        background: url("../assets/checkbox-default.svg") 0 0 no-repeat;
+      }
+
+      &--active {
+        &::after {
+          background: url("../assets/checkbox-active.svg") 0 0 no-repeat;
+        }
+      }
+
+      &:hover {
+        background-color: #fff;
+      }
+    }
   }
 
   &.filter-popup {
@@ -2350,9 +2442,6 @@ export default {
         }
 
         tbody {
-          tr {
-          }
-
           td {
             font-size: 14px;
             line-height: 22px;
@@ -2785,6 +2874,42 @@ export default {
             }
           }
         }
+      }
+    }
+
+    &.q-transition--fade-enter-to {
+      &.group-popup {
+        top: 100% !important;
+        transform: translate(0, -100%);
+        transition: transform 1s;
+        opacity: 1;
+        bottom: -256px !important;
+        transform: translate(0, -256px);
+      }
+
+      &.filter-popup, &.datepicker-popup {
+        top: 100% !important;
+        transform: translate(0, -100%);
+        transition: transform 1s;
+        opacity: 1;
+        top: 100% !important;
+        transform: translate(0, -100%);
+      }
+    }
+
+    &.q-transition--fade-leave-to {
+      &.filter-popup, &.datepicker-popup { 
+        top: 0 !important;
+        transform: translate(0, 100%);
+        transition: transform 1s;
+        opacity: 1;
+      }
+
+      &.group-popup { 
+        bottom: 0 !important;
+        transform: translate(0, 256px);
+        transition: transform 1s;
+        opacity: 1;
       }
     }
 

@@ -1267,6 +1267,10 @@ export default {
         color: #12284C;
         text-decoration: none;
 
+        &:hover{
+          color: #596982;
+        }
+
         & + .projects__item {
           margin: 41px 0px 0px 0px;
 
