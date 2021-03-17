@@ -1228,6 +1228,8 @@ html {
 
       .q-ripple {
         position: absolute !important;
+        top: center !important;
+        left: center !important;
         animation-name: circle !important;
         animation-duration: 0.5s !important;
         animation-delay: 0 !important;
@@ -1235,6 +1237,10 @@ html {
         text-align: center !important;
         margin: 0 auto !important;
         z-index: 0 !important;
+
+        @media (max-width:500px){
+          animation-duration: 0.5s !important;          
+        }
       }
 
       @keyframes circle {
@@ -1254,7 +1260,7 @@ html {
           width: 150%;
           height: 253px;
           border-radius: 0%;
-          transform: translate(0%, 0);
+          transform: translate(0%, 0%);
         }
       }
 
@@ -1269,6 +1275,29 @@ html {
 
       @media (max-width: 1360px) {
         margin: 0px 0px 4px 0px;
+      }
+
+      @media (max-width:500px){
+        @keyframes circle {
+          0% {
+            left: 50%;
+            top: 50%;
+            background: #F0F5FD;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto !important;
+            transform: translate(-50%, -50%);            
+          }
+
+          100% {
+            left: 0;
+            height: 253px;
+            border-radius: 0%;
+            transform: translate(-0%, 0%);
+            width: 110%;
+          }
+        }
       }
     }
 
@@ -1998,9 +2027,9 @@ html {
 
     .q-list {
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       box-shadow: 0px 0px 32px rgba(18, 40, 76, 0.08);
-      padding: 12px 13px;
+      padding: 12px 29px;
 
       .q-item {
         display: flex;

@@ -179,7 +179,6 @@
             <div class="filter-menu__row">
               <q-select
                 filled
-                multiple
                 v-model="filterOne"
                 input-debounce="0"
                 label="Выберите фильтр"
@@ -208,7 +207,7 @@
               >
               </q-select>
 
-              <div class="filter-menu__close">
+              <div class="filter-menu__close" :active="'После добавления второго filter-menu__row'">
                 <svg
                   width="16"
                   height="16"
@@ -220,7 +219,7 @@
                     fill-rule="evenodd"
                     clip-rule="evenodd"
                     d="M13.1854 13.1853C12.708 13.6627 11.9345 13.6627 11.457 13.1853L8 9.72829L4.54303 13.1853C4.06554 13.6627 3.29204 13.6627 2.81455 13.1853C2.33706 12.7078 2.33706 11.9343 2.81455 11.4568L6.27152 7.9998L2.81455 4.54284C2.33706 4.06534 2.33706 3.29185 2.81455 2.81436C3.29204 2.33686 4.06554 2.33686 4.54303 2.81436L8 6.27132L11.457 2.81436C11.934 2.33729 12.708 2.33686 13.1854 2.81435C13.6629 3.29185 13.6625 4.06578 13.1854 4.54284L9.72848 7.9998L13.1854 11.4568C13.6629 11.9343 13.6629 12.7078 13.1854 13.1853Z"
-                    fill="#596982"
+                    fill="#B8BFC9"
                   />
                 </svg>
               </div>
@@ -1114,12 +1113,14 @@ export default {
     @media (min-width:501px){
       &:hover{
         .q-toggle__track {
-          border: 1px solid #0065fe !important;
+          border: 1px solid #4690ff !important;
+          opacity: 1;
         }
       }      
     }
 
     .q-toggle__track {
+      transition: all 0.3s;
       height: 24px;
       width: 40px;
       border-radius: 500px;
@@ -1148,7 +1149,8 @@ export default {
       }
 
       .q-toggle__track {
-        border: 1px solid #0065fe !important;
+        border: 1px solid #4690ff !important;
+        opacity: 1;
       }
     }
 
@@ -1904,14 +1906,21 @@ export default {
       svg {
         path {
           transition: all 0.3s;
-          fill: #dbdfe4;
+          fill: #B8BFC9;
+        }
+      }
+
+      &.active{
+        path {
+          transition: all 0.3s;
+          fill: #596982;
         }
       }
 
       &:hover {
         svg {
           path {
-            fill: #596982;
+            fill: #12284c;
           }
         }
       }
@@ -2831,12 +2840,12 @@ export default {
       }
 
       .datepicker-nav {
-        display: flex;
+        display: flex !important;
         justify-content: space-between;
         align-items: flex-start;
         margin: -8px 0 0 0;
         padding: 11px 0px 0px 0px;
-        position: fixed;
+        position: absolute;
         width: calc(100% - 32px);
         background-color: #fff;
         z-index: 9000;

@@ -1,7 +1,7 @@
 <template>
   <q-page class="main-page">
     <div class="row">
-      <div class="col">
+      <div class="col content">
         <div class="title-mob">Главная</div>
         <div class="row">
           <div class="col col-flex">
@@ -759,14 +759,14 @@ export default {
 
 <style lang="scss">
 .q-page {
-  padding: 40px;
+  padding: 40px 40px 0;
 
   @media (max-width:1600px){
-    padding: 32px 40px;
+    padding: 32px 40px 0;
   }
 
   @media (max-width:1360px){
-    padding: 32px;
+    padding: 32px 32px 0;
   }
 }
 
@@ -790,6 +790,22 @@ export default {
 
     @media (max-width:900px){
       margin: 32px 0px 0px 0px;
+    }
+  }
+
+  .content {
+    padding: 0px 467px 0px 0px;
+
+    @media (max-width:1600px){
+      padding: 0px 400px 0px 0px;      
+    }
+
+    @media (max-width:1360px){
+      padding: 0px 316px 0px 0px;      
+    }
+
+    @media (max-width:1180px){
+      padding: 0;
     }
   }
 
@@ -1398,9 +1414,31 @@ export default {
   }
 
   .aside {
-    flex: 0 1 427px;
-    min-width: 427px;
-    margin: 0px 0px 0px 40px;
+    flex: 0 1 477px;
+    min-width: 477px;
+    padding: 40px 10px 102px 40px;
+    position: fixed;
+    top: 102px;
+    right: 30px;
+    max-width: 477px;
+    height: auto;
+    min-height: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & {
+      overflow: -moz-scrollbars-none;
+    }
+    & {
+      overflow: -moz-scrollbars-none;
+    }
+
+    & {
+      scrollbar-width: none;
+    }
 
     .aside-card {
       padding: 32px 40px;
@@ -1409,6 +1447,10 @@ export default {
 
       & + .aside-card {
         margin: 40px 0px 0px 0px;
+
+        @media (max-width:1600px){
+          margin: 40px 0px 0px 0px;
+        }
 
         @media (max-width:1360px){
           margin: 32px 0px 0px 0px;
@@ -1610,6 +1652,7 @@ export default {
 
       @media (max-width:1180px){
         flex: 0 1 50%;
+        margin: 0;
       }
     }
 
@@ -1618,22 +1661,30 @@ export default {
     }
 
     @media (max-width:1600px){
-      flex: 0 1 360px;
-      min-width: 360px;
+      flex: 0 1 410px;
+      min-width: 410px;
+      max-width: 410px;
+      top: 88px;
+      padding: 32px 10px 88px 40px;
     }
 
     @media (max-width:1360px){
-      flex: 0 1 284px;
-      min-width: 284px;
-      margin: 0px 0px 0px 32px;
+      flex: 0 1 326px;
+      min-width: 216px;
+      max-width: 326px;
+      padding: 32px 10px 88px 40px;
     }
 
     @media (max-width:1180px){
+      position: static;
+      max-width: 100%;
+      min-width: 100%;
       flex: 1 1 100%;
       margin: 0;
       display: flex;
+      padding: 0px 0px 0px 0px;
+      overflow: inherit;
     }
-
 
     @media (max-width:900px){
       display: block;
