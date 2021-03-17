@@ -1281,21 +1281,21 @@ html {
         @keyframes circle {
           0% {
             left: 50%;
-            top: 50%;
+            top: 0%;
             background: #F0F5FD;
-            border-radius: 50%;
+            border-radius: 48px;
             width: 48px;
             height: 48px;
             margin: 0 auto !important;
-            transform: translate(-50%, -50%);            
+            transform: translate(-50%, -0%);            
           }
 
           100% {
-            left: 0;
-            height: 253px;
+            left: 0%;
+            height: 48px;
             border-radius: 0%;
-            transform: translate(-0%, 0%);
-            width: 110%;
+            transform: translate(0%, 0%);
+            width: 100%;
           }
         }
       }
