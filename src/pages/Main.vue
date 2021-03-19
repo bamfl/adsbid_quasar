@@ -759,14 +759,14 @@ export default {
 
 <style lang="scss">
 .q-page {
-  padding: 40px 40px 0;
+  padding: 40px 40px 0 !important;
 
   @media (max-width:1600px){
-    padding: 32px 40px 0;
+    padding: 32px 40px 0 !important;
   }
 
   @media (max-width:1360px){
-    padding: 32px 32px 0;
+    padding: 32px 32px 0 !important;
   }
 }
 
