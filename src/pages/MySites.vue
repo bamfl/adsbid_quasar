@@ -3,7 +3,7 @@
     <div v-if="mySitesStatus === 'confirmation'">
       <div class="title">Для работы с сайтами и блоками Вам необходимо подтвердить свой электронный адрес, указанный при регистрации.</div>
       <p class="about">
-        Пожалуйста, перейдите по ссылке из письма;<br> 
+        Пожалуйста, перейдите по ссылке из письма;<br>
         Если письма со ссылкой нет в папке “Входящие”, то проверьте папку “Спам”. Если письмо Вам не пришло, то напишите нам в чат и мы Вам   поможем.
       </p>
     </div>
@@ -14,10 +14,10 @@
 
     <div v-if="mySitesStatus === 'active'">
       <nav class="nav">
-        <q-btn class="btn" :ripple="false" label="Добавить сайт" unelevated no-caps />
+        <q-btn class="btn" :ripple="false" label="Добавить сайт" unelevated no-caps @click="addSite = true, lockPage = !lockPage" />
         <q-btn class="btn btn-white" label="Обход AdBlock" unelevated no-caps />
       </nav>
-      
+
       <div class="row">
         <div class="card sites">
           <q-input class="search" v-model="searchOne" borderless placeholder="Поиск по домену" />
@@ -49,15 +49,48 @@
             <tbody>
               <tr class="active">
                 <td>website.website.com</td>
-                <td class="status status-hi"><span>Высокий</span></td>
+                <td class="status status-hi">
+                  <span>Высокий
+                    <q-tooltip
+                      anchor="top left"
+                      self="bottom left"
+                      content-class="noarrow"
+                      :offset="[0, 8]"
+                    >
+                      Высокая цена за клик
+                    </q-tooltip>
+                  </span>
+                </td>
               </tr>
               <tr>
                 <td>website.website.com</td>
-                <td class="status status-low"><span>Низкий</span></td>
+                <td class="status status-low">
+                  <span>Низкий
+                  <q-tooltip
+                      anchor="top left"
+                      self="bottom left"
+                      content-class="noarrow"
+                      :offset="[0, 8]"
+                    >
+                      Низкая цена за клик
+                    </q-tooltip>
+                  </span>
+                </td>
               </tr>
               <tr>
                 <td>website.website.com</td>
-                <td class="status status-mid"><span>Средний</span></td>
+                <td class="status status-mid">
+                  <span>Средний
+                    <q-tooltip
+                      anchor="top left"
+                      self="bottom left"
+                      content-class="noarrow"
+                      :offset="[0, 8]"
+                    >
+                      Средняя цена за клик
+                    </q-tooltip>
+                  </span>
+                </td>
               </tr>
               <tr>
                 <td>website.website.com</td>
@@ -79,7 +112,7 @@
           <div class="blocks__head">
             <div class="blocks__buttons">
               <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">                  
+                <div v-if="ckeckbox">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -96,11 +129,27 @@
                 <path d="M15.5196 9.80005H1.43999C1.19711 9.80005 1 9.99716 1 10.24V22.5597C1 22.803 1.19711 22.9997 1.43999 22.9997H15.5196C15.7629 22.9997 15.9596 22.803 15.9596 22.5597V10.24C15.9596 9.99716 15.7629 9.80005 15.5196 9.80005Z" fill="#DBDFE4"/>
                 <path d="M22.5587 1.00024H8.47905C8.23618 1.00024 8.03906 1.19736 8.03906 1.44023V8.48005C8.03906 8.72293 8.23618 8.92004 8.47905 8.92004H16.8388V13.7599C16.8388 14.0032 17.0355 14.1999 17.2788 14.1999H22.5587C22.802 14.1999 22.9987 14.0032 22.9987 13.7599V1.44023C22.9987 1.19736 22.802 1.00024 22.5587 1.00024Z" fill="#DBDFE4"/>
                 </svg>
+                <q-tooltip
+                  anchor="top left"
+                  self="bottom left"
+                  content-class="noarrow"
+                  :offset="[0, 8]"
+                >
+                  Копировать блок(и)
+                </q-tooltip>
               </div>
               <div class="blocks__delete">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.14286 20.5556C5.14286 21.9 6.17143 23 7.42857 23H16.5714C17.8286 23 18.8571 21.9 18.8571 20.5556V5.88889H5.14286V20.5556ZM20 2.22222H16L14.8571 1H9.14286L8 2.22222H4V4.66667H20V2.22222Z" fill="#DBDFE4"/>
                 </svg>
+                <q-tooltip
+                  anchor="top left"
+                  self="bottom left"
+                  content-class="noarrow"
+                  :offset="[0, 8]"
+                >
+                  Удалить блок(и)
+                </q-tooltip>
               </div>
             </div>
 
@@ -108,11 +157,11 @@
 
             <q-btn class="btn" :ripple="false" label="Создать блок" unelevated no-caps />
           </div>
-          
+
           <ul class="blocks__list">
             <li class="blocks__item">
               <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">                  
+                <div v-if="ckeckbox">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -140,7 +189,7 @@
             </li>
             <li class="blocks__item">
               <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">                  
+                <div v-if="ckeckbox">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -168,7 +217,7 @@
             </li>
             <li class="blocks__item">
               <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">                  
+                <div v-if="ckeckbox">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -196,7 +245,7 @@
             </li>
             <li class="blocks__item">
               <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">                  
+                <div v-if="ckeckbox">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -224,7 +273,7 @@
             </li>
             <li class="blocks__item">
               <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">                  
+                <div v-if="ckeckbox">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -252,7 +301,7 @@
             </li>
             <li class="blocks__item">
               <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">                  
+                <div v-if="ckeckbox">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -280,7 +329,7 @@
             </li>
             <li class="blocks__item">
               <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">                  
+                <div v-if="ckeckbox">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -309,6 +358,71 @@
           </ul>
         </div>
       </div>
+
+      <q-dialog v-model="addSite">
+        <q-card>
+          <div class="addsite">
+            <div class="title">Добавление сайта</div>
+
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
+
+            <div>
+              <span>URL-адрес сайта</span>
+              <span>Протоколы http:// ; https:// определяются автоматически</span>
+              <q-input class="url" v-model="searchOne" borderless placeholder="Пример: example.com" />
+            </div>
+
+            <q-select
+              filled
+              v-model="filterSites"
+              input-debounce="0"
+              label="Выберите тип трафика"
+              :options="optionsOne"
+              style="height: 40px"
+              dropdown-icon="keyboard_arrow_down"
+              popup-content-class="filterSites"
+              behavior="menu"
+              menu-anchor="bottom left"
+              menu-self="top left"
+              :menu-offset="[1, -10]"
+            >
+            </q-select>
+
+            <div>
+              <span>URL-адрес сайта</span>
+              <span>Протоколы http:// ; https:// определяются автоматически</span>
+              <q-input class="url" v-model="searchOne" borderless placeholder="Пример: example.com" />
+            </div>
+
+            <div class="info">
+              <div class="subtitle">
+                Пожалуйста, предоставьте нам гостевой доступ к Вашей статистике для модерации сайта:
+              </div>
+              <ul class="imfo__list">
+                <li>- Яндекс Метрика (для логина statistics@medicineteaser.ru)</li>
+                <li>- Google Analytics (для devtize@gmail.com)</li>
+                <li>- liveinternet.ru (гостевой пароль)</li>
+              </ul>
+            </div>
+
+            <div class="buttons">
+              <q-btn class="btn" :ripple="false" label="Отправить" unelevated no-caps />
+              <q-btn class="btn" :ripple="false" label="Отменить" unelevated no-caps />
+            </div>
+          </div>
+        </q-card>
+      </q-dialog>
     </div>
   </q-page>
 </template>
@@ -321,8 +435,10 @@ export default {
       searchOne: '',
       searchTwo: '',
       filterSites: null,
-      optionsOne: ["По дате добавления", "По дате создания", "По дате добавления", "По дате добавления"],
-      ckeckbox: false
+      optionsOne: ["По дате добавления", "По дате создания", "По дате добавления"],
+      ckeckbox: false,
+      addSite: false,
+      lockPage: false
     }
   }
 }
@@ -335,6 +451,10 @@ export default {
   }
 
   .mysites-page {
+    &.lock {
+
+    }
+
     .title {
       font-weight: 500;
       font-size: 18px;
@@ -351,7 +471,7 @@ export default {
       font-size: 18px;
       line-height: 32px;
       color: #12284C;
-      margin: 0;      
+      margin: 0;
     }
 
     .nav {
@@ -424,8 +544,8 @@ export default {
         .q-field {
           border: 1px solid #A0A9B7;
           border-radius: 4px;
-          height: 40px;      
-          overflow: hidden;    
+          height: 40px;
+          overflow: hidden;
           margin: 0px 0px 24px 0px;
 
           &__control {
@@ -433,7 +553,7 @@ export default {
             min-height: 0;
             padding: 0px;
             background-color: transparent;
-            
+
             &::before {
               display: none;
             }
@@ -469,7 +589,7 @@ export default {
             top: 10px;
             left: 15px;
           }
-        }  
+        }
 
         .search {
           margin: 0px 0px 16px 0px;
@@ -493,11 +613,11 @@ export default {
               letter-spacing: -0.1px;
             }
           }
-        }      
+        }
 
         .q-markup-table {
-          margin: 0 -40px;          
-        }  
+          margin: 0 -40px;
+        }
 
         .q-table {
           display: flex;
@@ -544,7 +664,7 @@ export default {
                     right: 0;
                     background-color: #fff;
                   }
-                }                
+                }
               }
             }
           }
@@ -553,12 +673,14 @@ export default {
             display: flex;
             flex-direction: column;
 
-            tr {  
+            tr {
               td {
                 border-bottom: none;
                 font-size: 16px;
                 line-height: 20px;
                 padding: 23px 0px 15px 40px;
+                cursor: pointer;
+
 
                 &::before {
                   display: none;
@@ -587,7 +709,7 @@ export default {
                         height: 8px;
                         top: 8px;
                         left: 6px;
-                        background: url('../assets/level-hi.svg') 0 0 no-repeat;                        
+                        background: url('../assets/level-hi.svg') 0 0 no-repeat;
                       }
                     }
                   }
@@ -604,7 +726,7 @@ export default {
                         height: 8px;
                         top: 8px;
                         left: 6px;
-                        background: url('../assets/level-mid.svg') 0 0 no-repeat;                        
+                        background: url('../assets/level-mid.svg') 0 0 no-repeat;
                       }
                     }
                   }
@@ -621,7 +743,7 @@ export default {
                         height: 8px;
                         top: 8px;
                         left: 6px;
-                        background: url('../assets/level-low.svg') 0 0 no-repeat;                        
+                        background: url('../assets/level-low.svg') 0 0 no-repeat;
                       }
                     }
                   }
@@ -634,7 +756,7 @@ export default {
                     color: #A64541;
                   }
                 }
-              }              
+              }
 
               &.active{
                 position: relative;
@@ -671,8 +793,8 @@ export default {
           .q-field {
             border: 1px solid #A0A9B7;
             border-radius: 4px;
-            height: 40px;      
-            overflow: hidden;    
+            height: 40px;
+            overflow: hidden;
             margin: 0px 0px 24px 0px;
             min-width: 345px;
 
@@ -681,7 +803,7 @@ export default {
               min-height: 0;
               padding: 0px;
               background-color: transparent;
-              
+
               &::before {
                 display: none;
               }
@@ -717,7 +839,7 @@ export default {
               top: 10px;
               left: 15px;
             }
-          }  
+          }
 
           .search {
             margin: 0px 48px 0px auto;
@@ -795,7 +917,7 @@ export default {
         &__actions {
           display: flex;
           align-self: center;
-          margin: 0px 0px 0px auto;
+          margin: 0px 37px 0px auto;
         }
 
         &__title {
@@ -813,7 +935,7 @@ export default {
           cursor: pointer;
 
           &:hover{
-            color: #629DF6;            
+            color: #629DF6;
           }
         }
       }
@@ -831,6 +953,39 @@ export default {
 
         &__label {
           color: #12284C;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .q-dialog {
+    &__backdrop {
+      background: #12284c;
+      opacity: 0.2;
+    }
+
+    .addsite {
+      padding: 40px !important;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 577px;
+      max-height: 548px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #12284C;
+      }
+
+      .close {
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
         }
 
         .q-focus-helper {

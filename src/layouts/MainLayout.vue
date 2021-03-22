@@ -298,6 +298,7 @@
               anchor="center right"
               self="center left"
               :offset="[10, 10]"
+              content-class="menu"
             >
               Главная
             </q-tooltip>
@@ -329,6 +330,7 @@
               anchor="center right"
               self="center left"
               :offset="[10, 10]"
+              content-class="menu"
             >
               Мои сайты
             </q-tooltip>
@@ -360,6 +362,7 @@
               anchor="center right"
               self="center left"
               :offset="[10, 10]"
+              content-class="menu"
             >
               Статистика
             </q-tooltip>
@@ -396,6 +399,7 @@
               anchor="center right"
               self="center left"
               :offset="[10, 10]"
+              content-class="menu"
             >
               Финансы
             </q-tooltip>
@@ -427,6 +431,7 @@
               anchor="center right"
               self="center left"
               :offset="[10, 10]"
+              content-class="menu"
             >
               Тикеты
             </q-tooltip>
@@ -458,6 +463,7 @@
               anchor="center right"
               self="center left"
               :offset="[10, 10]"
+              content-class="menu"
             >
               Пригласи друга
             </q-tooltip>
@@ -503,6 +509,7 @@
               anchor="center right"
               self="center left"
               :offset="[10, 10]"
+              content-class="menu"
             >
               Новости
             </q-tooltip>
@@ -534,6 +541,7 @@
               anchor="center right"
               self="center left"
               :offset="[10, 10]"
+              content-class="menu"
             >
               Справка
             </q-tooltip>
@@ -1069,6 +1077,10 @@ html {
   overflow-y: -moz-overlay;
 }
 
+.q-body--force-scrollbar {
+    overflow-y: hidden !important;
+}
+
 // body::-webkit-scrollbar {
 //   display: none;
 // }
@@ -1239,7 +1251,7 @@ html {
         z-index: 0 !important;
 
         @media (max-width:500px){
-          animation-duration: 0.5s !important;          
+          animation-duration: 0.5s !important;
         }
       }
 
@@ -1287,7 +1299,7 @@ html {
             width: 48px;
             height: 48px;
             margin: 0 auto !important;
-            transform: translate(-50%, -0%);            
+            transform: translate(-50%, -0%);
           }
 
           100% {
@@ -1737,7 +1749,6 @@ html {
   position: relative;
   overflow: visible;
   display: none;
-  left: 85px !important;
 
   &::after {
     content: "";
@@ -1751,6 +1762,21 @@ html {
     border-style: solid;
     border-width: 6px 10px 6px 0;
     border-color: transparent #ffffff transparent transparent;
+  }
+
+  &.menu {
+    left: 85px !important;
+  }
+
+  &.noarrow{
+    font-size: 12px;
+    line-height: 15px;
+    display: block;
+    padding: 6px 8px;
+
+    &::after {
+      display: none;
+    }
   }
 
   @media (max-width: 1600px) {
