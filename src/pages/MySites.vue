@@ -14,8 +14,8 @@
 
     <div v-if="mySitesStatus === 'active'">
       <nav class="nav">
-        <q-btn class="btn" :ripple="false" label="Добавить сайт" unelevated no-caps @click="addSite = true, lockPage = !lockPage" />
-        <q-btn class="btn btn-white" label="Обход AdBlock" unelevated no-caps />
+        <q-btn class="btn" :ripple="false" label="Добавить сайт" unelevated no-caps @click="addSite = true" />
+        <q-btn class="btn btn-white" label="Обход AdBlock" unelevated no-caps @click="adBlock = true" />
       </nav>
 
       <div class="row">
@@ -377,21 +377,22 @@
               </svg>
             </q-btn>
 
-            <div>
+            <div class="label">
               <span>URL-адрес сайта</span>
               <span>Протоколы http:// ; https:// определяются автоматически</span>
-              <q-input class="url" v-model="searchOne" borderless placeholder="Пример: example.com" />
             </div>
+
+            <q-input class="url" v-model="searchOne" borderless placeholder="Пример: example.com" />
 
             <q-select
               filled
-              v-model="filterSites"
+              v-model="traffic"
               input-debounce="0"
               label="Выберите тип трафика"
-              :options="optionsOne"
+              :options="optionsTwo"
               style="height: 40px"
               dropdown-icon="keyboard_arrow_down"
-              popup-content-class="filterSites"
+              popup-content-class="traffic"
               behavior="menu"
               menu-anchor="bottom left"
               menu-self="top left"
@@ -399,17 +400,18 @@
             >
             </q-select>
 
-            <div>
-              <span>URL-адрес сайта</span>
-              <span>Протоколы http:// ; https:// определяются автоматически</span>
-              <q-input class="url" v-model="searchOne" borderless placeholder="Пример: example.com" />
+            <div class="label">
+              <span>Ссылка на доступ к статистике сайта</span>
+              <span>Инструкция</span>
             </div>
+
+            <q-input class="link" v-model="searchOne" borderless placeholder="Пример: example.com" />
 
             <div class="info">
               <div class="subtitle">
                 Пожалуйста, предоставьте нам гостевой доступ к Вашей статистике для модерации сайта:
               </div>
-              <ul class="imfo__list">
+              <ul class="info__list">
                 <li>- Яндекс Метрика (для логина statistics@medicineteaser.ru)</li>
                 <li>- Google Analytics (для devtize@gmail.com)</li>
                 <li>- liveinternet.ru (гостевой пароль)</li>
@@ -418,8 +420,137 @@
 
             <div class="buttons">
               <q-btn class="btn" :ripple="false" label="Отправить" unelevated no-caps />
-              <q-btn class="btn" :ripple="false" label="Отменить" unelevated no-caps />
+              <q-btn class="btn btn-grey" :ripple="false" label="Отменить" unelevated no-caps />
             </div>
+          </div>
+        </q-card>
+      </q-dialog>
+
+      <q-dialog v-model="adBlock">
+        <q-card>
+          <div class="adblock">
+            <div class="title">Обход AdBlock (парковка домена)</div>
+
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
+
+            <q-expansion-item
+              label="Как припарковать домен третьего уровня"
+              dropdown-icon="keyboard_arrow_down"
+            >
+              <q-card>
+                <ul class="example__list">
+                  <li><a href="#">- пример reg.ru</a></li>
+                  <li><a href="#">- пример dns-master.ru</a></li>
+                  <li><a href="#">- пример reg.2domains.ru</a></li>
+                </ul>
+
+                <p class="text">
+                  Если Вы не можете найти информацию о внесении запись «CNAME» к вашему поставщику DNS Вам необходимо обратиться к нему с просьбой прописать новую запись «CNAME» на наш домен <span>flviq0id19.ru</span>
+                </p>
+
+                <p class="subtext">
+                  Если Ваш сайт работает по HTTPS отставьте заявку на выпуск SSL сертификата, нажав на кнопку «Заказать SSL-сертификат» напротив домена
+                </p>
+              </q-card>
+            </q-expansion-item>
+
+            <q-btn class="btn" :ripple="false" label="Добавить домен" unelevated no-caps @click="addDomain = true" />
+
+            <ul class="sites__list">
+              <li>
+                <div class="sites__link">https://website.com</div>
+                <div class="sites__ssl" @click="ssl = true">Заказать SSL-сертификат</div>
+                <div class="sites__del">Удалить</div>
+              </li>
+              <li>
+                <div class="sites__link">https://website.com</div>
+                <div class="sites__ssl" @click="ssl = true">Заказать SSL-сертификат</div>
+                <div class="sites__del">Удалить</div>
+              </li>
+            </ul>
+          </div>
+        </q-card>
+      </q-dialog>
+
+      <q-dialog v-model="addDomain">
+        <q-card>
+          <div class="adddomain">
+            <div class="title">Добавление домена для обхода AdBlock</div>
+
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
+
+            <div class="label">
+              <span>URL-адрес сайта</span>
+            </div>
+
+            <q-input class="url" v-model="searchOne" borderless placeholder="Пример: https://example.com" />
+
+            <div class="buttons">
+              <q-btn class="btn" :ripple="false" label="Отправить" unelevated no-caps @click="domain = true" />
+              <q-btn class="btn btn-grey" :ripple="false" label="Отменить" unelevated no-caps />
+            </div>
+          </div>
+        </q-card>
+      </q-dialog>
+
+      <q-dialog v-model="ssl">
+        <q-card>
+          <div class="ssl">
+            <div class="title">Запрос на SSL-сертификат отправлен</div>
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
+          </div>
+        </q-card>
+      </q-dialog>
+
+      <q-dialog v-model="domain">
+        <q-card>
+          <div class="domain">
+            <div class="title">Домен отправлен на проверку</div>
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
           </div>
         </q-card>
       </q-dialog>
@@ -435,10 +566,15 @@ export default {
       searchOne: '',
       searchTwo: '',
       filterSites: null,
+      traffic: null,
       optionsOne: ["По дате добавления", "По дате создания", "По дате добавления"],
+      optionsTwo: ["Поисковый (органический)", "Платный (покупной)", "Доверенный трафик"],
       ckeckbox: false,
       addSite: false,
-      lockPage: false
+      adBlock: false,
+      addDomain: false,
+      ssl: false,
+      domain: false
     }
   }
 }
@@ -448,13 +584,17 @@ export default {
 <style lang="scss">
   .q-page {
     padding: 40px 40px 0;
+
+    @media (max-width:1600px){
+      padding: 32px 40px 0 !important;
+    }
+
+    @media (max-width:1360px){
+      padding: 32px 32px 0 !important;
+    }
   }
 
   .mysites-page {
-    &.lock {
-
-    }
-
     .title {
       font-weight: 500;
       font-size: 18px;
@@ -476,6 +616,10 @@ export default {
 
     .nav {
       margin: 0px 0px 40px 0px;
+
+      @media (max-width:1650px){
+        margin: 0px 0px 32px 0px;
+      }
     }
 
     .btn {
@@ -527,6 +671,12 @@ export default {
           overflow: hidden;
         }
       }
+
+      @media (max-width:1360px){
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+      }
     }
 
     .row {
@@ -535,6 +685,10 @@ export default {
         border-radius: 4px;
         padding: 32px 40px 30px;
         height: 100%;
+
+        @media (max-width:1360px){
+          padding: 32px 32px 30px;
+        }
       }
 
       .sites {
@@ -574,6 +728,11 @@ export default {
             font-size: 16px;
             line-height: 20px;
             letter-spacing: -0.1px;
+
+            @media (max-width:1360px){
+              font-size: 14px;
+              line-height: 17px;
+            }
           }
 
           .q-select__dropdown-icon {
@@ -588,6 +747,12 @@ export default {
             letter-spacing: 0;
             top: 10px;
             left: 15px;
+
+            @media (max-width:1360px){
+              top: 12px;
+              font-size: 14px;
+              line-height: 17px;
+            }
           }
         }
 
@@ -611,12 +776,22 @@ export default {
               font-size: 16px;
               line-height: 20px;
               letter-spacing: -0.1px;
+
+              @media (max-width:1360px){
+                padding: 8px 16px 7px 52px;
+                font-size: 14px;
+                line-height: 17px ;
+              }
             }
           }
         }
 
         .q-markup-table {
           margin: 0 -40px;
+
+          @media (max-width:1360px){
+            margin: 0 -32px;
+          }
         }
 
         .q-table {
@@ -649,6 +824,10 @@ export default {
                     bottom: -1px;
                     left: 0;
                     background-color: #fff;
+
+                    @media (max-width:1360px){
+                      width: 32px;
+                    }
                   }
                 }
 
@@ -663,8 +842,30 @@ export default {
                     bottom: -1px;
                     right: 0;
                     background-color: #fff;
+
+                    @media (max-width:1360px){
+                      width: 32px;
+                    }
+                  }
+
+                  @media (max-width:1650px){
+                    padding: 17px 40px 12px 0px;
+                  }
+
+                  @media (max-width:1360px){
+                    padding: 17px 37px 12px 0px;
                   }
                 }
+
+                @media (max-width:1360px){
+                  padding: 17px 5px 12px 32px;
+                  font-size: 12px;
+                  line-height: 15px;
+                }
+              }
+
+              @media (max-width:1360px){
+                height: 46px;
               }
             }
           }
@@ -681,7 +882,6 @@ export default {
                 padding: 23px 0px 15px 40px;
                 cursor: pointer;
 
-
                 &::before {
                   display: none;
                 }
@@ -695,6 +895,12 @@ export default {
                   span {
                     border-radius: 4px;
                     padding: 3px 6px 3px 42px;
+
+                    @media (max-width:1360px){
+                      font-size: 12px;
+                      line-height: 15px;
+                      padding: 4px 6px 4px 42px;
+                    }
                   }
 
                   &-hi {
@@ -755,6 +961,26 @@ export default {
                   &-blocked {
                     color: #A64541;
                   }
+
+                  @media (max-width:1650px){
+                    padding-left: 40px;
+                  }
+
+                  @media (max-width:1170px){
+                    text-align: right;
+                  }
+                }
+
+                @media (max-width:1360px){
+                  font-size: 14px;
+                  line-height: 17px;
+                  padding: 23px 0px 17px 32px;
+                }
+
+                @media (max-width:1170px){
+                  flex: 0 1 50%;
+                  height: auto;
+                  padding: 23px 32px 17px 32px;
                 }
               }
 
@@ -771,8 +997,38 @@ export default {
                   background: #4690FF;
                 }
               }
+
+              @media (max-width:1170px){
+                display: flex;
+              }
+            }
+
+            @media (max-width:1360px){
+              margin: 5px 0px 0px 0px;
             }
           }
+
+          &--no-wrap th, &--no-wrap td {
+            white-space: nowrap;
+
+            @media (max-width:1650px){
+              white-space: normal !important;
+            }
+          }
+        }
+
+        @media (max-width:1650px){
+          flex: 0 1 404px;
+        }
+
+        @media (max-width:1360px){
+          flex: 0 1 355px;
+          margin: 0px 32px 0px 0px;
+        }
+
+        @media (max-width:1170px){
+          flex: 1 1 100%;
+          margin: 0px 0px 32px 0px;
         }
       }
 
@@ -824,6 +1080,11 @@ export default {
               font-size: 16px;
               line-height: 20px;
               letter-spacing: -0.1px;
+
+              @media (max-width:1250px){
+                font-size: 14px;
+                line-height: 17px;
+              }
             }
 
             .q-select__dropdown-icon {
@@ -838,6 +1099,15 @@ export default {
               letter-spacing: 0;
               top: 10px;
               left: 15px;
+            }
+
+            @media (max-width:1650px){
+              min-width: 292px;
+            }
+
+            @media (max-width:1250px){
+              min-width: 253px;
+              max-width: 253px;
             }
           }
 
@@ -861,8 +1131,30 @@ export default {
                 font-size: 16px;
                 line-height: 20px;
                 letter-spacing: -0.1px;
+
+                @media (max-width:1250px){
+                  font-size: 14px;
+                  line-height: 17px;
+                  padding: 9px 16px 7px 50px;
+                }
               }
             }
+
+            @media (max-width:1800px){
+              margin: 0px 32px 0px auto;
+            }
+
+            @media (max-width:1250px){
+              margin: 0px 24px 0px auto;
+            }
+
+            @media (max-width:800px){
+              margin: 0px 0px 15px 0px;
+            }
+          }
+
+          @media (max-width:800px){
+            display: block;
           }
         }
 
@@ -873,6 +1165,14 @@ export default {
         &__ckeckbox, &__copy, &__delete {
           margin: 8px 24px 0px 0px;
           cursor: pointer;
+
+          @media (max-width:1250px){
+            margin: 8px 16px 0px 0px;
+          }
+
+          @media (max-width:800px){
+            margin: 0px 16px 15px 0px;
+          }
         }
 
         &__list {
@@ -890,6 +1190,11 @@ export default {
           font-weight: 500;
           font-size: 14px;
           line-height: 17px;
+
+          @media (max-width:1360px){
+            font-size: 12px;
+            line-height: 15px;
+          }
         }
 
         &__id, &__type, &__status {
@@ -907,10 +1212,42 @@ export default {
 
           .blocks__ckeckbox {
             margin: 0 32px 0 0;
+
+            @media (max-width:1650px){
+              align-self: flex-start;
+              margin: 25px 32px 0px 0px;
+            }
+
+            @media (max-width:1250px){
+              margin: 23px 32px 0px 0px;
+            }
           }
 
           &:last-child {
             margin: 32px 0px 0px;
+          }
+
+          @media (max-width:1650px){
+            &:first-child {
+              margin: 32px 0px 23px;
+            }
+
+            align-items: center;
+            margin: 0px 0px 21px;
+
+            &:last-child {
+              margin: 0px;
+            }
+          }
+
+          @media (max-width:800px){
+            display: block;
+          }
+        }
+
+        &__about {
+          @media (max-width:1650px){
+            margin: 0px 0px 16px 0px;
           }
         }
 
@@ -918,12 +1255,22 @@ export default {
           display: flex;
           align-self: center;
           margin: 0px 37px 0px auto;
+
+          @media (max-width:1800px){
+            display: block;
+            margin: 0px 0px 0px auto;
+          }
         }
 
         &__title {
           font-size: 16px;
           line-height: 20px;
           margin: 1px 0px 12px 0px;
+
+          @media (max-width:1360px){
+            font-size: 14px;
+            line-height: 17px;
+          }
         }
 
         &__action {
@@ -937,6 +1284,24 @@ export default {
           &:hover{
             color: #629DF6;
           }
+
+          @media (max-width:1800px){
+            display: block;
+            margin: 2px 0px 18px 25px;
+          }
+
+          @media (max-width:1360px){
+            font-size: 14px;
+            line-height: 17px;
+          }
+
+          @media (max-width:800px){
+            margin: 2px 0px 18px 0px;
+          }
+        }
+
+        @media (max-width:1360px){
+          padding: 32px;
         }
       }
     }
@@ -959,6 +1324,34 @@ export default {
           display: none;
         }
       }
+
+      @media (max-width:1650px){
+        width: 324px;
+      }
+
+      @media (max-width:1360px){
+        width: 289px;
+      }
+    }
+
+    &.traffic {
+      width: 497px;
+
+      .q-item {
+        min-height: 40px;
+
+        &:hover{
+          background: #f3f4f6;
+        }
+
+        &__label {
+          color: #12284C;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+      }
     }
   }
 
@@ -968,8 +1361,16 @@ export default {
       opacity: 0.2;
     }
 
+    &__inner--minimized > div {
+      max-width: 639px;
+    }
+
+    &__inner > div {
+      box-shadow: 0px 0px 24px rgba(18, 40, 76, 0.08);
+    }
+
     .addsite {
-      padding: 40px !important;
+      padding: 40px;
       min-width: 100%;
       min-height: 100%;
       max-width: 577px;
@@ -980,9 +1381,16 @@ export default {
         font-size: 18px;
         line-height: 22px;
         color: #12284C;
+        margin: 0px 0px 33px 0px;
       }
 
       .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
         .q-btn__wrapper {
           padding: 0;
           margin: 0;
@@ -990,6 +1398,709 @@ export default {
 
         .q-focus-helper {
           display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
+        }      }
+
+      .label {
+        font-size: 12px;
+        line-height: 15px;
+        color: #12284C;
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 0px 8px 0px;
+
+        span {
+          &:last-child {
+            color: #A0A9B7;
+          }
+        }
+      }
+
+      .q-field {
+        border: 1px solid #A0A9B7;
+        border-radius: 4px;
+        height: 40px;
+        overflow: hidden;
+        margin: 0px 0px 24px 0px;
+
+        &__control {
+          height: 40px;
+          min-height: 0;
+          padding: 0px;
+          background-color: transparent;
+
+          &::before {
+            display: none;
+          }
+        }
+
+        &__control-container {
+          padding-top: 0;
+        }
+
+        &--float {
+          .q-field__label {
+            display: none;
+          }
+        }
+
+        &__native {
+          padding: 9px 16px 7px 16px;
+          font-size: 16px;
+          line-height: 20px;
+          letter-spacing: -0.1px;
+        }
+
+        .q-select__dropdown-icon {
+          font-size: 24px;
+          margin: -18px 7px 0px 0px;
+          color: #4690ff;
+        }
+
+        &__label {
+          font-size: 16px;
+          line-height: 20px;
+          letter-spacing: 0;
+          top: 10px;
+          left: 15px;
+        }
+      }
+
+      .url {
+        .q-field {
+          &__native {
+            padding: 9px 16px 7px 16px;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: -0.1px;
+          }
+        }
+      }
+
+      .link {
+        margin: 0px 0px 16px 0px;
+      }
+
+      .info {
+        font-size: 14px;
+        line-height: 18px;
+
+        .subtitle {
+          color: #12284C;
+          padding: 0px 0px 0px 24px;
+          position: relative;
+          margin: 0px 0px 8px 0px;
+
+          &::before {
+            content:'';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 0;
+            left: 0;
+            background: url('../assets/attention.svg') 0 0 no-repeat;
+          }
+        }
+
+        &__list {
+          list-style: none;
+          padding: 0 0 0 24px;
+          margin: 0 0 32px 0;
+
+          li {
+            font-size: 14px;
+            line-height: 22px;
+            color: #596982;
+          }
+        }
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        .btn {
+          color: #fff;
+          background-color: #4690ff;
+          font-size: 18px;
+          line-height: 22px;
+          height: 40px;
+
+          & + .btn {
+            margin: 0px 0px 0px 24px;
+          }
+
+          &:hover {
+            background: #629df6;
+          }
+
+          .q-focus-helper {
+            display: none;
+          }
+
+          .q-btn__wrapper {
+            min-height: 0;
+            z-index: 1;
+          }
+
+          &:active {
+            background: #4690ff;
+            box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
+          }
+
+          &-white {
+            transition: all 0.1s;
+            color: #4690ff;
+            background: #fff;
+            border: 1px solid #4690ff;
+            box-sizing: border-box;
+            border-radius: 4px;
+            margin: 0px 24px 0px 1px;
+            transition: all 0.5s;
+
+            &:hover {
+              background: #F3F4F6;
+            }
+
+            &:active {
+              background: #fff !important;
+              color: #fff;
+              box-shadow: none;
+            }
+
+            .q-ripple {
+              background: #fff !important;
+              position: absolute;
+              z-index: 0 !important;
+              overflow: hidden;
+            }
+          }
+
+          &-grey {
+            color: #596982;
+            background-color: #fff;
+            transition: all 0.3s;
+
+            .q-btn__wrapper {
+              padding: 0;
+            }
+
+            &:hover,
+            &:active {
+              box-shadow: none;
+              background-color: #fff;
+              color: #12284c;
+            }
+          }
+        }
+      }
+    }
+
+    .adblock {
+      padding: 40px;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 639px;
+      min-width: 576px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #12284C;
+        margin: 0px 0px 30px 0px;
+      }
+
+      .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
+        }
+      }
+
+      .q-expansion-item {
+        .q-focus-helper {
+          display: none;
+        }
+
+        .q-item {
+          padding: 0;
+          margin: 0;
+          min-height: 22px;
+
+          &__label {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+            color: #12284C;
+          }
+        }
+
+        .q-icon {
+          color: #4690ff;
+          font-size: 34px;
+          margin: 0px -5px 0px 0px;
+        }
+
+      }
+
+      .btn {
+        color: #fff;
+        background-color: #4690ff;
+        font-size: 18px;
+        line-height: 22px;
+        height: 40px;
+        margin: 18px 0px 0px 0px;
+
+        & + .btn {
+          margin: 0px 0px 0px 24px;
+        }
+
+        &:hover {
+          background: #629df6;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        .q-btn__wrapper {
+          min-height: 0;
+          z-index: 1;
+        }
+
+        &:active {
+          background: #4690ff;
+          box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
+        }
+
+        &-white {
+          transition: all 0.1s;
+          color: #4690ff;
+          background: #fff;
+          border: 1px solid #4690ff;
+          box-sizing: border-box;
+          border-radius: 4px;
+          margin: 0px 24px 0px 1px;
+          transition: all 0.5s;
+
+          &:hover {
+            background: #F3F4F6;
+          }
+
+          &:active {
+            background: #fff !important;
+            color: #fff;
+            box-shadow: none;
+          }
+
+          .q-ripple {
+            background: #fff !important;
+            position: absolute;
+            z-index: 0 !important;
+            overflow: hidden;
+          }
+        }
+
+        &-grey {
+          color: #596982;
+          background-color: #fff;
+          transition: all 0.3s;
+
+          .q-btn__wrapper {
+            padding: 0;
+          }
+
+          &:hover,
+          &:active {
+            box-shadow: none;
+            background-color: #fff;
+            color: #12284c;
+          }
+        }
+      }
+
+      .example__list {
+        padding: 0;
+        margin: 6px 0 8px 0;
+        list-style: none;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12284C;
+
+        li {
+          a {
+            text-decoration: none;
+            color: #12284C;
+          }
+        }
+      }
+
+      .text {
+        font-size: 14px;
+        line-height: 24px;
+        color: #12284C;
+        padding: 0;
+        margin: 0 0 8px 0;
+
+        span {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 24px;
+        }
+      }
+
+      .subtext {
+        font-size: 14px;
+        line-height: 24px;
+        color: #596982;
+        padding: 0;
+        margin: 0 0 6px 0;
+      }
+
+      .sites {
+        &__list {
+          padding: 0;
+          margin: 41px 0px 0px 0px;
+          list-style: none;
+
+          li {
+            font-size: 18px;
+            line-height: 22px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            min-width: 559px;
+
+            & + li {
+              margin: 42px 0px 9px 0px;
+            }
+          }
+        }
+
+        &__link {
+          color: #12284C;
+          cursor: pointer;
+        }
+
+        &__ssl {
+          color: #596982;
+          letter-spacing: 0.2px;
+          letter-spacing: 0.2102px;
+          margin: 0 24px 0 40px;
+          cursor: pointer;
+        }
+
+        &__del {
+          color: #B36F6C;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .adddomain {
+      padding: 40px;
+      min-height: 100%;
+      min-width: 595px;
+      max-width: 595px;
+      max-height: 548px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #12284C;
+        margin: 0px 0px 33px 0px;
+      }
+
+      .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
+        }      }
+
+      .label {
+        font-size: 12px;
+        line-height: 15px;
+        color: #12284C;
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 0px 8px 0px;
+      }
+
+      .q-field {
+        border: 1px solid #A0A9B7;
+        border-radius: 4px;
+        height: 40px;
+        overflow: hidden;
+        margin: 0px 0px 24px 0px;
+
+        &__control {
+          height: 40px;
+          min-height: 0;
+          padding: 0px;
+          background-color: transparent;
+
+          &::before {
+            display: none;
+          }
+        }
+
+        &__control-container {
+          padding-top: 0;
+        }
+
+        &--float {
+          .q-field__label {
+            display: none;
+          }
+        }
+
+        &__native {
+          padding: 9px 16px 7px 16px;
+          font-size: 16px;
+          line-height: 20px;
+          letter-spacing: -0.1px;
+        }
+
+        .q-select__dropdown-icon {
+          font-size: 24px;
+          margin: -18px 7px 0px 0px;
+          color: #4690ff;
+        }
+
+        &__label {
+          font-size: 16px;
+          line-height: 20px;
+          letter-spacing: 0;
+          top: 10px;
+          left: 15px;
+        }
+      }
+
+      .url {
+        .q-field {
+          &__native {
+            padding: 9px 16px 7px 16px;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: -0.1px;
+          }
+        }
+      }
+
+      .link {
+        margin: 0px 0px 16px 0px;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        .btn {
+          color: #fff;
+          background-color: #4690ff;
+          font-size: 18px;
+          line-height: 22px;
+          height: 40px;
+
+          & + .btn {
+            margin: 0px 0px 0px 24px;
+          }
+
+          &:hover {
+            background: #629df6;
+          }
+
+          .q-focus-helper {
+            display: none;
+          }
+
+          .q-btn__wrapper {
+            min-height: 0;
+            z-index: 1;
+          }
+
+          &:active {
+            background: #4690ff;
+            box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
+          }
+
+          &-white {
+            transition: all 0.1s;
+            color: #4690ff;
+            background: #fff;
+            border: 1px solid #4690ff;
+            box-sizing: border-box;
+            border-radius: 4px;
+            margin: 0px 24px 0px 1px;
+            transition: all 0.5s;
+
+            &:hover {
+              background: #F3F4F6;
+            }
+
+            &:active {
+              background: #fff !important;
+              color: #fff;
+              box-shadow: none;
+            }
+
+            .q-ripple {
+              background: #fff !important;
+              position: absolute;
+              z-index: 0 !important;
+              overflow: hidden;
+            }
+          }
+
+          &-grey {
+            color: #596982;
+            background-color: #fff;
+            transition: all 0.3s;
+
+            .q-btn__wrapper {
+              padding: 0;
+            }
+
+            &:hover,
+            &:active {
+              box-shadow: none;
+              background-color: #fff;
+              color: #12284c;
+            }
+          }
+        }
+      }
+    }
+
+    .ssl {
+      padding: 40px;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 440px;
+      min-width: 440px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #95BD5A;
+        margin: 48px 0px 0px 0px;
+      }
+
+      .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
+        }
+      }
+    }
+
+    .domain {
+      padding: 40px;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 374px;
+      min-width: 374px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #95BD5A;
+        margin: 48px 0px 0px 0px;
+      }
+
+      .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
         }
       }
     }
