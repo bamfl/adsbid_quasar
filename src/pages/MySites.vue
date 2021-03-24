@@ -1,6 +1,6 @@
 <template>
   <q-page class="mysites-page">
-    <div v-if="mySitesStatus === 'confirmation'">
+    <div class="confirmation" v-if="mySitesStatus === 'confirmation'">
       <div class="title">Для работы с сайтами и блоками Вам необходимо подтвердить свой электронный адрес, указанный при регистрации.</div>
       <p class="about">
         Пожалуйста, перейдите по ссылке из письма;<br>
@@ -8,11 +8,11 @@
       </p>
     </div>
 
-    <div v-if="mySitesStatus === 'blocked'">
+    <div class="blocked" v-if="mySitesStatus === 'blocked'">
       <div class="title block">Аккаунт заблокирован</div>
     </div>
 
-    <div v-if="mySitesStatus === 'active'">
+    <div class="active" v-if="mySitesStatus === 'active'">
       <nav class="nav">
         <q-btn class="btn" :ripple="false" label="Добавить сайт" unelevated no-caps @click="addSite = true" />
         <q-btn class="btn btn-white" label="Обход AdBlock" unelevated no-caps @click="adBlock = true" />
@@ -555,6 +555,20 @@
         </q-card>
       </q-dialog>
     </div>
+
+    <div class="mob">
+      <a href="#" class="mob__logo"><img src="../assets/logo-mob.png" alt=""/></a>
+
+      <div class="mob__container">
+        <img src="../assets/trees.png" alt="">
+
+        <div class="mob__title">
+          Страница «Мои сайты» доступна только на десктопной версии 
+        </div>
+      </div>
+
+      <q-btn class="btn" :ripple="false" label="Перейти" unelevated no-caps />
+    </div>
   </q-page>
 </template>
 
@@ -676,6 +690,14 @@ export default {
         font-weight: 500;
         font-size: 16px;
         line-height: 20px;
+      }
+
+      @media (max-width:540px){
+        margin: 0px 24px 10px 0px;
+
+        &:last-child {
+          margin: 0;
+        }
       }
     }
 
@@ -901,6 +923,10 @@ export default {
                       line-height: 15px;
                       padding: 4px 6px 4px 42px;
                     }
+
+                    @media (max-width:600px){
+                      font-size: 10px;
+                    }
                   }
 
                   &-hi {
@@ -969,6 +995,11 @@ export default {
                   @media (max-width:1170px){
                     text-align: right;
                   }
+
+                  @media (max-width:600px){
+                    padding-left: 5px;
+                    font-size: 12px !important;
+                  }
                 }
 
                 @media (max-width:1360px){
@@ -981,6 +1012,10 @@ export default {
                   flex: 0 1 50%;
                   height: auto;
                   padding: 23px 32px 17px 32px;
+                }
+
+                @media (max-width:600px){
+                  font-size: 12px;
                 }
               }
 
@@ -1109,6 +1144,10 @@ export default {
               min-width: 253px;
               max-width: 253px;
             }
+
+            @media (max-width:800px){
+              max-width: 100%;
+            }
           }
 
           .search {
@@ -1137,6 +1176,10 @@ export default {
                   line-height: 17px;
                   padding: 9px 16px 7px 50px;
                 }
+
+                @media (max-width:600px){
+                  font-size: 12px;
+                }
               }
             }
 
@@ -1149,7 +1192,7 @@ export default {
             }
 
             @media (max-width:800px){
-              margin: 0px 0px 15px 0px;
+              margin: 0px 0px 16px 0px;
             }
           }
 
@@ -1221,6 +1264,10 @@ export default {
             @media (max-width:1250px){
               margin: 23px 32px 0px 0px;
             }
+
+            @media (max-width:800px){
+              margin: 23px 32px 10px 0px;
+            }
           }
 
           &:last-child {
@@ -1242,6 +1289,12 @@ export default {
 
           @media (max-width:800px){
             display: block;
+
+            &:first-child {
+              margin: 32px 0;
+            }
+
+            margin: 32px 0px;
           }
         }
 
@@ -1271,6 +1324,10 @@ export default {
             font-size: 14px;
             line-height: 17px;
           }
+
+          @media (max-width:600px){
+            font-size: 12px;
+          }
         }
 
         &__action {
@@ -1296,7 +1353,7 @@ export default {
           }
 
           @media (max-width:800px){
-            margin: 2px 0px 18px 0px;
+            margin: 2px 0px 10px 0px;
           }
         }
 
@@ -1304,6 +1361,10 @@ export default {
           padding: 32px;
         }
       }
+    }
+
+    .mob {
+      display: none;
     }
   }
 
@@ -1332,6 +1393,10 @@ export default {
       @media (max-width:1360px){
         width: 289px;
       }
+
+      @media (max-width:1170px){
+        width: calc(100% - 240px);
+      }
     }
 
     &.traffic {
@@ -1351,6 +1416,10 @@ export default {
         .q-focus-helper {
           display: none;
         }
+      }
+
+      @media (max-width:630px){
+        width: calc(100% - 130px);
       }
     }
   }
@@ -1457,6 +1526,10 @@ export default {
           font-size: 16px;
           line-height: 20px;
           letter-spacing: -0.1px;
+
+          @media (max-width:600px){
+            font-size: 14px;
+          }
         }
 
         .q-select__dropdown-icon {
@@ -1471,6 +1544,10 @@ export default {
           letter-spacing: 0;
           top: 10px;
           left: 15px;
+
+          @media (max-width:600px){
+            font-size: 14px;
+          }
         }
       }
 
@@ -1481,6 +1558,10 @@ export default {
             font-size: 16px;
             line-height: 20px;
             letter-spacing: -0.1px;
+
+            @media (max-width:600px){
+              font-size: 14px;
+            }
           }
         }
       }
@@ -1601,6 +1682,10 @@ export default {
             }
           }
         }
+      }
+
+      @media (max-width:600px){
+        max-height: 100%;
       }
     }
 
@@ -1803,12 +1888,20 @@ export default {
             & + li {
               margin: 42px 0px 9px 0px;
             }
+
+            @media (max-width:700px){
+              display: block;
+            }
           }
         }
 
         &__link {
           color: #12284C;
           cursor: pointer;
+
+          @media (max-width:700px){
+            margin: 0px 0px 10px 0px;
+          }
         }
 
         &__ssl {
@@ -1817,12 +1910,21 @@ export default {
           letter-spacing: 0.2102px;
           margin: 0 24px 0 40px;
           cursor: pointer;
+
+          @media (max-width:700px){
+            margin: 0px 0px 10px 0px;
+          }
         }
 
         &__del {
           color: #B36F6C;
           cursor: pointer;
         }
+      }
+
+      @media (max-width:700px){
+        min-width: 0;
+        overflow: hidden;
       }
     }
 
@@ -1839,6 +1941,10 @@ export default {
         line-height: 22px;
         color: #12284C;
         margin: 0px 0px 33px 0px;
+
+        @media (max-width:645px){
+          margin: 0px 30px 33px 0px;
+        }
       }
 
       .close {
@@ -2019,6 +2125,12 @@ export default {
           }
         }
       }
+
+      @media (max-width:645px){
+        max-width: 100%;
+        min-width: 100%;
+        overflow: hidden;
+      }
     }
 
     .ssl {
@@ -2104,5 +2216,56 @@ export default {
         }
       }
     }
+  }
+
+  // Mobile
+  @media (max-width:500px){
+    .mysites-page {
+      .confirmation, .blocked, .active {
+        display: none;
+      }
+
+      .mob {      
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+        padding: 16px;
+
+        &__logo {
+          position: absolute;
+          width: 65px;
+          height: 21px;
+          top: 16px;
+          left: 16px;
+        }
+
+        &__container {
+          max-width: 328px;        
+
+          img {
+            max-width: 100%;
+          }        
+        }
+
+        &__title {
+          margin: 56px 0px 24px 0px;
+          text-align: center;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+
   }
 </style>
