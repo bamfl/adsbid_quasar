@@ -557,10 +557,10 @@
     </div>
 
     <div class="mob">
-      <a href="#" class="mob__logo"><img src="../assets/logo-mob.png" alt=""/></a>
+      <a href="#" class="mob__logo"><img src="../assets/logo-mob.svg" alt=""/></a>
 
       <div class="mob__container">
-        <img src="../assets/trees.png" alt="">
+        <img src="../assets/trees.svg" alt="">
 
         <div class="mob__title">
           Страница «Мои сайты» доступна только на десктопной версии 
