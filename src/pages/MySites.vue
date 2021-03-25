@@ -94,7 +94,7 @@
               </tr>
               <tr>
                 <td>website.website.com</td>
-                <td class="status">На модерации</td>
+                <td class="status status-moderate">На модерации</td>
               </tr>
               <tr>
                 <td>website.website.com</td>
@@ -111,8 +111,8 @@
         <div class="card blocks">
           <div class="blocks__head">
             <div class="blocks__buttons">
-              <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">
+              <div class="blocks__checkbox" @click="checkbox = !checkbox">
+                <div v-if="checkbox" class="active">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -160,8 +160,8 @@
 
           <ul class="blocks__list">
             <li class="blocks__item">
-              <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">
+              <div class="blocks__checkbox" @click="checkbox = !checkbox">
+                <div v-if="checkbox" class="active">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -188,8 +188,8 @@
               </div>
             </li>
             <li class="blocks__item">
-              <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">
+              <div class="blocks__checkbox" @click="checkbox = !checkbox">
+                <div v-if="checkbox" class="active">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -216,8 +216,8 @@
               </div>
             </li>
             <li class="blocks__item">
-              <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">
+              <div class="blocks__checkbox" @click="checkbox = !checkbox">
+                <div v-if="checkbox" class="active">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -244,8 +244,8 @@
               </div>
             </li>
             <li class="blocks__item">
-              <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">
+              <div class="blocks__checkbox" @click="checkbox = !checkbox">
+                <div v-if="checkbox" class="active">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -272,8 +272,8 @@
               </div>
             </li>
             <li class="blocks__item">
-              <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">
+              <div class="blocks__checkbox" @click="checkbox = !checkbox">
+                <div v-if="checkbox" class="active">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -300,8 +300,8 @@
               </div>
             </li>
             <li class="blocks__item">
-              <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">
+              <div class="blocks__checkbox" @click="checkbox = !checkbox">
+                <div v-if="checkbox" class="active">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -328,8 +328,8 @@
               </div>
             </li>
             <li class="blocks__item">
-              <div class="blocks__ckeckbox" @click="ckeckbox = !ckeckbox">
-                <div v-if="ckeckbox">
+              <div class="blocks__checkbox" @click="checkbox = !checkbox">
+                <div v-if="checkbox" class="active">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
@@ -563,7 +563,7 @@
         <img src="../assets/trees.svg" alt="">
 
         <div class="mob__title">
-          Страница «Мои сайты» доступна только на десктопной версии 
+          Страница «Мои сайты» доступна только на десктопной версии
         </div>
       </div>
 
@@ -583,7 +583,7 @@ export default {
       traffic: null,
       optionsOne: ["По дате добавления", "По дате создания", "По дате добавления"],
       optionsTwo: ["Поисковый (органический)", "Платный (покупной)", "Доверенный трафик"],
-      ckeckbox: false,
+      checkbox: false,
       addSite: false,
       adBlock: false,
       addDomain: false,
@@ -903,6 +903,7 @@ export default {
                 line-height: 20px;
                 padding: 23px 0px 15px 40px;
                 cursor: pointer;
+                color: #12284C;
 
                 &::before {
                   display: none;
@@ -978,6 +979,10 @@ export default {
                         background: url('../assets/level-low.svg') 0 0 no-repeat;
                       }
                     }
+                  }
+
+                  &-moderate {
+                    color: #A0A9B7;
                   }
 
                   &-remoderate {
@@ -1205,7 +1210,7 @@ export default {
           display: flex;
         }
 
-        &__ckeckbox, &__copy, &__delete {
+        &__checkbox, &__copy, &__delete {
           margin: 8px 24px 0px 0px;
           cursor: pointer;
 
@@ -1215,6 +1220,24 @@ export default {
 
           @media (max-width:800px){
             margin: 0px 16px 15px 0px;
+          }
+        }
+
+        &__checkbox {
+          svg {
+            path {
+              fill: #596982;
+            }
+          }
+
+
+
+          .active{
+            svg {
+              path {
+                fill: #12284C;
+              }
+            }
           }
         }
 
@@ -1229,6 +1252,7 @@ export default {
         }
 
         &__info {
+          color: #596982;
           display: flex;
           font-weight: 500;
           font-size: 14px;
@@ -1253,7 +1277,7 @@ export default {
           justify-content: space-between;
           margin: 32px 0px 39px;
 
-          .blocks__ckeckbox {
+          .blocks__checkbox {
             margin: 0 32px 0 0;
 
             @media (max-width:1650px){
@@ -1316,6 +1340,7 @@ export default {
         }
 
         &__title {
+          color: #12284C;
           font-size: 16px;
           line-height: 20px;
           margin: 1px 0px 12px 0px;
@@ -1404,6 +1429,7 @@ export default {
 
       .q-item {
         min-height: 40px;
+        padding: 13px 24px 6px;
 
         &:hover{
           background: #f3f4f6;
@@ -1754,6 +1780,10 @@ export default {
           margin: 0px -5px 0px 0px;
         }
 
+        &__content {
+          max-width: 496px;
+        }
+
       }
 
       .btn {
@@ -1897,7 +1927,7 @@ export default {
 
         &__link {
           color: #12284C;
-          cursor: pointer;
+          cursor: pointer;          
 
           @media (max-width:700px){
             margin: 0px 0px 10px 0px;
@@ -1910,6 +1940,13 @@ export default {
           letter-spacing: 0.2102px;
           margin: 0 24px 0 40px;
           cursor: pointer;
+
+          &:hover,
+          &:active {
+            box-shadow: none;
+            background-color: #fff;
+            color: #12284c;
+          }
 
           @media (max-width:700px){
             margin: 0px 0px 10px 0px;
@@ -1986,7 +2023,7 @@ export default {
         border-radius: 4px;
         height: 40px;
         overflow: hidden;
-        margin: 0px 0px 24px 0px;
+        margin: 0px 0px 32px 0px;
 
         &__control {
           height: 40px;
@@ -2225,7 +2262,7 @@ export default {
         display: none;
       }
 
-      .mob {      
+      .mob {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -2246,11 +2283,11 @@ export default {
         }
 
         &__container {
-          max-width: 328px;        
+          max-width: 328px;
 
           img {
             max-width: 100%;
-          }        
+          }
         }
 
         &__title {
