@@ -848,6 +848,10 @@ export default {
   @media (max-width: 1200px) {
     padding: 32px;
   }
+
+  @media (max-width:500px){
+    padding: 16px;
+  }
 }
 
 .statistics-page {

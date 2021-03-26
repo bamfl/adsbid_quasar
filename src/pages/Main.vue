@@ -768,6 +768,10 @@ export default {
   @media (max-width:1360px){
     padding: 32px 32px 0 !important;
   }
+
+  @media (max-width:500px){
+    padding: 16px !important;
+  }
 }
 
 .main-page {
