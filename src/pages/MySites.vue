@@ -1124,6 +1124,10 @@ export default {
             width: 100%;
             height: 100%;
           }
+
+          @media (max-width:800px){
+            margin: 0px 24px 0px 1px;            
+          }
         }
 
         &__head {
@@ -3013,6 +3017,7 @@ export default {
         line-height: 22px;
         color: #A64541;
         margin: 16px 0px 0px 0px;
+        text-align: center;
       }
 
       .close {
@@ -3109,12 +3114,12 @@ export default {
         }
 
         @media (max-width:540px){
-          margin: 0px 24px 10px 0px;
-
-          &:last-child {
-            margin: 0;
-          }
+          margin: 32px 0px 0px;
         }
+      }
+
+      @media (max-width:540px){
+        min-width: 0;
       }
     }
   }
