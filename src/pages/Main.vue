@@ -1752,8 +1752,6 @@ export default {
   }
 }
 
-
-
 // Mobile
 @media (max-width:500px){
   .main-page {

@@ -111,20 +111,8 @@
         <div class="card blocks">
           <div class="blocks__head">
             <div class="blocks__buttons">
-              <div class="blocks__checkbox" @click="checkbox = !checkbox">
-                <div v-if="checkbox" class="active">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
-                  </svg>
-                </div>
-                <div v-else>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8 3.2H3.2V20.8H20.8V3.2ZM3.2 1C1.98497 1 1 1.98497 1 3.2V20.8C1 22.015 1.98497 23 3.2 23H20.8C22.015 23 23 22.015 23 20.8V3.2C23 1.98497 22.015 1 20.8 1H3.2Z" fill="#12284C"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="blocks__copy">
+              <q-checkbox v-model="checkboxAll" />
+              <div :class="['blocks__copy', {active: checkbox || checkboxAll}]" @click="copyBlock = true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5196 9.80005H1.43999C1.19711 9.80005 1 9.99716 1 10.24V22.5597C1 22.803 1.19711 22.9997 1.43999 22.9997H15.5196C15.7629 22.9997 15.9596 22.803 15.9596 22.5597V10.24C15.9596 9.99716 15.7629 9.80005 15.5196 9.80005Z" fill="#DBDFE4"/>
                 <path d="M22.5587 1.00024H8.47905C8.23618 1.00024 8.03906 1.19736 8.03906 1.44023V8.48005C8.03906 8.72293 8.23618 8.92004 8.47905 8.92004H16.8388V13.7599C16.8388 14.0032 17.0355 14.1999 17.2788 14.1999H22.5587C22.802 14.1999 22.9987 14.0032 22.9987 13.7599V1.44023C22.9987 1.19736 22.802 1.00024 22.5587 1.00024Z" fill="#DBDFE4"/>
@@ -138,7 +126,7 @@
                   Копировать блок(и)
                 </q-tooltip>
               </div>
-              <div class="blocks__delete">
+              <div :class="['blocks__delete', {active: checkbox || checkboxAll}]">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.14286 20.5556C5.14286 21.9 6.17143 23 7.42857 23H16.5714C17.8286 23 18.8571 21.9 18.8571 20.5556V5.88889H5.14286V20.5556ZM20 2.22222H16L14.8571 1H9.14286L8 2.22222H4V4.66667H20V2.22222Z" fill="#DBDFE4"/>
                 </svg>
@@ -160,19 +148,7 @@
 
           <ul class="blocks__list">
             <li class="blocks__item">
-              <div class="blocks__checkbox" @click="checkbox = !checkbox">
-                <div v-if="checkbox" class="active">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
-                  </svg>
-                </div>
-                <div v-else>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8 3.2H3.2V20.8H20.8V3.2ZM3.2 1C1.98497 1 1 1.98497 1 3.2V20.8C1 22.015 1.98497 23 3.2 23H20.8C22.015 23 23 22.015 23 20.8V3.2C23 1.98497 22.015 1 20.8 1H3.2Z" fill="#12284C"/>
-                  </svg>
-                </div>
-              </div>
+              <q-checkbox v-model="checkbox" />
               <div class="blocks__about">
                 <div class="blocks__title">27.07.2020_05:33:28_website.website.com</div>
                 <div class="blocks__info">
@@ -184,175 +160,7 @@
               <div class="blocks__actions">
                 <div class="blocks__action">Редактировать</div>
                 <div class="blocks__action">Получить код</div>
-                <div class="blocks__action">Удалить блок</div>
-              </div>
-            </li>
-            <li class="blocks__item">
-              <div class="blocks__checkbox" @click="checkbox = !checkbox">
-                <div v-if="checkbox" class="active">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
-                  </svg>
-                </div>
-                <div v-else>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8 3.2H3.2V20.8H20.8V3.2ZM3.2 1C1.98497 1 1 1.98497 1 3.2V20.8C1 22.015 1.98497 23 3.2 23H20.8C22.015 23 23 22.015 23 20.8V3.2C23 1.98497 22.015 1 20.8 1H3.2Z" fill="#12284C"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="blocks__about">
-                <div class="blocks__title">27.07.2020_05:33:28_website.website.com</div>
-                <div class="blocks__info">
-                  <div class="blocks__id">ID: 973777</div>
-                  <div class="blocks__type">Все</div>
-                  <div class="blocks__status">Идет тест</div>
-                </div>
-              </div>
-              <div class="blocks__actions">
-                <div class="blocks__action">Редактировать</div>
-                <div class="blocks__action">Получить код</div>
-                <div class="blocks__action">Удалить блок</div>
-              </div>
-            </li>
-            <li class="blocks__item">
-              <div class="blocks__checkbox" @click="checkbox = !checkbox">
-                <div v-if="checkbox" class="active">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
-                  </svg>
-                </div>
-                <div v-else>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8 3.2H3.2V20.8H20.8V3.2ZM3.2 1C1.98497 1 1 1.98497 1 3.2V20.8C1 22.015 1.98497 23 3.2 23H20.8C22.015 23 23 22.015 23 20.8V3.2C23 1.98497 22.015 1 20.8 1H3.2Z" fill="#12284C"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="blocks__about">
-                <div class="blocks__title">27.07.2020_05:33:28_website.website.com</div>
-                <div class="blocks__info">
-                  <div class="blocks__id">ID: 973777</div>
-                  <div class="blocks__type">Все</div>
-                  <div class="blocks__status">Идет тест</div>
-                </div>
-              </div>
-              <div class="blocks__actions">
-                <div class="blocks__action">Редактировать</div>
-                <div class="blocks__action">Получить код</div>
-                <div class="blocks__action">Удалить блок</div>
-              </div>
-            </li>
-            <li class="blocks__item">
-              <div class="blocks__checkbox" @click="checkbox = !checkbox">
-                <div v-if="checkbox" class="active">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
-                  </svg>
-                </div>
-                <div v-else>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8 3.2H3.2V20.8H20.8V3.2ZM3.2 1C1.98497 1 1 1.98497 1 3.2V20.8C1 22.015 1.98497 23 3.2 23H20.8C22.015 23 23 22.015 23 20.8V3.2C23 1.98497 22.015 1 20.8 1H3.2Z" fill="#12284C"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="blocks__about">
-                <div class="blocks__title">27.07.2020_05:33:28_website.website.com</div>
-                <div class="blocks__info">
-                  <div class="blocks__id">ID: 973777</div>
-                  <div class="blocks__type">Все</div>
-                  <div class="blocks__status">Идет тест</div>
-                </div>
-              </div>
-              <div class="blocks__actions">
-                <div class="blocks__action">Редактировать</div>
-                <div class="blocks__action">Получить код</div>
-                <div class="blocks__action">Удалить блок</div>
-              </div>
-            </li>
-            <li class="blocks__item">
-              <div class="blocks__checkbox" @click="checkbox = !checkbox">
-                <div v-if="checkbox" class="active">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
-                  </svg>
-                </div>
-                <div v-else>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8 3.2H3.2V20.8H20.8V3.2ZM3.2 1C1.98497 1 1 1.98497 1 3.2V20.8C1 22.015 1.98497 23 3.2 23H20.8C22.015 23 23 22.015 23 20.8V3.2C23 1.98497 22.015 1 20.8 1H3.2Z" fill="#12284C"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="blocks__about">
-                <div class="blocks__title">27.07.2020_05:33:28_website.website.com</div>
-                <div class="blocks__info">
-                  <div class="blocks__id">ID: 973777</div>
-                  <div class="blocks__type">Все</div>
-                  <div class="blocks__status">Идет тест</div>
-                </div>
-              </div>
-              <div class="blocks__actions">
-                <div class="blocks__action">Редактировать</div>
-                <div class="blocks__action">Получить код</div>
-                <div class="blocks__action">Удалить блок</div>
-              </div>
-            </li>
-            <li class="blocks__item">
-              <div class="blocks__checkbox" @click="checkbox = !checkbox">
-                <div v-if="checkbox" class="active">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
-                  </svg>
-                </div>
-                <div v-else>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8 3.2H3.2V20.8H20.8V3.2ZM3.2 1C1.98497 1 1 1.98497 1 3.2V20.8C1 22.015 1.98497 23 3.2 23H20.8C22.015 23 23 22.015 23 20.8V3.2C23 1.98497 22.015 1 20.8 1H3.2Z" fill="#12284C"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="blocks__about">
-                <div class="blocks__title">27.07.2020_05:33:28_website.website.com</div>
-                <div class="blocks__info">
-                  <div class="blocks__id">ID: 973777</div>
-                  <div class="blocks__type">Все</div>
-                  <div class="blocks__status">Идет тест</div>
-                </div>
-              </div>
-              <div class="blocks__actions">
-                <div class="blocks__action">Редактировать</div>
-                <div class="blocks__action">Получить код</div>
-                <div class="blocks__action">Удалить блок</div>
-              </div>
-            </li>
-            <li class="blocks__item">
-              <div class="blocks__checkbox" @click="checkbox = !checkbox">
-                <div v-if="checkbox" class="active">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98891 8.57784L5.2778 10.2889L10.7778 15.7889L23 3.56673L21.2889 1.85562L10.7778 12.3667L6.98891 8.57784Z" fill="#12284C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6805 20.6805H3.31579V3.31579H15.7604V1H3.46006C2.10703 1 1 2.10703 1 3.46007V20.6805C1 22.0336 2.10703 23 3.46006 23H20.6805C22.0335 23 23 22.0336 23 20.6805V10.8403H20.6805V20.6805Z" fill="#12284C"/>
-                  </svg>
-                </div>
-                <div v-else>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8 3.2H3.2V20.8H20.8V3.2ZM3.2 1C1.98497 1 1 1.98497 1 3.2V20.8C1 22.015 1.98497 23 3.2 23H20.8C22.015 23 23 22.015 23 20.8V3.2C23 1.98497 22.015 1 20.8 1H3.2Z" fill="#12284C"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="blocks__about">
-                <div class="blocks__title">27.07.2020_05:33:28_website.website.com</div>
-                <div class="blocks__info">
-                  <div class="blocks__id">ID: 973777</div>
-                  <div class="blocks__type">Все</div>
-                  <div class="blocks__status">Идет тест</div>
-                </div>
-              </div>
-              <div class="blocks__actions">
-                <div class="blocks__action">Редактировать</div>
-                <div class="blocks__action">Получить код</div>
-                <div class="blocks__action">Удалить блок</div>
+                <div class="blocks__action" @click="deleteBlock = true">Удалить блок</div>
               </div>
             </li>
           </ul>
@@ -554,6 +362,162 @@
           </div>
         </q-card>
       </q-dialog>
+
+      <q-dialog v-model="deleteBlock">
+        <q-card>
+          <div class="deleteblock">
+            <div class="title">Удаление блоков</div>
+
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
+
+            <div class="subtext">
+              Пожалуйста, подтвердите, что действительно хотите удалить блоки
+            </div>
+
+            <div class="item">
+              <div class="id">ID: 973777</div>
+              <div class="site">27.07.2020_05:33:28_website.website.com</div>
+            </div>
+
+            <div class="item">
+              <div class="id">ID: 973777</div>
+              <div class="site">27.07.2020_05:33:28_website.website.com</div>
+            </div>
+
+            <div class="buttons">
+              <q-btn class="btn" :ripple="false" label="Да, удалить" unelevated no-caps />
+              <q-btn class="btn btn-white" label="Отменить" unelevated no-caps />
+            </div>
+          </div>
+        </q-card>
+      </q-dialog>
+
+      <q-dialog v-model="copyBlock">
+        <q-card>
+          <div class="copyblock">
+            <div class="title">Копирование блоков</div>
+
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
+
+            <q-card>
+              <q-tabs v-model="tab">
+                <q-tab
+                  :ripple="false"
+                  name="current"
+                  label="На текущий сайт"
+                  no-caps
+                ></q-tab>
+                <q-tab
+                  :ripple="false"
+                  name="other"
+                  label="На другой сайт(ы)"
+                  no-caps
+                ></q-tab>
+              </q-tabs>
+
+              <q-tab-panels v-model="tab" animated>
+                <q-tab-panel name="current">
+                  <div class="label">
+                    <span>Количество копий</span>
+                  </div>
+
+                  <q-input class="quantity" v-model="blocksCopy" borderless placeholder="1" />
+
+                  <q-btn class="btn" :ripple="false" label="Копировать" unelevated no-caps />
+                </q-tab-panel>
+
+                <q-tab-panel name="other">
+                  <q-input class="search" v-model="searchOne" borderless placeholder="Поиск по домену" />
+
+                  <ul class="domain__list">
+                    <li><q-checkbox v-model="checkboxDomain" label="website.website.com" /></li>
+                  </ul>
+
+                  <q-btn class="btn" :ripple="false" label="Копировать" :disable="!checkboxDomain" unelevated no-caps @click="load" />
+                </q-tab-panel>
+              </q-tab-panels>
+            </q-card>
+
+            <div v-if="loading" class="loader">
+              <div class="loader__circle"></div>
+            </div>
+          </div>
+        </q-card>
+      </q-dialog>
+
+      <q-dialog v-model="copyBlockSuccess">
+        <q-card>
+          <div class="copyblocksuccess">
+            <div class="image">
+              <img src="../assets/success-copy.svg" alt="">
+            </div>
+
+            <div class="title">Блок(и) успешно скопированы</div>
+
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
+          </div>
+        </q-card>
+      </q-dialog>
+
+      <q-dialog v-model="copyBlockError">
+        <q-card>
+          <div class="copyblockserror">
+            <div class="image">
+              <img src="../assets/error-copy.svg" alt="">
+            </div>
+
+            <q-btn class="close" flat v-close-popup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7782 19.7784C19.0619 20.4946 17.9017 20.4946 17.1854 19.7784L12 14.5929L6.81455 19.7784C6.09831 20.4946 4.93807 20.4946 4.22182 19.7784C3.50558 19.0621 3.50559 17.9019 4.22183 17.1856L9.40728 12.0002L4.22183 6.81475C3.50559 6.09851 3.50559 4.93826 4.22183 4.22202C4.93807 3.50578 6.09831 3.50578 6.81455 4.22202L12 9.40747L17.1854 4.22202C17.901 3.50643 19.0619 3.50578 19.7782 4.22202C20.4944 4.93826 20.4938 6.09915 19.7782 6.81475L14.5927 12.0002L19.7782 17.1856C20.4944 17.9019 20.4944 19.0621 19.7782 19.7784Z" fill="#596982"/>
+              </g>
+              <defs>
+              <clipPath id="clip0">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </q-btn>
+
+            <div class="title">Ошибка сервера: блоки не скопированы</div>
+
+            <div class="buttons"><q-btn class="btn btn-white" :ripple="false" label="Повторить" unelevated no-caps /></div>
+          </div>
+        </q-card>
+      </q-dialog>
     </div>
 
     <div class="mob">
@@ -584,16 +548,39 @@ export default {
       optionsOne: ["По дате добавления", "По дате создания", "По дате добавления"],
       optionsTwo: ["Поисковый (органический)", "Платный (покупной)", "Доверенный трафик"],
       checkbox: false,
+      checkboxDomain: false,
+      checkboxAll: false,
       addSite: false,
       adBlock: false,
       addDomain: false,
       ssl: false,
-      domain: false
+      domain: false,
+      deleteBlock: false,
+      copyBlock: false,
+      copyBlockSuccess: false,
+      copyBlockError: false,
+      blocksCopy: '',
+      tab: "current",
+      loading: false
+    }
+  },
+  methods: {
+    load() {
+      this.loading = !this.loading
+
+      setTimeout(() => {
+        this.loading = false       
+        this.copyBlockSuccess = true
+      }, 1000);
+
+      setTimeout(() => {
+        this.loading = false      
+        this.copyBlockError = true
+      }, 3000);
     }
   }
 }
 </script>
-
 
 <style lang="scss">
   .q-page {
@@ -1076,6 +1063,69 @@ export default {
         flex: 1 1 auto;
         padding: 32px 40px 40px;
 
+        .q-checkbox {
+          width: 22px;
+          height: 22px;
+          margin: 9px 24px 0px 1px;
+
+          &__inner {
+            font-size: 22px;
+            width: 22px;
+            min-width: 22px;
+            height: 22px;
+            outline: 0;
+            border-radius: 50%;
+            color: #596982;
+
+            &::before {
+              content:'';
+              display: none;
+            }
+
+            &--truthy {
+              .q-checkbox__svg {
+                color: #12284C;
+
+                path {
+                  fill: #fff;
+                }
+
+                &.absolute-full {
+                  top: -4px;
+                  transform: translate(2px, 0);
+                }
+              }
+
+              .q-checkbox__bg {
+                color: #fff;
+                border: 2px solid #12284C;
+                position: relative;
+                svg {
+                  z-index: 1;
+                }
+
+                &::after {
+                  content:'';
+                  position: absolute;
+                  width: 7px;
+                  height: 7px;
+                  top: -2px;
+                  right: -2px;
+                  background-color: #fff;
+                  z-index: 0;
+                }
+              }
+            }
+          }
+
+          &__bg {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+        }
+
         &__head {
           display: flex;
           justify-content: space-between;
@@ -1210,7 +1260,7 @@ export default {
           display: flex;
         }
 
-        &__checkbox, &__copy, &__delete {
+        &__copy, &__delete {
           margin: 8px 24px 0px 0px;
           cursor: pointer;
 
@@ -1223,14 +1273,22 @@ export default {
           }
         }
 
+        &__copy, &__delete {
+          &.active{
+            svg {
+              path {
+                fill: #596982;
+              }
+            }
+          }
+        }
+
         &__checkbox {
           svg {
             path {
               fill: #596982;
             }
           }
-
-
 
           .active{
             svg {
@@ -1277,8 +1335,8 @@ export default {
           justify-content: space-between;
           margin: 32px 0px 39px;
 
-          .blocks__checkbox {
-            margin: 0 32px 0 0;
+          .q-checkbox {
+            margin: 1px 33px 0 1px;
 
             @media (max-width:1650px){
               align-self: flex-start;
@@ -1927,7 +1985,7 @@ export default {
 
         &__link {
           color: #12284C;
-          cursor: pointer;          
+          cursor: pointer;
 
           @media (max-width:700px){
             margin: 0px 0px 10px 0px;
@@ -2253,6 +2311,812 @@ export default {
         }
       }
     }
+
+    .deleteblock {
+      padding: 40px;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 498px;
+      min-width: 498px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #12284C;
+        margin: 0px 0px 35px 0px;
+      }
+
+      .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
+        }
+      }
+
+      .btn {
+        color: #fff;
+        background-color: #4690ff;
+        font-size: 18px;
+        line-height: 22px;
+        height: 40px;
+        margin: 0px 0px 0px 0px;
+
+        & + .btn {
+          margin: 0px 0px 0px 24px;
+        }
+
+        &:hover {
+          background: #629df6;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        .q-btn__wrapper {
+          min-height: 0;
+          z-index: 1;
+        }
+
+        &:active {
+          background: #4690ff;
+          box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
+        }
+
+        &-white {
+          transition: all 0.1s;
+          color: #4690ff;
+          background: #fff;
+          border: 1px solid #4690ff;
+          box-sizing: border-box;
+          border-radius: 4px;
+          margin: 0px 24px 0px 1px;
+          transition: all 0.5s;
+
+          &:hover {
+            background: #F3F4F6;
+          }
+
+          &:active {
+            background: #fff !important;
+            color: #fff;
+            box-shadow: none;
+          }
+
+          .q-ripple {
+            background: #fff !important;
+            position: absolute;
+            z-index: 0 !important;
+            overflow: hidden;
+          }
+        }
+
+        &-grey {
+          color: #596982;
+          background-color: #fff;
+          transition: all 0.3s;
+
+          .q-btn__wrapper {
+            padding: 0;
+          }
+
+          &:hover,
+          &:active {
+            box-shadow: none;
+            background-color: #fff;
+            color: #12284c;
+          }
+        }
+      }
+
+      .text {
+        font-size: 14px;
+        line-height: 24px;
+        color: #12284C;
+        padding: 0;
+        margin: 0 0 8px 0;
+
+        span {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 24px;
+        }
+      }
+
+      .subtext {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #A0A9B7;
+        padding: 0;
+        margin: 0 0 24px 0;
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px 0px 16px 0px;
+
+        .id {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          color: #596982;
+        }
+
+        .site {
+          font-size: 16px;
+          line-height: 20px;
+          color: #12284C;
+        }
+      }
+
+      .buttons {
+        margin: 31px 0px 0px 0px;
+      }
+
+      @media (max-width:700px){
+        min-width: 0;
+        overflow: hidden;
+      }
+    }
+
+    .copyblock {
+      padding: 40px;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 429px;
+      min-width: 429px;
+      position: relative;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #12284C;
+        margin: 0px 0px 32px 0px;
+      }
+
+      .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
+        }
+      }
+
+      .btn {
+        color: #fff;
+        background-color: #4690ff;
+        font-size: 18px;
+        line-height: 22px;
+        height: 40px;
+        margin: 0px 0px 0px 0px;
+
+        & + .btn {
+          margin: 0px 0px 0px 24px;
+        }
+
+        &:disabled {
+          background: #DBDFE4;
+
+          &:active, &:hover {
+            background: #DBDFE4;
+            box-shadow: none;
+          }
+        }
+
+        &:hover {
+          background: #629df6;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        .q-btn__wrapper {
+          min-height: 0;
+          z-index: 1;
+        }
+
+        &:active {
+          background: #4690ff;
+          box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
+        }
+
+        &-white {
+          transition: all 0.1s;
+          color: #4690ff;
+          background: #fff;
+          border: 1px solid #4690ff;
+          box-sizing: border-box;
+          border-radius: 4px;
+          margin: 0px 24px 0px 1px;
+          transition: all 0.5s;
+
+          &:hover {
+            background: #F3F4F6;
+          }
+
+          &:active {
+            background: #fff !important;
+            color: #fff;
+            box-shadow: none;
+          }
+
+          .q-ripple {
+            background: #fff !important;
+            position: absolute;
+            z-index: 0 !important;
+            overflow: hidden;
+          }
+        }
+
+        &-grey {
+          color: #596982;
+          background-color: #fff;
+          transition: all 0.3s;
+
+          .q-btn__wrapper {
+            padding: 0;
+          }
+
+          &:hover,
+          &:active {
+            box-shadow: none;
+            background-color: #fff;
+            color: #12284c;
+          }
+        }
+      }
+
+      .q-card {
+        box-shadow: none;
+        position: relative;
+      }
+
+      .q-tabs {
+        display: flex;
+        margin: 0px 0px 24px 0px;
+        padding: 3px 0px 0px 0px;
+
+        &__content {
+          @media (max-width:900px){
+            justify-content: flex-start !important;
+          }
+        }
+
+        @media (max-width:1360px){
+          padding: 13px 0px 0px 0px;
+        }
+      }
+
+      .q-tab {
+        outline: none;
+        flex: 0 1 auto;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        min-height: 0;
+        padding: 0px 0px 2px 0px;
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &-panel {
+          padding: 0;
+
+          .label {
+            font-size: 12px;
+            line-height: 15px;
+            color: #12284C;
+            display: flex;
+            justify-content: space-between;
+            margin: 0px 0px 8px 0px;
+          }
+
+          .q-field {
+            border: 1px solid #A0A9B7;
+            border-radius: 4px;
+            height: 40px;
+            overflow: hidden;
+            margin: 0px 0px 32px 0px;
+
+            &.quantity {
+              max-width: 116px;
+            }
+
+            &__control {
+              height: 40px;
+              min-height: 0;
+              padding: 0px;
+              background-color: transparent;
+
+              &::before {
+                display: none;
+              }
+            }
+
+            &__control-container {
+              padding-top: 0;
+            }
+
+            &--float {
+              .q-field__label {
+                display: none;
+              }
+            }
+
+            &__native {
+              padding: 9px 16px 7px 16px;
+              font-size: 16px;
+              line-height: 20px;
+              letter-spacing: -0.1px;
+
+              @media (max-width:600px){
+                font-size: 14px;
+              }
+            }
+
+            .q-select__dropdown-icon {
+              font-size: 24px;
+              margin: -18px 7px 0px 0px;
+              color: #4690ff;
+            }
+
+            &__label {
+              font-size: 16px;
+              line-height: 20px;
+              letter-spacing: 0;
+              top: 10px;
+              left: 15px;
+
+              @media (max-width:600px){
+                font-size: 14px;
+              }
+            }
+          }
+
+          .search {
+            margin: 0px 0px 16px 0px;
+            position: relative;
+
+            &::before {
+              content:'';
+              position: absolute;
+              width: 24px;
+              height: 24px;
+              top: 9px;
+              left: 17px;
+              background: url('../assets/search.svg') 0 0 no-repeat;
+            }
+
+            .q-field {
+              &__native {
+                padding: 9px 16px 7px 64px;
+                font-size: 16px;
+                line-height: 20px;
+                letter-spacing: -0.1px;
+
+                @media (max-width:1360px){
+                  padding: 8px 16px 7px 52px;
+                  font-size: 14px;
+                  line-height: 17px ;
+                }
+              }
+            }
+          }
+
+          .quantity {
+            .q-field {
+              &__native {
+                padding: 9px 16px 7px 16px;
+                font-size: 16px;
+                line-height: 20px;
+                letter-spacing: -0.1px;
+
+                @media (max-width:600px){
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+
+          .domain__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+              & + li {
+                margin: 9px 0px 0px 0px;
+              }
+
+              &:last-child {
+                margin: 9px 0px 32px 0px;
+              }
+
+              .q-checkbox {
+                width: 22px;
+                height: 22px;
+                margin: 9px 23px 0px 1px;
+
+                &__inner {
+                  font-size: 22px;
+                  width: 22px;
+                  min-width: 22px;
+                  height: 22px;
+                  outline: 0;
+                  border-radius: 50%;
+                  color: #596982;
+
+                  &::before {
+                    content:'';
+                    display: none;
+                  }
+
+                  &--truthy {
+                    .q-checkbox__svg {
+                      color: #12284C;
+
+                      path {
+                        fill: #fff;
+                      }
+
+                      &.absolute-full {
+                        top: -4px;
+                        transform: translate(2px, 0);
+                      }
+                    }
+
+                    .q-checkbox__bg {
+                      color: #fff;
+                      border: 2px solid #12284C;
+                      position: relative;
+                      svg {
+                        z-index: 1;
+                      }
+
+                      &::after {
+                        content:'';
+                        position: absolute;
+                        width: 7px;
+                        height: 7px;
+                        top: -2px;
+                        right: -2px;
+                        background-color: #fff;
+                        z-index: 0;
+                      }
+                    }
+                  }
+                }
+
+                &__bg {
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                }
+
+                &__label {
+                  margin: 0px 0px 0px 17px;
+                }
+              }
+            }
+          }
+        }
+
+        &-panels {
+          .scroll {
+            overflow: hidden;
+          }
+        }
+
+        &__label {
+          color: #596982;
+          font-size: 18px;
+          line-height: 25px;
+          letter-spacing: -0.1px;
+
+          &:hover{
+            color: #12284C !important;
+          }
+
+          @media (max-width:1360px){
+            font-size: 16px !important;
+            line-height: 20px;
+          }
+        }
+
+        & + .q-tab {
+          margin: 0px 0px 0px 22px;
+
+          @media (max-width:1360px){
+            margin: 0px 0px 0px 24px;
+          }
+        }
+
+        &--active {
+          position: relative;
+
+          .q-tab__label {
+            color: #12284C !important;
+
+
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0;
+            border-bottom: 2px solid #4690ff;
+          }
+        }
+
+        &__indicator {
+          display: none;
+        }
+
+        &__content {
+          padding: 0;
+          min-width: 0;
+        }
+      }
+
+      .loader {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #FFFFFF;
+        opacity: 0.8;
+        border-radius: 4px;
+        z-index: 1;
+      }
+
+      .loader__circle {
+        display: inline-block;
+        position: absolute;
+        width: 72px;
+        height: 72px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .loader__circle:after {
+        content: " ";
+        background: url('../assets/loader.svg') 0 0 no-repeat;
+        position: absolute;
+        width: 72px;
+        height: 72px;
+        animation: loader 0.8s linear infinite;
+      }
+
+      @keyframes loader {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width:700px){
+        min-width: 0;
+        overflow: hidden;
+      }
+    }
+
+    .copyblocksuccess {
+      padding: 40px;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 375px;
+      min-width: 375px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #95BD5A;
+        margin: 16px 0px 0px 0px;
+      }
+
+      .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
+        }
+      }
+
+      .image {
+        width: 64px;
+        height: 64px;
+        margin: 56px auto 0;
+      }
+    }
+
+    .copyblockserror {
+      padding: 40px;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 472px;
+      min-width: 472px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #A64541;
+        margin: 16px 0px 0px 0px;
+      }
+
+      .close {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 33px;
+        right: 40px;
+
+        .q-btn__wrapper {
+          padding: 0;
+          margin: 0;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+
+        &:hover{
+          svg {
+            path {
+              transition: all 0.3s;
+              fill: #12284C;
+            }
+          }
+        }
+      }
+
+      .image {
+        width: 64px;
+        height: 64px;
+        margin: 56px auto 0;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+      }
+
+      .btn {
+        color: #fff;
+        background-color: #4690ff;
+        font-size: 18px;
+        line-height: 22px;
+        height: 40px;        
+
+        &:hover {
+          background: #629df6;
+        }
+
+        .q-btn__wrapper {
+          min-height: 0;
+          z-index: 1;
+        }
+
+        &:active {
+          background: #4690ff;
+          box-shadow: inset 0px 0px 8px rgba(18, 40, 76, 0.48);
+        }
+
+        &-white {
+          transition: all 0.1s;
+          color: #4690ff;
+          background: #fff;
+          border: 1px solid #4690ff;
+          box-sizing: border-box;
+          border-radius: 4px;
+          text-align: center;
+          margin: 32px auto 0;
+          transition: all 0.5s;
+
+          &:hover {
+            background: #F3F4F6;
+          }
+
+          &:active {
+            background: #fff !important;
+            color: #fff;
+            box-shadow: none;
+          }
+
+          .q-ripple {
+            background: #fff !important;
+            position: absolute;
+            z-index: 0 !important;
+            overflow: hidden;
+          }
+        }
+
+        @media (max-width:1360px){
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 20px;
+        }
+
+        @media (max-width:540px){
+          margin: 0px 24px 10px 0px;
+
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
+    }
   }
 
   // Mobile
@@ -2303,6 +3167,5 @@ export default {
         }
       }
     }
-
   }
 </style>
