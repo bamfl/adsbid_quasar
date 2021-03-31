@@ -1120,7 +1120,7 @@ export default {
           border: 1px solid #4690ff !important;
           opacity: 1;
         }
-      }      
+      }
     }
 
     .q-toggle__track {
@@ -1613,11 +1613,11 @@ export default {
             .q-btn .q-spinner {
               font-size: 23px;
               color: #596982;
-              
+
               @media (min-width:501px){
                 &:hover{
                   color: #12284c;
-                }                
+                }
               }
             }
 
@@ -2911,14 +2911,14 @@ export default {
     }
 
     &.q-transition--fade-leave-to {
-      &.filter-popup, &.datepicker-popup { 
+      &.filter-popup, &.datepicker-popup {
         top: 0 !important;
         transform: translate(0, 100%);
         transition: transform 1s;
         opacity: 1;
       }
 
-      &.group-popup { 
+      &.group-popup {
         bottom: 0 !important;
         transform: translate(0, 256px);
         transition: transform 1s;
