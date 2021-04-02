@@ -143,7 +143,7 @@
 
             <q-input class="search" v-model="searchTwo" borderless placeholder="Поиск по наименованию блока" />
 
-            <q-btn class="btn" :ripple="false" label="Создать блок" unelevated no-caps />
+            <q-btn class="btn" :ripple="false" label="Создать блок" unelevated no-caps to="/blocks" />
           </div>
 
           <ul class="blocks__list">
