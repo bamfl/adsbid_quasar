@@ -1065,7 +1065,7 @@ export default {
   data() {
     return {
       left: false
-    };
+    }
   }
 };
 </script>
@@ -1773,6 +1773,22 @@ html {
     line-height: 15px;
     display: block;
     padding: 6px 8px;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &.infopopup{
+    font-size: 12px;
+    line-height: 15px;
+    display: block;
+    padding: 6px 8px;
+    max-width: 376px;
+
+    span {
+      font-weight: 700;
+    }
 
     &::after {
       display: none;

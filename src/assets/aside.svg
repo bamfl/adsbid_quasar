@@ -13,5 +13,5 @@
 <rect x="12.5" y="151.363" width="26.1" height="5.43243" fill="#A0A9B7"/>
 <rect x="12.5" y="159.512" width="36" height="5.43243" fill="#A0A9B7"/>
 <rect x="12.5" y="168.566" width="17.1" height="5.43243" fill="#A0A9B7"/>
-<rect x="0.5" y="0.5" width="60" height="189" rx="3.5" stroke="#A0A9B7"/>
+<rect x="0.5" y="0.5" width="60" height="189" rx="3.5" stroke="transparrent"/>
 </svg>

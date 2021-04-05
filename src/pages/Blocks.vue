@@ -6,7 +6,7 @@
       <div class="steps">
         <div class="step active">
           <div class="number">1</div>
-          <span>Общие</span>
+          <span>Создание блока</span>
         </div>
         <div class="step">
           <div class="number">2</div>
@@ -62,29 +62,58 @@
             <div class="card settings">
               <div class="item">
                 <div class="item__name">Название блока</div>
-                <div class="item__text">31.03.2021_11:12:44</div>
+
+                <div v-if="blockNameChange" class="item__changename">
+                  <q-input outlined v-model="blockName" label="Outlined" />
+                </div>
+
+                <div v-else class="item__text">
+                  {{ blockName }}
+                  <span @click="blockNameChange = true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666992 12.2374V15.3337H3.45366L11.5203 6.28923L8.73366 3.19294L0.666992 12.2374ZM13.647 3.92628C13.9403 3.60035 13.9403 3.11146 13.647 2.78554L11.9603 0.911436C11.667 0.585511 11.227 0.585511 10.9337 0.911436L9.61366 2.3781L12.4003 5.47439L13.647 3.92628ZM7.26699 13.704L5.80033 15.3337H15.3337V13.704H7.26699Z" fill="#596982"/>
+                    </svg>
+                  </span>
+                </div>      
               </div>
 
               <div class="item">
                 <div class="item__name">Категория объявлений</div>
                 <div class="item__buttons">
                   <div class="item__btn">Все</div>
-                  <div class="item__btn">Товары</div>
+                  <div class="item__btn active">Товары</div>
                   <div class="item__btn">Новости</div>
                 </div>
               </div>
 
               <div class="item">
-                <div class="item__name">Рейтинг объявлений <span>i</span></div>
+                <div class="item__name">
+                  Рейтинг объявлений
+                  <span>
+                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00033 15.8337C12.0581 15.8337 15.3337 12.5581 15.3337 8.50033C15.3337 4.44255 12.0581 1.16699 8.00033 1.16699C3.94255 1.16699 0.666992 4.44255 0.666992 8.50033C0.666992 12.5581 3.94255 15.8337 8.00033 15.8337ZM7.51144 3.70921C7.90255 3.70921 8.19588 4.00255 8.19588 4.39366C8.19588 4.78477 7.90255 5.0781 7.51144 5.0781C7.12033 5.0781 6.82699 4.78477 6.82699 4.39366C6.82699 4.05144 7.12033 3.70921 7.51144 3.70921ZM6.82699 6.44699C6.63144 6.44699 6.43588 6.25144 6.43588 6.05588C6.43588 5.86033 6.63144 5.66477 6.82699 5.66477H8.00033C8.19588 5.66477 8.39144 5.86033 8.39144 6.05588V11.8737H9.17366C9.36921 11.8737 9.56477 12.0692 9.56477 12.2648C9.56477 12.4603 9.36921 12.6559 9.17366 12.6559H6.82699C6.63144 12.6559 6.43588 12.4603 6.43588 12.2648C6.43588 12.0692 6.63144 11.8737 6.82699 11.8737H7.60921V6.44699H6.82699Z" fill="#596982"/>
+                    </svg>
+
+                    <q-tooltip
+                      anchor="top left"
+                      self="bottom left"
+                      content-class="infopopup"
+                      :offset="[170, 8]"
+                    >
+                      Вы можете указать объявления какого качества можно отображать на вашем сайте. Чем ниже рейтинг, тем большую доходность дает блок. <span>Выбор низкого рейтинга может дать доход на 10-20% выше, чем у. рейтинг 3!</span>
+                    </q-tooltip>
+                  </span>
+                </div>
+
                 <q-select
                   filled
                   v-model="filterSites"
                   input-debounce="0"
                   :label="optionsOne[0]"
                   :options="optionsOne"
-                  style="height: 40px"
+                  style="height: 40px;"
                   dropdown-icon="keyboard_arrow_down"
-                  popup-content-class="filterSites"
+                  popup-content-class="blocksSelect"
                   behavior="menu"
                   menu-anchor="bottom left"
                   menu-self="top left"
@@ -94,17 +123,34 @@
               </div>
 
               <div class="item">
-                <div class="item__name">Форма блока</div>
+                <div class="item__name">
+                  Форма блока                  
+                </div>
                 <div class="forms">
                   <div class="forms__header"></div>
-                  <div class="forms__content"></div>
+                  <div class="forms__content active"></div>
                   <div class="forms__aside"></div>
                   <div class="forms__footer"></div>
                 </div>
               </div>
 
               <div class="item">
-                <div class="item__name">Шаблоны</div>
+                <div class="item__name">
+                  Шаблоны
+                  <span>
+                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00033 15.8337C12.0581 15.8337 15.3337 12.5581 15.3337 8.50033C15.3337 4.44255 12.0581 1.16699 8.00033 1.16699C3.94255 1.16699 0.666992 4.44255 0.666992 8.50033C0.666992 12.5581 3.94255 15.8337 8.00033 15.8337ZM7.51144 3.70921C7.90255 3.70921 8.19588 4.00255 8.19588 4.39366C8.19588 4.78477 7.90255 5.0781 7.51144 5.0781C7.12033 5.0781 6.82699 4.78477 6.82699 4.39366C6.82699 4.05144 7.12033 3.70921 7.51144 3.70921ZM6.82699 6.44699C6.63144 6.44699 6.43588 6.25144 6.43588 6.05588C6.43588 5.86033 6.63144 5.66477 6.82699 5.66477H8.00033C8.19588 5.66477 8.39144 5.86033 8.39144 6.05588V11.8737H9.17366C9.36921 11.8737 9.56477 12.0692 9.56477 12.2648C9.56477 12.4603 9.36921 12.6559 9.17366 12.6559H6.82699C6.63144 12.6559 6.43588 12.4603 6.43588 12.2648C6.43588 12.0692 6.63144 11.8737 6.82699 11.8737H7.60921V6.44699H6.82699Z" fill="#596982"/>
+                    </svg>
+                  </span>
+                  <q-tooltip
+                    anchor="top left"
+                    self="bottom left"
+                    content-class="infopopup"
+                    :offset="[0, 8]"
+                  >
+                    <span>Шаблоны отсортированы в порядке доходности на основании общей статистики ads.bid (чем выше в списке, тем прибыльнее шаблон).</span> <br><br> Внимание! Показатели на отдельных сайтах могут отличаться.
+                  </q-tooltip>
+                </div>
                 <ul class="item__list">
                   <li>Горизонтальный 1</li>
                   <li>Горизонтальный 2</li>
@@ -128,6 +174,47 @@
               </div>
 
               <div class="item">
+                <div class="item__title">Повышение доходности</div>
+
+                  <div class="checkbox">
+                    <q-radio v-model="profitUp" val="autoload" label="Автоподгрузка" />
+                    <span>
+                      <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00033 15.8337C12.0581 15.8337 15.3337 12.5581 15.3337 8.50033C15.3337 4.44255 12.0581 1.16699 8.00033 1.16699C3.94255 1.16699 0.666992 4.44255 0.666992 8.50033C0.666992 12.5581 3.94255 15.8337 8.00033 15.8337ZM7.51144 3.70921C7.90255 3.70921 8.19588 4.00255 8.19588 4.39366C8.19588 4.78477 7.90255 5.0781 7.51144 5.0781C7.12033 5.0781 6.82699 4.78477 6.82699 4.39366C6.82699 4.05144 7.12033 3.70921 7.51144 3.70921ZM6.82699 6.44699C6.63144 6.44699 6.43588 6.25144 6.43588 6.05588C6.43588 5.86033 6.63144 5.66477 6.82699 5.66477H8.00033C8.19588 5.66477 8.39144 5.86033 8.39144 6.05588V11.8737H9.17366C9.36921 11.8737 9.56477 12.0692 9.56477 12.2648C9.56477 12.4603 9.36921 12.6559 9.17366 12.6559H6.82699C6.63144 12.6559 6.43588 12.4603 6.43588 12.2648C6.43588 12.0692 6.63144 11.8737 6.82699 11.8737H7.60921V6.44699H6.82699Z" fill="#596982"/>
+                      </svg>
+                      <q-tooltip
+                        anchor="top left"
+                        self="bottom left"
+                        content-class="infopopup"
+                        :offset="[150, 8]"
+                      >
+                        Рекомендуем ставить блок с включенной автоподгрузкой в конце статьи. <br>
+                        При скролле бесконечно будут подгружаться тизеры.
+                        Данный блок сможет повысить вашу доходность до 50%
+                      </q-tooltip>
+                    </span>
+                  </div>
+                  <div class="checkbox">
+                    <q-radio v-model="profitUp" val="shape" label="Затемнение" />
+                    <span>
+                      <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00033 15.8337C12.0581 15.8337 15.3337 12.5581 15.3337 8.50033C15.3337 4.44255 12.0581 1.16699 8.00033 1.16699C3.94255 1.16699 0.666992 4.44255 0.666992 8.50033C0.666992 12.5581 3.94255 15.8337 8.00033 15.8337ZM7.51144 3.70921C7.90255 3.70921 8.19588 4.00255 8.19588 4.39366C8.19588 4.78477 7.90255 5.0781 7.51144 5.0781C7.12033 5.0781 6.82699 4.78477 6.82699 4.39366C6.82699 4.05144 7.12033 3.70921 7.51144 3.70921ZM6.82699 6.44699C6.63144 6.44699 6.43588 6.25144 6.43588 6.05588C6.43588 5.86033 6.63144 5.66477 6.82699 5.66477H8.00033C8.19588 5.66477 8.39144 5.86033 8.39144 6.05588V11.8737H9.17366C9.36921 11.8737 9.56477 12.0692 9.56477 12.2648C9.56477 12.4603 9.36921 12.6559 9.17366 12.6559H6.82699C6.63144 12.6559 6.43588 12.4603 6.43588 12.2648C6.43588 12.0692 6.63144 11.8737 6.82699 11.8737H7.60921V6.44699H6.82699Z" fill="#596982"/>
+                      </svg>
+                      <q-tooltip
+                        anchor="top left"
+                        self="bottom left"
+                        content-class="infopopup"
+                        :offset="[130, 8]"
+                      >
+                        Рекомендуем ставить блок с включенной автоподгрузкой в конце статьи. <br>
+                        При скролле бесконечно будут подгружаться тизеры.
+                        Данный блок сможет повысить вашу доходность до 50%
+                      </q-tooltip>
+                    </span>
+                  </div>
+              </div>
+
+              <div class="item">
                 <div class="item__name">Количество тизеров</div>
 
                 <div class="item__ranges">
@@ -135,15 +222,15 @@
                     <q-slider v-model="rows" :min="0" :max="10" label label-always />
                     <span>По горизонтали</span>
                   </div>
-  
+
                   <div class="item__range">
                     <q-slider v-model="columns" :min="0" :max="10" label label-always />
                     <span>По вертикали</span>
                   </div>
                 </div>
-              </div>
+              </div>              
             </div>
-            
+
             <div class="card blocks">
               <div class="blocks__head">
                 <div class="blocks__fullscreen">
@@ -151,7 +238,60 @@
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M22 0V8.24725L19.2514 5.49725L15.1277 9.62225L12.3777 6.875L16.5028 2.74175L13.7527 0H22V0ZM6.87775 12.3723L2.75137 16.4972L0 13.7473V22H8.25275L5.50275 19.2555L9.62775 15.125L6.87775 12.3723ZM15.125 12.3777L12.3777 15.1277L16.5028 19.2528L13.7527 22H22V13.7527L19.2582 16.5028L15.125 12.3777ZM8.25275 0H0V8.25275L2.7445 5.50275L6.875 9.62775L9.62775 6.87775L5.50275 2.75275L8.25275 0Z" fill="#596982"/>
                   </svg>
                 </div>
-                <q-btn class="btn btn-red" :ripple="false" label="Сбросить все" unelevated no-caps />
+                <q-btn class="btn btn-red" :ripple="false" label="Сбросить настройки" unelevated no-caps />
+              </div>
+
+              <div class="blocks__container">
+                <div class="box__row">
+                  <div class="box__column">
+                    <a href="#" class="box__item item-box">
+                      <div class="item-box__image">
+                        <img src="https://6jfvnf69jx.ru/33-5f6473df554e45f6473df555b7.jpg" alt="">
+                      </div>
+                      <div class="item-box__text">
+                        <div class="item-box__descr">
+                          Большой живот не от еды! Он уйдёт за 5-10 дней, натощак пейте обычный крепкий...
+                        </div>
+                        <div class="item-box__bottom">
+                          <div class="item-box__date"><span>3</span> ч. назад</div>
+                          <div class="item-box__menu"></div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="box__column">
+                    <a href="#" class="box__item item-box">
+                      <div class="item-box__image">
+                        <img src="https://6jfvnf69jx.ru/33-5f6473df554e45f6473df555b7.jpg" alt="">
+                      </div>
+                      <div class="item-box__text">
+                        <div class="item-box__descr">
+                          Большой живот не от еды! Он уйдёт за 5-10 дней, натощак пейте обычный крепкий...
+                        </div>
+                        <div class="item-box__bottom">
+                          <div class="item-box__date"><span>3</span> ч. назад</div>
+                          <div class="item-box__menu"></div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="box__column">
+                    <a href="#" class="box__item item-box">
+                      <div class="item-box__image">
+                        <img src="https://6jfvnf69jx.ru/33-5f6473df554e45f6473df555b7.jpg" alt="">
+                      </div>
+                      <div class="item-box__text">
+                        <div class="item-box__descr">
+                          Большой живот не от еды! Он уйдёт за 5-10 дней, натощак пейте обычный крепкий...
+                        </div>
+                        <div class="item-box__bottom">
+                          <div class="item-box__date"><span>3</span> ч. назад</div>
+                          <div class="item-box__menu"></div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -172,11 +312,14 @@ export default {
       tab: "fastSettings",
       filterSites: null,
       optionsOne: [
-        "Рейтинг 1 <br> (Объявления вызывающего характера, <br>  в том числе с <br> рекламой тематикой: <br>  мужское/женское здоровье)","Рейтинг 2 <br> (Объявления умеренного <br> содержания, но допускается реклама <br>  мужского/женского здоровья)",
-        "Рейтинг 3 <br> (Объявления умеренного содержания)"
+        "Рейтинг 1 (Объявления вызывающего характера, в том числе с рекламой тематикой: мужское/женское здоровье)","Рейтинг 2 (Объявления умеренного содержания, но допускается реклама мужского/женского здоровья)",
+        "Рейтинг 3 (Объявления умеренного содержания)"
       ],
       rows: 6,
-      columns: 6
+      columns: 6,
+      profitUp: 'autoload',
+      blockNameChange: false,
+      blockName: '31.03.2021_11:12:44'
     }
   }
 }
@@ -207,7 +350,7 @@ export default {
     .nav {
       display: flex;
       justify-content: space-between;
-      margin: 0px 0px 37px 0px;
+      margin: 0px 0px 39px 0px;
 
       .steps {
         display: flex;
@@ -217,7 +360,7 @@ export default {
           font-size: 14px;
           line-height: 17px;
           margin: 0px 32px 0px 0px;
-          cursor: pointer;          
+          cursor: pointer;
 
           .number {
             background: #A0A9B7;
@@ -309,20 +452,21 @@ export default {
 
     .q-tabs {
       display: flex;
-      margin: 0px 0px 32px 0px;
-      padding: 3px 0px 0px 0px;
+      margin: 0px 0px 30px 0px;
+      padding: 0px 0px 0px 0px;
+      align-items: center;
 
       .device {
         display: flex;
         align-items: center;
-        margin: 0px 0px 0px auto;
+        margin: 3px 0px 0px auto;
 
         .pc {
-          margin: 2px 31px 0px 0px;
+          margin: 0px 31px 0px 0px;
         }
 
         .mob {
-          margin: 2px 6px 0px 0px;
+          margin: 0px 6px 0px 0px;
         }
 
         .pc, .mob {
@@ -332,7 +476,7 @@ export default {
               path {
                 fill: #4690FF;
               }
-            }            
+            }
           }
         }
       }
@@ -343,9 +487,9 @@ export default {
       flex: 0 1 auto;
       cursor: pointer;
       padding: 0;
-      margin: 0;
+      margin: 0px 0 0 0;
       min-height: 0;
-      padding: 0px 0px 2px 0px;
+      padding: 0px;
 
       .q-focus-helper {
         display: none;
@@ -368,7 +512,7 @@ export default {
           border-radius: 4px;
           height: 40px;
           overflow: hidden;
-          margin: 0px 0px 24px 0px;
+          margin: -3px 0px 24px 0px;
 
           &.quantity {
             max-width: 116px;
@@ -396,11 +540,19 @@ export default {
           }
 
           &__native {
-            padding: 9px 16px 7px 16px;
+            margin: 9px 16px 7px 16px;
+            overflow: hidden;
             font-size: 16px;
             line-height: 20px;
             letter-spacing: -0.1px;
 
+            span {
+              position: absolute;
+              top: 9px;
+              max-height: 20px;
+              overflow: hidden;
+            }
+            
             @media (max-width:600px){
               font-size: 14px;
             }
@@ -565,6 +717,7 @@ export default {
         font-size: 18px;
         line-height: 25px;
         letter-spacing: -0.1px;
+        margin: 0px 0px 0px 0px;
 
         &:hover{
           color: #12284C !important;
@@ -577,7 +730,7 @@ export default {
       }
 
       & + .q-tab {
-        margin: 0px 0px 0px 22px;
+        margin: 0px 0px 0px 24px;
 
         @media (max-width:1360px){
           margin: 0px 0px 0px 24px;
@@ -589,8 +742,6 @@ export default {
 
         .q-tab__label {
           color: #12284C !important;
-
-
         }
 
         &::after {
@@ -598,7 +749,7 @@ export default {
           position: absolute;
           width: 100%;
           height: 100%;
-          top: 0px;
+          top: -2px;
           left: 0;
           border-bottom: 2px solid #4690ff;
         }
@@ -611,6 +762,7 @@ export default {
       &__content {
         padding: 0;
         min-width: 0;
+        margin: -4px 0px 0px 0px;
       }
     }
 
@@ -633,18 +785,55 @@ export default {
         .item {
           margin: 1px 0px 24px 0px;
 
+          &__changename {
+            .q-field--labeled .q-field__native{
+              padding-top: 0px;
+              padding-bottom: 0;
+            }
+
+            .q-field--focused {
+              border-color: #12284C;
+            }
+          }
+
           &__name {
+            display: flex;
             font-weight: 500;
             font-size: 14px;
             line-height: 17px;
             color: #A0A9B7;
-            margin: 0px 0px 16px 0px;
+            margin: 0px 0px 15px 0px;
+
+            span {
+              display: inline-block;
+              margin: 0px 0px 0px 13px;
+              position: relative;
+              top: 0px;
+              cursor: pointer;
+            }
           }
 
           &__text, &__btn {
             font-size: 16px;
             line-height: 20px;
             color: #12284C;
+          }
+
+          &__text {
+            span {
+              display: inline-block;
+              margin: 0px 0px 0px 8px;
+              position: relative;
+              top: 2px;
+              cursor: pointer;
+            }
+          }
+
+          &__title {
+            font-size: 16px;
+            line-height: 20px;
+            color: #273B5B;
+            margin: 0px 0px 14px 0px;
           }
 
           &__buttons {
@@ -661,6 +850,10 @@ export default {
             &:last-child {
               margin: 0;
             }
+
+            &.active{
+              border: 1px solid #4690FF;
+            }
           }
 
           &__list {
@@ -674,7 +867,7 @@ export default {
             &::-webkit-scrollbar {
               width: 6px;
             }
-            
+
             &::-webkit-scrollbar-thumb {
               background-color: #A0A9B7;
               outline: 1px solid #fff;
@@ -769,6 +962,121 @@ export default {
           &:last-child {
             margin: 0;
           }
+
+          .checkbox {
+            & + .checkbox {
+              margin: 11px 0px 0px 0px;
+            }
+
+            span {
+              position: relative;
+              top: 3px;
+              cursor: pointer;
+            }
+          }
+
+          .q-radio {
+            height: 15px;            
+            margin: 0px 17px 0px 0px;
+
+            &__inner {
+              font-size: 16px;
+              width: 15px;
+              min-width: 15px;
+              height: 15px;
+              outline: 0;
+              border-radius: 50%;
+              color: #596982;
+              margin: -2px 8px 0px 0px;
+
+              &::before {
+                content:'';
+                display: none;
+              }
+
+              &::after {
+                content:'';
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                top: 0px;
+                left: 0px;
+                background-color: #fff;
+                z-index: 10 !important;
+                background: url('../assets/checkbox-default-16.svg') 0 0/ contain no-repeat;
+              }
+
+              &--truthy {
+                .q-radio__bg {
+                  color: #fff;
+                  border: 2px solid transparent !important;
+                  position: relative;
+                  border-radius: 2px;
+
+                  svg {
+                    z-index: 1;
+                  }
+                }
+
+                &::after {
+                  content:'';
+                  position: absolute;
+                  width: 16px;
+                  height: 16px;
+                  top: 0px;
+                  left: 0px;
+                  background-color: #fff;
+                  z-index: 10 !important;
+                  background: url('../assets/checkbox-default-16-active.svg') 0 0/ contain no-repeat;
+                }
+              }
+
+              .q-radio__svg {
+                color: #12284C;
+
+                path {
+                  fill: #fff;
+                }
+
+                &.absolute-full {
+                  top: -2px;
+                  transform: translate(1px, 0);
+                }
+              }
+
+              .q-radio__bg {
+                color: #fff;
+                position: relative;
+                border-radius: 2px;
+
+                svg {
+                  z-index: 1;
+                }
+
+                &::after {
+                  content:'';
+                  position: absolute;
+                  width: 7px;
+                  height: 7px;
+                  top: -2px;
+                  right: -2px;
+                  background-color: #fff;
+                  z-index: 0;
+                }
+              }
+            }
+
+            &__bg {
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            }
+
+            &__label {
+              font-size: 14px;
+            }
+          }
         }
 
         .forms {
@@ -792,7 +1100,7 @@ export default {
           }
 
           &__content {
-            padding: 8px;
+            padding: 0px;
             -ms-grid-column: 1;
             grid-column-start: 1;
             -ms-grid-column-span: 9;
@@ -841,24 +1149,28 @@ export default {
             border-radius: 4px;
 
             &.active, &:hover{
-              border: 1px solid transparent;
-              background-color: #f0f5fd;            
-            } 
+              cursor: pointer;
+              border: 1px solid #f0f5fd;
+              background-color: #f0f5fd;
+            }
           }
         }
       }
 
       .blocks {
         flex: 1 1 auto;
+        max-width: calc(100% - 500px);
 
         &__head {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin: 0px 0px 32px 0px;
         }
 
         &__fullscreen {
           cursor: pointer;
+          margin: 4px 0px 0px 0px;
         }
 
         .btn {
@@ -907,4 +1219,167 @@ export default {
       }
     }
   }
+
+  .q-menu {
+    &.blocksSelect {
+      width: 380px;
+
+      .q-item {
+        &:hover{
+          background: #f3f4f6;
+        }
+
+        &__label {
+          color: #12284C;
+        }
+
+        .q-focus-helper {
+          display: none;
+        }
+      }
+    }
+  }
+
+  /**
+		ОБЪЯВЛЕНИЯ С ДАТОЙ ПУБЛИКАЦИИ===========================================================================================================================================================
+		**/
+
+		.box__row {
+			font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin: 0 -4px;
+		}
+
+		.box__column {
+			padding: 0px 4px;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			margin: 0px 0px 25px 0px;
+			-webkit-box-flex: 0;
+					-ms-flex: 0 1 33.333%;
+							flex: 0 1 33.333%;
+			margin: 0 auto;
+		}
+
+		.item-box {
+			text-decoration: none;
+			margin: 0 auto;
+			max-width: 492px;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			border-radius: 4px;
+			overflow: hidden;
+			-webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07), 0 5px 15px rgba(0, 0, 0, 0.07);
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07), 0 5px 15px rgba(0, 0, 0, 0.07);
+		}
+
+		.item-box__image {
+			position: relative;
+			padding: 0px 0px 66.668% 0px;
+		}
+
+		@media (max-width: 1280px) {
+			.item-box__image {
+				padding: 0;
+				height: 300px;
+			}
+		}
+
+		.item-box__image img {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			-o-object-fit: cover;
+			object-fit: cover;
+		}
+
+		.item-box__text {
+			padding: 15px;
+			text-align: left;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			color: #202125;
+		}
+
+		@media (max-width: 425px) {
+			.item-box__text {
+				padding: 5px;
+			}
+		}
+
+		.item-box__descr {
+			font-size: 2vw;
+			line-height: 1.2;
+			font-weight: 400;
+			-webkit-box-flex: 1;
+			-ms-flex: 1 1 auto;
+			flex: 1 1 auto;
+			margin: 0px 0px 15px 0px;
+			overflow: hidden;
+			-o-text-overflow: ellipsis;
+			text-overflow: ellipsis;
+			display: -moz-box;
+			display: -webkit-box;
+			-webkit-line-clamp: 5;
+			-webkit-box-orient: vertical;
+			line-clamp: 5;
+			box-orient: vertical;
+		}
+
+		@media (max-width: 1024px) {
+			.item-box__descr {
+				font-size: 3vw;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.item-box__descr {
+				font-size: 20px;
+			}
+		}
+
+		@media (max-width: 320px) {
+			.item-box__descr {
+				font-size: 18px;
+			}
+		}
+
+		.item-box__bottom {
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-pack: justify;
+			-ms-flex-pack: justify;
+			justify-content: space-between;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+		}
+
+		.item-box__menu {
+			width: 22px;
+			height: 22px;
+			background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAdVBMVEVHcEyIi5BscXO/wMSQlJfJyMzDw8bOz9La3uGXmp6GjY+/wMJtbnOIiYyMjZO1tLd9foLg5ul8gofY2duytLrX2t20tLaUlpnCw8VYXWFjZ2xmam9ydXlvcXRmZ2p2dnlfZm15e39QVlpgY2dbYmV8gINscnVal1D1AAAAGXRSTlMA1/NYuC4sKhq0w1jzwrpy4C3nI3Qkardue3dt2QAAAFNJREFUGBmtwcUBgDAQBMBFk+AOh3v/JVLAPsMM/hUnqQZR2ygGJFwmycCavSpha3icFiR4b/FBwvk6e7DucGrYytdCgQTLJD6ImkcxYJ4bafzqA/sYA+fS0lmUAAAAAElFTkSuQmCC') center/contain no-repeat;
+		}
+
+		// /**
+		// ОБЪЯВЛЕНИЯ С ДАТОЙ ПУБЛИКАЦИИ===========================================================================================================================================================
+		// **/
 </style>
