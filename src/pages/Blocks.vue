@@ -256,6 +256,7 @@
                 <q-expansion-item
                   label="Настройки блока"
                   dropdown-icon="keyboard_arrow_down"
+									group="group"
                 >
                   <q-card>
                     <div class="item">
@@ -376,6 +377,7 @@
                 <q-expansion-item
                   label="Настройки тизера"
                   dropdown-icon="keyboard_arrow_down"
+									group="group"
                 >
                   <q-card>
                     <p>Настройки тизера</p>
@@ -385,6 +387,7 @@
                 <q-expansion-item
                   label="Настройки изображения"
                   dropdown-icon="keyboard_arrow_down"
+									group="group"
                 >
                   <q-card>
                     <p>Настройки изображения</p>
@@ -394,6 +397,7 @@
                 <q-expansion-item
                   label="Настройки текста"
                   dropdown-icon="keyboard_arrow_down"
+									group="group"
                 >
                   <q-card>
                     <p>Настройки текста</p>
@@ -403,6 +407,7 @@
                 <q-expansion-item
                   label='Настройки кнопки "Читать далее"'
                   dropdown-icon="keyboard_arrow_down"
+									group="group"
                 >
                   <q-card>
                     <p>Настройки кнопки "Читать далее"</p>
@@ -1327,7 +1332,7 @@ export default {
         box-shadow: 0px 0px 24px rgba(18, 40, 76, 0.08);
         border-radius: 4px;
         padding: 32px 40px 30px;
-        // height: 100%;
+        height: 100%;
 
         &.q-pa-none {
           padding: 0 !important;
